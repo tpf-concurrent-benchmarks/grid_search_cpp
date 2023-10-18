@@ -7,9 +7,13 @@ int Param::next() {
 }
 
 int Param::length() {
-    return ((end_ - start_) / step_) + 1;
+    return length_;
 }
 
 void Param::reset() {
     index_ = 0;
+}
+
+bool Param::is_last() {
+    return index_ < length_;
 }

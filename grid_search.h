@@ -2,13 +2,12 @@
 #include <functional>
 #include "param.h"
 
-template<typename T>
+template <std::size_t Size>
 class GridSearch {
 public:
-    GridSearch(std::vector<Param> params) : params_(params) {}
-
-    void search(std::function<void(T)> callback);
+    GridSearch(const Param[Size]& params) : params_(params) {}
+    void search(std::function<int(int[Size])> callback);
 
 private:
-    std::vector<Param> params_;
+    const Param[Size]& params_;
 };

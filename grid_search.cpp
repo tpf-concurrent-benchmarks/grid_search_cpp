@@ -1,6 +1,6 @@
 #include "grid_search.h"
 
-template<typename T>
-void GridSearch<T>::search(std::function<void(T)> callback) {
-    //iterate over every possible param combination 
+template <std::size_t Size>
+void GridSearch<Size>::search(std::function<int(int[Size])> callback) {
+    //grid shearch
 }
