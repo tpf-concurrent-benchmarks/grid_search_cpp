@@ -1,12 +1,14 @@
+#ifndef PARAMS_H
+#define PARAMS_H
+
 #include <cstddef>
 #include <array>
 
 template <std::size_t Size>
 class Params {
     public:
-        Params(std::array<int, Size>& start, std::array<int, Size>& end, std::array<int, Size>& step) : 
-        start_(start), end_(end), step_(step) {}
-        std::array<int, Size>& get_current() { return current_; }
+        Params(std::array<int, Size>& start, std::array<int, Size>& end, std::array<int, Size>& step);
+        std::array<int, Size>& get_current();
         void next();
         int get_total_iterations();
 
@@ -19,3 +21,6 @@ class Params {
         int total_iterations;
 };
 
+#include "params.cpp"
+
+#endif // PARAMS_H

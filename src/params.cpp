@@ -2,7 +2,8 @@
 
 template <std::size_t Size>
 Params<Size>::Params(
-    std::array<int, Size>& start, std::array<int, Size>& end, std::array<int, Size>& step) 
+    std::array<int, Size>& start, std::array<int, Size>& end, std::array<int, Size>& step) : 
+        start_(start), end_(end), step_(step)
     {
     current_ = start_;
     total_iterations = 1;
