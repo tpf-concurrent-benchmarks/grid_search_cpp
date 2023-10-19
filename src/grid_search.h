@@ -5,9 +5,9 @@
 template <std::size_t Size>
 class GridSearch {
 public:
-    GridSearch(const Param[Size]& params) : params_(params) {}
-    void search(std::function<int(int[Size])> callback);
+    GridSearch(const Params<Size>& params) : params_(params) {}
+    void search(std::function<int(std::array<int, Size>&)> callback);
 
 private:
-    const Param[Size]& params_;
+    const Params<Size>& params_;
 };
