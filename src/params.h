@@ -22,5 +22,6 @@ class Params {
 };
 
 #include "params.cpp"
+//should work without this line, but it doesn't in my computer
 
 #endif // PARAMS_H
