@@ -6,7 +6,9 @@ The minimum required version of CMake is 3.11 as per requested in the `CMakeList
 Once in the root directory of the project, run the following commands:
 
 ```bash
-cmake .
+mkdir cmake-build-debug (or any other name)
+cd cmake-build-debug
+cmake ../
 cmake --build .
 ```
 
