@@ -19,3 +19,8 @@ Once the project is built, you can run the executable `grid_search_cpp` with the
 ```bash
 ./grid-search-cpp
 ```
+
+## Used libraries
+
+- [json](https://github.com/nlohmann/json): JSON for Modern C++
+- [AMQP-CPP](https://github.com/CopernicaMarketingSoftware/AMQP-CPP): C++ library for asynchronous non-blocking communication with RabbitMQ
