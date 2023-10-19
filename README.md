@@ -8,7 +8,7 @@ Once in the root directory of the project, run the following commands:
 ```bash
 mkdir cmake-build-debug (or any other name)
 cd cmake-build-debug
-cmake ../
+cmake ..
 cmake --build .
 ```
 
@@ -18,10 +18,4 @@ Once the project is built, you can run the executable `grid_search_cpp` with the
 
 ```bash
 ./grid-search-cpp
-```
-
-### Backup for later
-
-```bash
-sudo apt install libboost-all-dev
 ```
