@@ -19,3 +19,9 @@ Once the project is built, you can run the executable `grid_search_cpp` with the
 ```bash
 ./grid-search-cpp
 ```
+
+### Backup for later
+
+```bash
+sudo apt install libboost-all-dev
+```

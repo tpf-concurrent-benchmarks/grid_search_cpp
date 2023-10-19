@@ -1,5 +1,6 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <amqpcpp.h>
 
 int main() {
     using json = nlohmann::json;
