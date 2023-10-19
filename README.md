@@ -2,7 +2,7 @@
 
 ## How to build with CMake
 
-The minimum required version of CMake is 3.8 as per requested in the `CMakeLists.txt` file.
+The minimum required version of CMake is 3.11 as per requested in the `CMakeLists.txt` file.
 Once in the root directory of the project, run the following commands:
 
 ```bash
