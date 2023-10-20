@@ -21,7 +21,8 @@ class Params {
         int total_iterations;
 };
 
+// This fixes the linker error, since Params<2> params(start, end, step) on main.cpp doesn't know what the template class is
+// https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file
 #include "params.cpp"
-//should work without this line, but it doesn't in my computer
 
 #endif // PARAMS_H
