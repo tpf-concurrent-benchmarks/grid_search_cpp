@@ -6,9 +6,9 @@ The minimum required version of CMake is 3.11 as per requested in the `CMakeList
 Once in the root directory of the project, run the following commands:
 
 ```bash
-mkdir cmake-build-debug (or any other name)
+mkdir cmake-build-debug
 cd cmake-build-debug
-cmake ..
+cmake .. -DAMQP-CPP_LINUX_TCP=ON
 cmake --build .
 ```
 
