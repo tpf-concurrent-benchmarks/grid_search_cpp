@@ -24,3 +24,4 @@ Once the project is built, you can run the executable `grid_search_cpp` with the
 
 - [json](https://github.com/nlohmann/json): JSON for Modern C++
 - [AMQP-CPP](https://github.com/CopernicaMarketingSoftware/AMQP-CPP): C++ library for asynchronous non-blocking communication with RabbitMQ
+- [libuv](https://libuv.org/): multi-platform support library with a focus on asynchronous I/O
