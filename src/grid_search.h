@@ -1,3 +1,6 @@
+#ifndef GRID_SEARCH_H
+#define GRID_SEARCH_H
+
 #include <vector>
 #include <functional>
 #include "params.h"
@@ -5,9 +8,13 @@
 template <std::size_t Size>
 class GridSearch {
 public:
-    GridSearch(const Params<Size>& params) : params_(params) {}
-    void search(std::function<int(std::array<int, Size>&)> callback);
+    GridSearch(Params<Size>& params) : params_(params) {}
+    int search(std::function<int(std::array<int, Size>&, int)> callback);
 
 private:
-    const Params<Size>& params_;
+    Params<Size>& params_;
 };
+
+#include "grid_search.cpp"
+
+#endif // GRID_SEARCH_H
