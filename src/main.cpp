@@ -11,6 +11,15 @@ const std::string brokerAddress = "amqp://guest:guest@localhost:5672/";
 const std::string exchangeName = "topic_exchange";
 const std::string routingKey = "example.topic";
 
+int max_sum(std::array<int, 2>& current, int res) {
+    int sum = current[0] + current[1];
+    if (sum > res) {
+        return sum;
+    } else {
+        return res;
+    }
+}
+
 int main() {
     using json = nlohmann::json;
     json example = {
@@ -51,11 +60,8 @@ int main() {
     std::array<int, 2> step = {1, 1};
     Params<2> params(start, end, step);
     std::cout << params.get_total_iterations() << std::endl;
-    for (int i = 0; i < params.get_total_iterations(); i++) {
-        std::array<int, 2> current = params.get_current();
-        std::cout << current[0] << " " << current[1] << std::endl;
-        params.next();
-    }
+    GridSearch<2> grid_search(params);
+    std::cout << grid_search.search(max_sum) << std::endl;
 
     uv_run(loop, UV_RUN_DEFAULT);
 
