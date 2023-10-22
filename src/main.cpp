@@ -1,3 +1,4 @@
+#include "config_reader.h"
 #include "grid_search.h"
 #include "params.h"
 #include <amqpcpp.h>
@@ -7,9 +8,10 @@
 #include <nlohmann/json.hpp>
 #include <uv.h>
 
-const std::string brokerAddress = "amqp://guest:guest@localhost:5672/";
 const std::string exchangeName = "topic_exchange";
 const std::string routingKey = "example.topic";
+
+using json = nlohmann::json;
 
 int max_sum(std::array<int, 2> &current, int res)
 {
@@ -26,12 +28,12 @@ int max_sum(std::array<int, 2> &current, int res)
 
 int main()
 {
-    using json = nlohmann::json;
     json example = {
         {"happy", true},
         {"pi", 3.141},
     };
-    std::cout << example << std::endl;
+
+    std::string brokerAddress = getBrokerAddress();
 
     uv_loop_t *loop = uv_default_loop();
 
