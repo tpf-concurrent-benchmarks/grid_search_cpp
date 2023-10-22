@@ -48,7 +48,7 @@ int main() {
     channel.consume("queue-name").onReceived(
             [&channel](const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
                 std::cout << "Message received: " << message.body() << std::endl;
-                // This line will break the program, since the json module reads the null character at the end
+                // TODO: This line will break the program, since the json module reads the null character at the end
                 json receivedMessage = json::parse(message.body());
                 std::cout << "Received message: " << receivedMessage.dump() << std::endl;
                 channel.ack(deliveryTag);
