@@ -26,6 +26,21 @@ int max_sum(std::array<int, 2> &current, int res)
     }
 }
 
+template <std::size_t len>
+Params<len> json_to_params(const json &json_params){
+    std::string id = json_params[0];
+    std::array<int, len> start;
+    std::array<int, len> end;
+    std::array<int, len> step;
+    for (int i = 1; i < len + 1; i++){
+        start[i-1] = json_params[i][0];
+        end[i-1] = json_params[i][1];
+        step[i-1] = json_params[i][2];
+    }
+    return Params<len>(std::move(start), std::move(end), std::move(step));
+}
+
+
 int main()
 {
     json example = {
@@ -61,13 +76,19 @@ int main()
             channel.ack(deliveryTag);
         });
 
+
     // calculates every combination of the two parameters and prints it
+    json example2 = {"1234", {0, 5, 1}, {0, 4, 1}};
+    Params params_from_json = json_to_params<2>(example2);
+    std::cout << example2.dump() << std::endl;
+    
     std::array<int, 2> start = {0, 0};
     std::array<int, 2> end = {5, 4};
     std::array<int, 2> step = {1, 1};
-    Params<2> params(start, end, step);
-    std::cout << params.get_total_iterations() << std::endl;
-    GridSearch<2> grid_search(params);
+    // Params<2> params(start, end, step);
+
+    std::cout << params_from_json.get_total_iterations() << std::endl;
+    GridSearch<2> grid_search(params_from_json);
     std::cout << grid_search.search(max_sum) << std::endl;
 
     uv_run(loop, UV_RUN_DEFAULT);
@@ -77,3 +98,4 @@ int main()
 
     return 0;
 }
+

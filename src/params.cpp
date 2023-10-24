@@ -1,12 +1,12 @@
 #include "params.h"
 
 template <std::size_t Size>
-Params<Size>::Params(std::array<int, Size> &start, std::array<int, Size> &end, std::array<int, Size> &step)
-    : start_(start), end_(end), step_(step)
+Params<Size>::Params(std::array<int, Size>&& start, std::array<int, Size>&& end, std::array<int, Size>&& step)
+    : start_(std::move(start)), end_(std::move(end)), step_(std::move(step))
 {
     current_ = start_;
     total_iterations = 1;
-    for (int i = 0; i < Size; i++)
+    for (int i = 0; i < Size; ++i)
     {
         total_iterations *= ((end_[i] - start_[i]) / step_[i]) + 1;
     }
@@ -19,7 +19,7 @@ template <std::size_t Size> std::array<int, Size> &Params<Size>::get_current()
 
 template <std::size_t Size> void Params<Size>::next()
 {
-    for (int i = Size - 1; i >= 0; i--)
+    for (int i = Size - 1; i >= 0; --i)
     {
         if (current_[i] + step_[i] <= end_[i])
         {
