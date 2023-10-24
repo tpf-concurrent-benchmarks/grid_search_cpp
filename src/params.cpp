@@ -1,7 +1,7 @@
 #include "params.h"
 
 template <std::size_t Size>
-Params<Size>::Params(std::array<int, Size>&& start, std::array<int, Size>&& end, std::array<int, Size>&& step)
+Params<Size>::Params(std::array<int, Size> &&start, std::array<int, Size> &&end, std::array<int, Size> &&step)
     : start_(std::move(start)), end_(std::move(end)), step_(std::move(step))
 {
     current_ = start_;
