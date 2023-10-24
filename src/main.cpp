@@ -81,11 +81,6 @@ int main()
     json example2 = {"1234", {0, 5, 1}, {0, 4, 1}};
     Params params_from_json = json_to_params<2>(example2);
     std::cout << example2.dump() << std::endl;
-    
-    std::array<int, 2> start = {0, 0};
-    std::array<int, 2> end = {5, 4};
-    std::array<int, 2> step = {1, 1};
-    // Params<2> params(start, end, step);
 
     std::cout << params_from_json.get_total_iterations() << std::endl;
     GridSearch<2> grid_search(params_from_json);
