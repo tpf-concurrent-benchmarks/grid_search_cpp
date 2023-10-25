@@ -7,6 +7,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <uv.h>
+#include "json_parsing.h"
 
 const std::string exchangeName = "topic_exchange";
 const std::string routingKey = "example.topic";
@@ -24,21 +25,6 @@ int max_sum(std::array<int, 2> &current, int res)
     {
         return res;
     }
-}
-
-template <std::size_t len> Params<len> json_to_params(const json &json_params)
-{
-    std::string id = json_params[0];
-    std::array<int, len> start;
-    std::array<int, len> end;
-    std::array<int, len> step;
-    for (int i = 1; i < len + 1; i++)
-    {
-        start[i - 1] = json_params[i][0];
-        end[i - 1] = json_params[i][1];
-        step[i - 1] = json_params[i][2];
-    }
-    return Params<len>(std::move(start), std::move(end), std::move(step));
 }
 
 int main()

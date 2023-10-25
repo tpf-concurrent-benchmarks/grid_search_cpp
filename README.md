@@ -21,7 +21,7 @@ docker compose -f=docker-compose-dev.yml up
 
 ## Running the project
 
-Once one of the projects is built, you can run the executable `worker-gs` (or `worker-gs`) with the following command:
+Once one of the projects is built, you can run the executable `worker-gs` (or `master-gs`) with the following command:
 
 ```bash
 ./worker-gs
