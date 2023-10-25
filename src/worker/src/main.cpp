@@ -52,14 +52,14 @@ int main()
     AMQP::TcpConnection connection(&handler, AMQP::Address(brokerAddress));
     AMQP::TcpChannel channel(&connection);
 
-    channel.consume("work")
-            .onReceived([&channel](const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
-                const basic_string_view<char> &body = std::string_view(message.body(), message.bodySize());
-                // json receivedMessage = json::parse(body);
-                // std::cout << "Received message: " << receivedMessage.dump() << std::endl;
-                std::cout << "Received message: " << body << std::endl;
-                channel.ack(deliveryTag);
-            });
+    channel.consume("work").onReceived(
+        [&channel](const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
+            const basic_string_view<char> &body = std::string_view(message.body(), message.bodySize());
+            // json receivedMessage = json::parse(body);
+            // std::cout << "Received message: " << receivedMessage.dump() << std::endl;
+            std::cout << "Received message: " << body << std::endl;
+            channel.ack(deliveryTag);
+        });
 
     // calculates every combination of the two parameters and prints it
     json example2 = {"1234", {1, 6, 2}, {1, 5, 1}};

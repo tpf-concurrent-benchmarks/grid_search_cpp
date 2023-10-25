@@ -40,10 +40,10 @@ int main()
 
     channel.declareExchange(exchangeName, AMQP::topic);
     const char *queueName = "work";
-    channel.declareQueue(queueName)
-            .onSuccess([&channel](const std::string &name, uint32_t messagecount, uint32_t consumercount) {
-                std::cout << "Queue " << name << " is ready" << std::endl;
-            });
+    channel.declareQueue(queueName).onSuccess(
+        [&channel](const std::string &name, uint32_t messagecount, uint32_t consumercount) {
+            std::cout << "Queue " << name << " is ready" << std::endl;
+        });
 
     channel.bindQueue(exchangeName, queueName, routingKey);
     channel.publish(exchangeName, routingKey, "Hello from master");
