@@ -44,8 +44,8 @@ template <std::size_t len> Params<len> json_to_params(const json &json_params)
 int main()
 {
     json example = {
-        {"happy", true},
-        {"pi", 3.141},
+            {"happy", true},
+            {"pi", 3.141},
     };
 
     std::string brokerAddress = getBrokerAddress();
@@ -58,21 +58,21 @@ int main()
 
     channel.declareExchange(exchangeName, AMQP::topic);
     channel.declareQueue("queue-name")
-        .onSuccess([&channel](const std::string &name, uint32_t messagecount, uint32_t consumercount) {
-            std::cout << "Queue " << name << " is ready" << std::endl;
-        });
+            .onSuccess([&channel](const std::string &name, uint32_t messagecount, uint32_t consumercount) {
+                std::cout << "Queue " << name << " is ready" << std::endl;
+            });
     channel.bindQueue(exchangeName, "queue-name", routingKey);
 
     channel.publish(exchangeName, routingKey, example.dump());
     std::cout << "Message sent: " << example.dump() << std::endl;
 
     channel.consume("queue-name")
-        .onReceived([&channel](const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
-            const basic_string_view<char> &body = std::string_view(message.body(), message.bodySize());
-            json receivedMessage = json::parse(body);
-            std::cout << "Received message: " << receivedMessage.dump() << std::endl;
-            channel.ack(deliveryTag);
-        });
+            .onReceived([&channel](const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
+                const basic_string_view<char> &body = std::string_view(message.body(), message.bodySize());
+                json receivedMessage = json::parse(body);
+                std::cout << "Received message: " << receivedMessage.dump() << std::endl;
+                channel.ack(deliveryTag);
+            });
 
     // calculates every combination of the two parameters and prints it
     json example2 = {"1234", {1, 6, 2}, {1, 5, 1}};
