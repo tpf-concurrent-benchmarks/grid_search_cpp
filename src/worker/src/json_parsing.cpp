@@ -12,5 +12,5 @@ template <std::size_t len> Params<len> json_to_params(const json &json_params)
         end[i - 1] = json_params[i][1];
         step[i - 1] = json_params[i][2];
     }
-    return Params<len>(std::move(start), std::move(end), std::move(step));
+    return Params<len>(std::move(start), std::move(end), std::move(step), std::move(id));
 }

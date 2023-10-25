@@ -11,3 +11,8 @@ template <std::size_t Size> int GridSearch<Size>::search(std::function<int(std::
     }
     return res;
 }
+
+template <std::size_t Size> std::string GridSearch<Size>::get_id()
+{
+    return params_.get_id();
+}

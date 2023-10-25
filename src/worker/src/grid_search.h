@@ -12,6 +12,7 @@ template <std::size_t Size> class GridSearch
     {
     }
     int search(std::function<int(std::array<int, Size> &, int)> callback);
+    std::string get_id();
 
   private:
     Params<Size> params_;

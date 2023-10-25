@@ -7,10 +7,11 @@
 template <std::size_t Size> class Params
 {
   public:
-    Params(std::array<int, Size> &&start, std::array<int, Size> &&end, std::array<int, Size> &&step);
+    Params(std::array<int, Size> &&start, std::array<int, Size> &&end, std::array<int, Size> &&step, std::string &&id);
     std::array<int, Size> &get_current();
     void next();
     int get_total_iterations();
+    std::string get_id();
 
   private:
     std::array<int, Size> start_;
@@ -18,6 +19,7 @@ template <std::size_t Size> class Params
     std::array<int, Size> step_;
     std::array<int, Size> current_;
     int total_iterations;
+    std::string id_;
 };
 
 // This fixes the linker error, since Params<2> params(start, end, step) on main.cpp doesn't know what the template

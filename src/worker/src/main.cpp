@@ -14,9 +14,9 @@ const std::string routingKey = "example.topic";
 
 using json = nlohmann::json;
 
-int max_sum(std::array<int, 2> &current, int res)
+int max_sum(std::array<int, 3> &current, int res)
 {
-    int sum = current[0] + current[1];
+    int sum = current[0] + current[1] + current[2];
     if (sum > res)
     {
         return sum;
@@ -48,13 +48,14 @@ int main()
         });
 
     // calculates every combination of the two parameters and prints it
-    json example2 = {"1234", {1, 6, 2}, {1, 5, 1}};
-    Params params_from_json = json_to_params<2>(example2);
+    json example2 = {"1234", {1, 6, 1}, {1, 5, 1}, {0, 1, 1}};
+    Params params_from_json = json_to_params<3>(example2);
     std::cout << example2.dump() << std::endl;
 
     std::cout << params_from_json.get_total_iterations() << std::endl;
-    GridSearch<2> grid_search(std::move(params_from_json));
+    GridSearch<3> grid_search(std::move(params_from_json));
     std::cout << grid_search.search(max_sum) << std::endl;
+    std::cout << grid_search.get_id() << std::endl;
 
     uv_run(loop, UV_RUN_DEFAULT);
 
