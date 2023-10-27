@@ -1,3 +1,5 @@
+#include "Partition.h"
+#include "Protocol.h"
 #include "config_reader.h"
 #include "params.h"
 #include <amqpcpp.h>
@@ -29,29 +31,32 @@ template <std::size_t len> Params<len> json_to_params(const json &json_params)
 
 int main()
 {
-
     std::string brokerAddress = getBrokerAddress();
-
     uv_loop_t *loop = uv_default_loop();
 
-    AMQP::LibUvHandler handler(loop);
-    AMQP::TcpConnection connection(&handler, AMQP::Address(brokerAddress));
-    AMQP::TcpChannel channel(&connection);
-
-    channel.declareExchange(exchangeName, AMQP::topic);
-    const char *queueName = "work";
-    channel.declareQueue(queueName).onSuccess(
-        [&channel](const std::string &name, uint32_t messagecount, uint32_t consumercount) {
-            std::cout << "Queue " << name << " is ready" << std::endl;
-        });
-
-    channel.bindQueue(exchangeName, queueName, routingKey);
-    channel.publish(exchangeName, routingKey, "Hello from master");
+    auto *handler = new AMQP::LibUvHandler(loop);
+    auto *connection = new AMQP::TcpConnection(handler, AMQP::Address(brokerAddress));
+    auto *channel = new AMQP::TcpChannel(connection);
 
     uv_run(loop, UV_RUN_DEFAULT);
 
-    channel.close();
-    connection.close();
+    Protocol protocol(channel);
+    Partition partition();
+    while (partition.available())
+    {
+        std::string partition_data = partition.next();
+        protocol.send_data("topic_exchange", "example.topic", partition_data);
+    }
+
+    // TODO: send end of data message N amounts of times, where N is the number of workers
+    // TODO: also, create a cond_var to wait for all workers to finish. Pass it to Protocol so MessageProcessor can notify it
+    protocol.install_consumer();
+    std::string results = protocol.get_results();
+
+    uv_stop(loop);
+
+    channel->close();
+    connection->close();
 
     return 0;
 }
