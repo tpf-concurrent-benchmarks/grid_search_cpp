@@ -18,8 +18,11 @@ services:
     depends_on:
       - rabbitmq
     volumes:
-      - ./rabbitmq-config.json:/rabbitmq-config.json
+      - ./rabbitmq-config.json:/app/rabbitmq-config.json
     deploy:
       replicas: 3
       restart_policy:
         condition: none
+    #TODO: remove tty and stdin_open
+    stdin_open: true
+    tty: true
