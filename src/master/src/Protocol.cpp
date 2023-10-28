@@ -37,8 +37,13 @@ void Protocol::install_consumer()
             std::string body_string(body.begin(), body.end());
             if (body_string == "end")
             {
+                n_workers_--;
                 channel_->ack(deliveryTag);
-                clean();
+                if (n_workers_ == 0)
+                {
+                    messageProcessor_.save_results();
+                    clean();
+                }
             }
             else
             {

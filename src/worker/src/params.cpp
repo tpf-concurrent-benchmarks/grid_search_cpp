@@ -1,7 +1,8 @@
 #include "params.h"
 
 template <std::size_t Size>
-Params<Size>::Params(std::array<int, Size> &&start, std::array<int, Size> &&end, std::array<int, Size> &&step, std::string &&id)
+Params<Size>::Params(std::array<int, Size> &&start, std::array<int, Size> &&end, std::array<int, Size> &&step,
+                     std::string &&id)
     : start_(std::move(start)), end_(std::move(end)), step_(std::move(step)), id_(std::move(id))
 {
     current_ = start_;
@@ -41,4 +42,4 @@ template <std::size_t Size> int Params<Size>::get_total_iterations()
 template <std::size_t Size> std::string Params<Size>::get_id()
 {
     return id_;
-}   
+}

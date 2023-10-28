@@ -1,8 +1,8 @@
 #ifndef JSON_PARSING_H
 #define JSON_PARSING_H
 
-#include <nlohmann/json.hpp>
 #include "params.h"
+#include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 
