@@ -1,5 +1,6 @@
 #include "config_reader.h"
 #include "grid_search.h"
+#include "json_parsing.h"
 #include "params.h"
 #include <amqpcpp.h>
 #include <amqpcpp/libuv.h>
@@ -7,7 +8,6 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <uv.h>
-#include "json_parsing.h"
 
 const std::string exchangeName = "topic_exchange";
 const std::string routingKey = "example.topic";

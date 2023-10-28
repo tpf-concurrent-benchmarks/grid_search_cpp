@@ -32,31 +32,19 @@ template <std::size_t len> Params<len> json_to_params(const json &json_params)
 int main()
 {
     std::string brokerAddress = getBrokerAddress();
-    uv_loop_t *loop = uv_default_loop();
+    int n_workers = 1;
+    size_t n_params = 2;
 
-    auto *handler = new AMQP::LibUvHandler(loop);
-    auto *connection = new AMQP::TcpConnection(handler, AMQP::Address(brokerAddress));
-    auto *channel = new AMQP::TcpChannel(connection);
-
-    uv_run(loop, UV_RUN_DEFAULT);
-
-    Protocol protocol(channel);
-    Partition partition();
+    Protocol protocol(brokerAddress, n_workers);
+    Partition partition(n_params);
     while (partition.available())
     {
-        std::string partition_data = partition.next();
-        protocol.send_data("topic_exchange", "example.topic", partition_data);
+        // Get next partition
+        std::array<int, 3> partition_data = partition.next();
+        protocol.send_data(exchangeName, routingKey, partition_data);
     }
 
-    // TODO: send end of data message N amounts of times, where N is the number of workers
-    // TODO: also, create a cond_var to wait for all workers to finish. Pass it to Protocol so MessageProcessor can notify it
     protocol.install_consumer();
-    std::string results = protocol.get_results();
-
-    uv_stop(loop);
-
-    channel->close();
-    connection->close();
 
     return 0;
 }

@@ -11,13 +11,11 @@ class MessageProcessor
 {
 
   public:
-    MessageProcessor(int n_workers);
+    MessageProcessor();
     void process_message(std::string message);
-
-    std::string get_results();
+    void save_results();
 
   private:
-    int n_workers_;
     std::string results_;
 };
 
