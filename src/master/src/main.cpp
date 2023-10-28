@@ -1,12 +1,7 @@
 #include "Partition.h"
 #include "Protocol.h"
 #include "config_reader.h"
-#include <amqpcpp.h>
-#include <amqpcpp/libuv.h>
-#include <amqpcpp/linux_tcp.h>
-#include <iostream>
 #include <nlohmann/json.hpp>
-#include <uv.h>
 
 const std::string exchangeName = "topic_exchange";
 const std::string routingKey = "example.topic";
@@ -23,9 +18,13 @@ int main()
     Partition partition(n_params);
     while (partition.available())
     {
-        // Get next partition
         std::array<int, 3> partition_data = partition.next();
         protocol.send_data(exchangeName, routingKey, partition_data);
+    }
+
+    for (int i = 0; i < n_workers; i++)
+    {
+        protocol.send_data(exchangeName, routingKey, std::string("stop"));
     }
 
     protocol.install_consumer();
