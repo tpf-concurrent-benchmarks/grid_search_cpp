@@ -26,3 +26,17 @@ services:
     #TODO: remove tty and stdin_open
     stdin_open: true
     tty: true
+
+  manager:
+    image: grid_search_cpp_manager
+    depends_on:
+      - rabbitmq
+    volumes:
+      - ./rabbitmq-config.json:/app/rabbitmq-config.json
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: none
+    #TODO: remove tty and stdin_open
+    stdin_open: true
+    tty: true
