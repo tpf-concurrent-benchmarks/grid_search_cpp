@@ -9,7 +9,7 @@ Params<Size>::Params(std::array<int, Size> &&start, std::array<int, Size> &&end,
     total_iterations = 1;
     for (int i = 0; i < Size; ++i)
     {
-        total_iterations *= ((end_[i] - start_[i]) / step_[i]) + 1;
+        total_iterations *= ((end_[i] - start_[i]) / step_[i]);
     }
 }
 
@@ -22,7 +22,7 @@ template <std::size_t Size> void Params<Size>::next()
 {
     for (int i = Size - 1; i >= 0; --i)
     {
-        if (current_[i] + step_[i] <= end_[i])
+        if (current_[i] + step_[i] < end_[i])
         {
             current_[i] += step_[i];
             break;
