@@ -1,8 +1,8 @@
+#include "config_reader.h"
+#include "constants.h"
 #include "partition.h"
 #include "protocol.h"
-#include "config_reader.h"
 #include <nlohmann/json.hpp>
-#include "constants.h"
 
 using json = nlohmann::json;
 

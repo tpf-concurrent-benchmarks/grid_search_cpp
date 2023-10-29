@@ -7,24 +7,22 @@ Protocol::Protocol(const std::string &brokerAddress, size_t n_workers = 1) : n_w
     handler_ = new AMQP::LibUvHandler(loop_);
     connection_ = new AMQP::TcpConnection(handler_, AMQP::Address(brokerAddress));
     channel_ = new AMQP::TcpChannel(connection_);
-    channel_->declareExchange(Constants::EXCHANGE_NAME, AMQP::topic).onSuccess([]() {
-        std::cout << "Exchange " << Constants::EXCHANGE_NAME << " is ready" << std::endl;
-    }).onError([](const char *message) {
-        std::cout << "Exchange declare error: " << message << std::endl;
-    });
+    channel_->declareExchange(Constants::EXCHANGE_NAME, AMQP::topic)
+        .onSuccess([]() { std::cout << "Exchange " << Constants::EXCHANGE_NAME << " is ready" << std::endl; })
+        .onError([](const char *message) { std::cout << "Exchange declare error: " << message << std::endl; });
     channel_->declareQueue(Constants::WORK_QUEUE_NAME)
         .onSuccess([](const std::string &name, uint32_t messageCount, uint32_t consumerCount) {
             std::cout << "Queue " << name << " is ready" << std::endl;
         });
     channel_->declareQueue(Constants::RESULTS_QUEUE_NAME)
-            .onSuccess([](const std::string &name, uint32_t messageCount, uint32_t consumerCount) {
-                std::cout << "Queue " << name << " is ready" << std::endl;
-            });
+        .onSuccess([](const std::string &name, uint32_t messageCount, uint32_t consumerCount) {
+            std::cout << "Queue " << name << " is ready" << std::endl;
+        });
     channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::WORK_QUEUE_NAME, Constants::WORK_ROUTING_KEY);
     channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::RESULTS_QUEUE_NAME, Constants::RESULTS_ROUTING_KEY);
 }
 
-void Protocol::sendData(const std::string& exchangeName, const std::string& routingKey, json data)
+void Protocol::sendData(const std::string &exchangeName, const std::string &routingKey, json data)
 {
     json message = {
         {"data", data},
@@ -32,7 +30,7 @@ void Protocol::sendData(const std::string& exchangeName, const std::string& rout
     channel_->publish(exchangeName, routingKey, message.dump());
 }
 
-void Protocol::sendData(const std::string& exchangeName, const std::string& routingKey, std::string data)
+void Protocol::sendData(const std::string &exchangeName, const std::string &routingKey, std::string data)
 {
     channel_->publish(exchangeName, routingKey, data);
 }

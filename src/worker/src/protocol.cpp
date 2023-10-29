@@ -9,7 +9,7 @@ Protocol::Protocol(const std::string &brokerAddress)
     channel_ = new AMQP::TcpChannel(connection_);
 }
 
-void Protocol::sendData(const std::string& exchangeName, const std::string& routingKey, json data)
+void Protocol::sendData(const std::string &exchangeName, const std::string &routingKey, json data)
 {
     json message = {
         {"data", data},
@@ -17,7 +17,7 @@ void Protocol::sendData(const std::string& exchangeName, const std::string& rout
     channel_->publish(exchangeName, routingKey, message.dump());
 }
 
-void Protocol::sendData(const std::string& exchangeName, const std::string& routingKey, std::string data)
+void Protocol::sendData(const std::string &exchangeName, const std::string &routingKey, std::string data)
 {
     channel_->publish(exchangeName, routingKey, data);
 }

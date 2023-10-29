@@ -9,15 +9,14 @@
 #include <string>
 #include <uv.h>
 
-
 using json = nlohmann::json;
 
 class Protocol
 {
   public:
     Protocol(const std::string &brokerAddress);
-    void sendData(const std::string& exchangeName, const std::string& routingKey, json data);
-    void sendData(const std::string& exchangeName, const std::string& routingKey, std::string data);
+    void sendData(const std::string &exchangeName, const std::string &routingKey, json data);
+    void sendData(const std::string &exchangeName, const std::string &routingKey, std::string data);
     void installConsumer();
     void clean();
 
