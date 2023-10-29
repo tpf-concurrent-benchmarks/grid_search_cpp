@@ -17,7 +17,7 @@ Protocol::Protocol(const std::string &brokerAddress, size_t n_workers = 1) : n_w
             std::cout << "Queue " << name << " is ready" << std::endl;
         });
     channel_->declareQueue(Constants::RESULTS_QUEUE_NAME)
-            .onSuccess([](const std::string &name, uint32_t messageCount, uint32_t ConsumerCOunt) {
+            .onSuccess([](const std::string &name, uint32_t messageCount, uint32_t consumerCount) {
                 std::cout << "Queue " << name << " is ready" << std::endl;
             });
     channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::WORK_QUEUE_NAME, Constants::WORK_ROUTING_KEY);

@@ -10,10 +10,10 @@ int main()
 {
     std::string brokerAddress = getBrokerAddress();
     int n_workers = 1;
-    size_t n_params = 1;
+    size_t n_partitions = 1;
 
     Protocol protocol(brokerAddress, n_workers);
-    Partition partition(n_params);
+    Partition partition(n_partitions);
     while (partition.available())
     {
         auto partition_data = partition.next();
