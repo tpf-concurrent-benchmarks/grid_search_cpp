@@ -19,4 +19,6 @@ class MessageProcessor
     std::string results_;
 };
 
+#include "message_processor.cpp"
+
 #endif // MASTERGRIDSEARCH_MESSAGE_PROCESSOR_H

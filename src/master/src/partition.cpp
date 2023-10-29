@@ -7,7 +7,8 @@ bool Partition::available() const
     return current_partition_ < n_partitions_;
 }
 
-std::array<int, 3> Partition::next()
+std::array<std::array<int, 3>, 3> Partition::next()
 {
-    return partitions[current_partition_++];
+    current_partition_++;
+    return partitions;
 }

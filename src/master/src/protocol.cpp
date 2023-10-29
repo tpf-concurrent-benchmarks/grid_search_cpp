@@ -7,7 +7,11 @@ Protocol::Protocol(const std::string &brokerAddress, size_t n_workers = 1) : n_w
     handler_ = new AMQP::LibUvHandler(loop_);
     connection_ = new AMQP::TcpConnection(handler_, AMQP::Address(brokerAddress));
     channel_ = new AMQP::TcpChannel(connection_);
-    channel_->declareExchange(Constants::EXCHANGE_NAME, AMQP::topic);
+    channel_->declareExchange(Constants::EXCHANGE_NAME, AMQP::topic).onSuccess([]() {
+        std::cout << "Exchange " << Constants::EXCHANGE_NAME << " is ready" << std::endl;
+    }).onError([](const char *message) {
+        std::cout << "Exchange declare error: " << message << std::endl;
+    });
     channel_->declareQueue(Constants::WORK_QUEUE_NAME)
         .onSuccess([](const std::string &name, uint32_t messageCount, uint32_t consumerCount) {
             std::cout << "Queue " << name << " is ready" << std::endl;
@@ -16,13 +20,16 @@ Protocol::Protocol(const std::string &brokerAddress, size_t n_workers = 1) : n_w
             .onSuccess([](const std::string &name, uint32_t messageCount, uint32_t ConsumerCOunt) {
                 std::cout << "Queue " << name << " is ready" << std::endl;
             });
-    channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::WORK_QUEUE_NAME, Constants::ROUTING_KEY);
-    channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::RESULTS_QUEUE_NAME, Constants::ROUTING_KEY);
+    channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::WORK_QUEUE_NAME, Constants::ROUTING_KEY_WORK);
+    channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::RESULTS_QUEUE_NAME, Constants::ROUTING_KEY_RESULTS);
 }
 
 void Protocol::sendData(const std::string& exchangeName, const std::string& routingKey, json data)
 {
-    channel_->publish(exchangeName, routingKey, data.dump());
+    json message = {
+        {"data", data},
+    };
+    channel_->publish(exchangeName, routingKey, message.dump());
 }
 
 void Protocol::sendData(const std::string& exchangeName, const std::string& routingKey, std::string data)
@@ -37,7 +44,7 @@ void Protocol::installConsumer()
             std::cout << "Message received: " << message.body() << std::endl;
             const std::basic_string_view<char> &body = std::string_view(message.body(), message.bodySize());
             std::string body_string(body.begin(), body.end());
-            if (body_string == "end")
+            if (body_string == "stop")
             {
                 n_workers_--;
                 channel_->ack(deliveryTag);
@@ -53,6 +60,7 @@ void Protocol::installConsumer()
                 channel_->ack(deliveryTag);
             }
         });
+    uv_run(loop_, UV_RUN_DEFAULT);
 }
 
 void Protocol::clean()

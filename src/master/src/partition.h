@@ -9,7 +9,7 @@ class Partition
   public:
     Partition(size_t n_partitions);
     bool available() const;
-    std::array<int, 3> next();
+    std::array<std::array<int, 3>, 3> next();
 
   private:
     size_t n_partitions_;
@@ -17,5 +17,7 @@ class Partition
     // Example partitions
     std::array<std::array<int, 3>, 3> partitions = {{{0, 10, 1}, {0, 10, 1}, {0, 10, 1}}};
 };
+
+#include "partition.cpp"
 
 #endif // MASTERGRIDSEARCH_PARTITION_H

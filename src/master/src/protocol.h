@@ -9,6 +9,7 @@
 #include <string>
 #include <uv.h>
 
+
 using json = nlohmann::json;
 
 class Protocol
@@ -25,8 +26,10 @@ class Protocol
     AMQP::LibUvHandler *handler_;
     AMQP::TcpConnection *connection_;
     uv_loop_t *loop_;
-    MessageProcessor messageProcessor_;
+    MessageProcessor messageProcessor_ = MessageProcessor();
     size_t n_workers_;
 };
+
+#include "protocol.cpp"
 
 #endif // MASTERGRIDSEARCH_PROTOCOL_H
