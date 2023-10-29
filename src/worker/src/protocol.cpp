@@ -24,7 +24,7 @@ void Protocol::sendData(const std::string &exchangeName, const std::string &rout
 
 void Protocol::installConsumer()
 {
-    channel_->consume(Constants::RESULTS_QUEUE_NAME)
+    channel_->consume(Constants::WORK_QUEUE_NAME)
         .onReceived([this](const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
             std::cout << "Message received: " << message.body() << std::endl;
             const std::basic_string_view<char> &body = std::string_view(message.body(), message.bodySize());
@@ -38,7 +38,9 @@ void Protocol::installConsumer()
             else
             {
                 json jsonMessage = json::parse(body_string);
+                std::cout << "Processing message ..." << std::endl;
                 messageProcessor_.processMessage(jsonMessage["data"]);
+                // TODO: format and send the response
                 channel_->ack(deliveryTag);
             }
         });
