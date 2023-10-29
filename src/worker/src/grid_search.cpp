@@ -1,3 +1,4 @@
+#include <string>
 #include "grid_search.h"
 
 template <std::size_t Size> int GridSearch<Size>::search(std::function<int(std::array<int, Size> &, int)> callback)

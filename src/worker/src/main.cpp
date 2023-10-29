@@ -1,15 +1,6 @@
 #include "config_reader.h"
-#include "grid_search.h"
-#include "json_parsing.h"
 #include "params.h"
-#include <amqpcpp.h>
-#include <amqpcpp/libuv.h>
-#include <amqpcpp/linux_tcp.h>
-#include <iostream>
-#include <nlohmann/json.hpp>
-#include <uv.h>
-
-using json = nlohmann::json;
+#include "protocol.h"
 
 int max_sum(std::array<int, 3> &current, int res)
 {
@@ -26,6 +17,10 @@ int max_sum(std::array<int, 3> &current, int res)
 
 int main()
 {
+    std::string brokerAddress = getBrokerAddress();
+
+    Protocol protocol(brokerAddress);
+    protocol.installConsumer();
 
     return 0;
 }

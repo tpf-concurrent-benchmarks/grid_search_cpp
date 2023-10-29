@@ -21,14 +21,20 @@ remove:
 manager_logs:
 	docker service logs -f gs_cpp_manager
 
+full_build_master_local:
+	cd src/master/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake .. -DAMQP-CPP_LINUX_TCP=ON && cmake --build .
+
 build_master_local:
-	cd src/master/ && mkdir cmake-build-debug && cd cmake-build-debug && cmake .. -DAMQP-CPP_LINUX_TCP=ON && cmake --build .
+	cd src/master/cmake-build-debug && cmake --build .
 
 run_master_local:
 	cd src/master/cmake-build-debug && ./master-gs
 
+full_build_worker_local:
+	cd src/worker/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake .. -DAMQP-CPP_LINUX_TCP=ON && cmake --build .
+
 build_worker_local:
-	cd src/worker/ && mkdir cmake-build-debug && cd cmake-build-debug && cmake .. -DAMQP-CPP_LINUX_TCP=ON && cmake --build .
+	cd src/worker/cmake-build-debug && cmake --build .
 
 run_worker_local:
 	cd src/worker/cmake-build-debug && ./worker-gs

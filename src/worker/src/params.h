@@ -22,8 +22,6 @@ template <std::size_t Size> class Params
     std::string id_;
 };
 
-// This fixes the linker error, since Params<2> params(start, end, step) on main.cpp doesn't know what the template
-// class is https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file
 #include "params.cpp"
 
 #endif // PARAMS_H
