@@ -2,9 +2,7 @@
 #include "Protocol.h"
 #include "config_reader.h"
 #include <nlohmann/json.hpp>
-
-const std::string exchangeName = "topic_exchange";
-const std::string routingKey = "example.topic";
+#include "constants.h"
 
 using json = nlohmann::json;
 
@@ -19,12 +17,12 @@ int main()
     while (partition.available())
     {
         std::array<int, 3> partition_data = partition.next();
-        protocol.send_data(exchangeName, routingKey, partition_data);
+        protocol.send_data(Constants::EXCHANGE_NAME, Constants::ROUTING_KEY, partition_data);
     }
 
     for (int i = 0; i < n_workers; i++)
     {
-        protocol.send_data(exchangeName, routingKey, std::string("stop"));
+        protocol.send_data(Constants::EXCHANGE_NAME, Constants::ROUTING_KEY, std::string("stop"));
     }
 
     protocol.install_consumer();

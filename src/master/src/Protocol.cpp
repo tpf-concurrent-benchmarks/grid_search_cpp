@@ -1,9 +1,5 @@
 #include "Protocol.h"
-
-const std::string WORK_QUEUE_NAME = "work";
-const std::string RESULTS_QUEUE_NAME = "results";
-const std::string EXCHANGE_NAME = "topic_exchange";
-const std::string ROUTING_KEY = "example.topic";
+#include "constants.h"
 
 Protocol::Protocol(const std::string &brokerAddress, size_t n_workers = 1) : n_workers_(n_workers)
 {
@@ -11,17 +7,17 @@ Protocol::Protocol(const std::string &brokerAddress, size_t n_workers = 1) : n_w
     handler_ = new AMQP::LibUvHandler(loop_);
     connection_ = new AMQP::TcpConnection(handler_, AMQP::Address(brokerAddress));
     channel_ = new AMQP::TcpChannel(connection_);
-    channel_->declareExchange(EXCHANGE_NAME, AMQP::topic);
-    channel_->declareQueue(WORK_QUEUE_NAME)
+    channel_->declareExchange(Constants::EXCHANGE_NAME, AMQP::topic);
+    channel_->declareQueue(Constants::WORK_QUEUE_NAME)
         .onSuccess([](const std::string &name, uint32_t messagecount, uint32_t consumercount) {
             std::cout << "Queue " << name << " is ready" << std::endl;
         });
-    channel_->declareQueue(RESULTS_QUEUE_NAME)
+    channel_->declareQueue(Constants::RESULTS_QUEUE_NAME)
             .onSuccess([](const std::string &name, uint32_t messagecount, uint32_t consumercount) {
                 std::cout << "Queue " << name << " is ready" << std::endl;
             });
-    channel_->bindQueue(EXCHANGE_NAME, WORK_QUEUE_NAME, ROUTING_KEY);
-    channel_->bindQueue(EXCHANGE_NAME, RESULTS_QUEUE_NAME, ROUTING_KEY);
+    channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::WORK_QUEUE_NAME, Constants::ROUTING_KEY);
+    channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::RESULTS_QUEUE_NAME, Constants::ROUTING_KEY);
 }
 
 void Protocol::send_data(std::string exchangeName, std::string routingKey, json data)
@@ -36,7 +32,7 @@ void Protocol::send_data(std::string exchangeName, std::string routingKey, std::
 
 void Protocol::install_consumer()
 {
-    channel_->consume(RESULTS_QUEUE_NAME)
+    channel_->consume(Constants::RESULTS_QUEUE_NAME)
         .onReceived([this](const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
             std::cout << "Message received: " << message.body() << std::endl;
             const std::basic_string_view<char> &body = std::string_view(message.body(), message.bodySize());
