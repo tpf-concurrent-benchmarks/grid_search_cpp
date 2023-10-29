@@ -19,6 +19,16 @@ cmake --build .
 docker compose -f=docker-compose.yml up
 ```
 
+## Running only RabbitMQ with Docker
+
+```bash
+docker compose -f=docker-compose-dev.yml up
+```
+
+## Makefile
+
+There is a Makefile in the root directory of the project that can be used to build and run the project
+
 ## Running the project
 
 Once one of the projects is built, you can run the executable `worker-gs` (or `master-gs`) with the following command:

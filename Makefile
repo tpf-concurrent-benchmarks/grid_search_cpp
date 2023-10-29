@@ -1,3 +1,8 @@
+EXEC_MASTER = master-gs
+EXEC_WORKER = worker-gs
+
+VFLAGS = --leak-check=full --track-origins=yes --show-reachable=yes
+
 init:
 	docker swarm init
 
@@ -13,7 +18,7 @@ build_rabbitmq:
 setup: init build build_rabbitmq
 
 deploy:
-	docker stack deploy -c docker-compose-dev.yml gs_cpp
+	docker stack deploy -c docker-compose.yml gs_cpp
 
 remove:
 	docker stack rm gs_cpp
@@ -28,7 +33,7 @@ build_master_local:
 	cd src/master/cmake-build-debug && cmake --build .
 
 run_master_local:
-	cd src/master/cmake-build-debug && ./master-gs
+	cd src/master/cmake-build-debug && ./${EXEC_MASTER}
 
 full_build_worker_local:
 	cd src/worker/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake .. -DAMQP-CPP_LINUX_TCP=ON && cmake --build .
@@ -37,7 +42,14 @@ build_worker_local:
 	cd src/worker/cmake-build-debug && cmake --build .
 
 run_worker_local:
-	cd src/worker/cmake-build-debug && ./worker-gs
+	cd src/worker/cmake-build-debug && ./$(EXEC_WORKER)
+
+valgrind_master:
+	valgrind $(VFLAGS) ./src/master/cmake-build-debug/$(EXEC_MASTER)
+
+valgrind_worker:
+	valgrind $(VFLAGS) ./src/worker/cmake-build-debug/$(EXEC_WORKER)
+
 
 format:
 	clang-format -i src/master/src/*.cpp src/master/src/*.h src/worker/src/*.cpp src/worker/src/*.h
