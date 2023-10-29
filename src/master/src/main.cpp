@@ -16,15 +16,13 @@ int main()
     Partition partition(n_params);
     while (partition.available())
     {
-        std::cout << "Sending partition" << std::endl;
         auto partition_data = partition.next();
-        protocol.sendData(Constants::EXCHANGE_NAME, Constants::ROUTING_KEY_WORK, partition_data);
+        protocol.sendData(Constants::EXCHANGE_NAME, Constants::WORK_ROUTING_KEY, partition_data);
     }
 
     for (int i = 0; i < n_workers; i++)
     {
-        std::cout << "Sending stop" << std::endl;
-        protocol.sendData(Constants::EXCHANGE_NAME, Constants::ROUTING_KEY_WORK, std::string("stop"));
+        protocol.sendData(Constants::EXCHANGE_NAME, Constants::WORK_ROUTING_KEY, Constants::STOP_MESSAGE);
     }
 
     protocol.installConsumer();

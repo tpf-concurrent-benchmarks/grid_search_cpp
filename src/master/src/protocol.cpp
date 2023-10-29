@@ -20,8 +20,8 @@ Protocol::Protocol(const std::string &brokerAddress, size_t n_workers = 1) : n_w
             .onSuccess([](const std::string &name, uint32_t messageCount, uint32_t ConsumerCOunt) {
                 std::cout << "Queue " << name << " is ready" << std::endl;
             });
-    channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::WORK_QUEUE_NAME, Constants::ROUTING_KEY_WORK);
-    channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::RESULTS_QUEUE_NAME, Constants::ROUTING_KEY_RESULTS);
+    channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::WORK_QUEUE_NAME, Constants::WORK_ROUTING_KEY);
+    channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::RESULTS_QUEUE_NAME, Constants::RESULTS_ROUTING_KEY);
 }
 
 void Protocol::sendData(const std::string& exchangeName, const std::string& routingKey, json data)
@@ -44,7 +44,7 @@ void Protocol::installConsumer()
             std::cout << "Message received: " << message.body() << std::endl;
             const std::basic_string_view<char> &body = std::string_view(message.body(), message.bodySize());
             std::string body_string(body.begin(), body.end());
-            if (body_string == "stop")
+            if (body_string == Constants::END_WORK_MESSAGE)
             {
                 n_workers_--;
                 channel_->ack(deliveryTag);
@@ -68,6 +68,7 @@ void Protocol::clean()
     channel_->close();
     connection_->close();
     uv_stop(loop_);
+    uv_loop_close(loop_);
     delete channel_;
     delete connection_;
     delete handler_;
