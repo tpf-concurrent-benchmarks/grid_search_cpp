@@ -1,4 +1,4 @@
-#include "MessageProcessor.h"
+#include "message_processor.h"
 #include <iostream>
 
 void MessageProcessor::process_message(std::string message)

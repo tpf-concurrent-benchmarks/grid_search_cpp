@@ -1,7 +1,7 @@
 #ifndef MASTERGRIDSEARCH_PROTOCOL_H
 #define MASTERGRIDSEARCH_PROTOCOL_H
 
-#include "MessageProcessor.h"
+#include "message_processor.h"
 #include <amqpcpp.h>
 #include <amqpcpp/libuv.h>
 #include <amqpcpp/linux_tcp.h>

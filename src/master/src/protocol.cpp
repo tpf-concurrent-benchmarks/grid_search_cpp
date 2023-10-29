@@ -1,4 +1,4 @@
-#include "Protocol.h"
+#include "protocol.h"
 #include "constants.h"
 
 Protocol::Protocol(const std::string &brokerAddress, size_t n_workers = 1) : n_workers_(n_workers)

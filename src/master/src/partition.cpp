@@ -1,4 +1,4 @@
-#include "Partition.h"
+#include "partition.h"
 
 Partition::Partition(size_t n_partitions) : n_partitions_(n_partitions){};
 
