@@ -17,15 +17,15 @@ int main()
     while (partition.available())
     {
         std::array<int, 3> partition_data = partition.next();
-        protocol.send_data(Constants::EXCHANGE_NAME, Constants::ROUTING_KEY, partition_data);
+        protocol.sendData(Constants::EXCHANGE_NAME, Constants::ROUTING_KEY, partition_data);
     }
 
     for (int i = 0; i < n_workers; i++)
     {
-        protocol.send_data(Constants::EXCHANGE_NAME, Constants::ROUTING_KEY, std::string("stop"));
+        protocol.sendData(Constants::EXCHANGE_NAME, Constants::ROUTING_KEY, std::string("stop"));
     }
 
-    protocol.install_consumer();
+    protocol.installConsumer();
 
     return 0;
 }

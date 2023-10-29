@@ -12,8 +12,8 @@ class MessageProcessor
 
   public:
     MessageProcessor();
-    void process_message(std::string message);
-    void save_results();
+    void processMessage(std::string message);
+    void saveResults();
 
   private:
     std::string results_;

@@ -15,9 +15,9 @@ class Protocol
 {
   public:
     Protocol(const std::string &brokerAddress, size_t n_workers);
-    void send_data(std::string exchangeName, std::string routingKey, json data);
-    void send_data(std::string exchangeName, std::string routingKey, std::string data);
-    void install_consumer();
+    void sendData(const std::string& exchangeName, const std::string& routingKey, json data);
+    void sendData(const std::string& exchangeName, const std::string& routingKey, std::string data);
+    void installConsumer();
     void clean();
 
   private:

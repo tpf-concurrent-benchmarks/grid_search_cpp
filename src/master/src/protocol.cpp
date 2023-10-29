@@ -9,28 +9,28 @@ Protocol::Protocol(const std::string &brokerAddress, size_t n_workers = 1) : n_w
     channel_ = new AMQP::TcpChannel(connection_);
     channel_->declareExchange(Constants::EXCHANGE_NAME, AMQP::topic);
     channel_->declareQueue(Constants::WORK_QUEUE_NAME)
-        .onSuccess([](const std::string &name, uint32_t messagecount, uint32_t consumercount) {
+        .onSuccess([](const std::string &name, uint32_t messageCount, uint32_t consumerCount) {
             std::cout << "Queue " << name << " is ready" << std::endl;
         });
     channel_->declareQueue(Constants::RESULTS_QUEUE_NAME)
-            .onSuccess([](const std::string &name, uint32_t messagecount, uint32_t consumercount) {
+            .onSuccess([](const std::string &name, uint32_t messageCount, uint32_t ConsumerCOunt) {
                 std::cout << "Queue " << name << " is ready" << std::endl;
             });
     channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::WORK_QUEUE_NAME, Constants::ROUTING_KEY);
     channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::RESULTS_QUEUE_NAME, Constants::ROUTING_KEY);
 }
 
-void Protocol::send_data(std::string exchangeName, std::string routingKey, json data)
+void Protocol::sendData(const std::string& exchangeName, const std::string& routingKey, json data)
 {
     channel_->publish(exchangeName, routingKey, data.dump());
 }
 
-void Protocol::send_data(std::string exchangeName, std::string routingKey, std::string data)
+void Protocol::sendData(const std::string& exchangeName, const std::string& routingKey, std::string data)
 {
     channel_->publish(exchangeName, routingKey, data);
 }
 
-void Protocol::install_consumer()
+void Protocol::installConsumer()
 {
     channel_->consume(Constants::RESULTS_QUEUE_NAME)
         .onReceived([this](const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
@@ -43,13 +43,13 @@ void Protocol::install_consumer()
                 channel_->ack(deliveryTag);
                 if (n_workers_ == 0)
                 {
-                    messageProcessor_.save_results();
+                    messageProcessor_.saveResults();
                     clean();
                 }
             }
             else
             {
-                messageProcessor_.process_message(body_string);
+                messageProcessor_.processMessage(body_string);
                 channel_->ack(deliveryTag);
             }
         });
