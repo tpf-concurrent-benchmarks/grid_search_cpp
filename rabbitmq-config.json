@@ -1,6 +1,6 @@
 {
   "user": "guest",
   "password": "guest",
-  "address": "rabbitmq",
+  "address": "localhost",
   "port": 5672
 }
