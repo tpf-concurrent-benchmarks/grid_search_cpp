@@ -1,5 +1,5 @@
-#ifndef MASTERGRIDSEARCH_CONSTANTS_H
-#define MASTERGRIDSEARCH_CONSTANTS_H
+#ifndef WORKERGRIDSEARCH_CONSTANTS_H
+#define WORKERGRIDSEARCH_CONSTANTS_H
 
 #include <string>
 
@@ -14,4 +14,4 @@ const std::string STOP_MESSAGE = "stop";
 const std::string END_WORK_MESSAGE = "end";
 } // namespace Constants
 
-#endif // MASTERGRIDSEARCH_CONSTANTS_H
+#endif // WORKERGRIDSEARCH_CONSTANTS_H

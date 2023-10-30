@@ -1,41 +1,13 @@
 version: "3.7"
 services:
   rabbitmq:
-    image: rostov_rabbitmq
-    build: .
+    build: rabbitmq
     ports:
       - "15672:15672"
+      - "5672:5672"
     healthcheck:
       test: rabbitmq-diagnostics check_port_connectivity
       interval: 5s
       timeout: 3s
       retries: 10
       start_period: 50s
-
-  worker:
-    image: grid_search_cpp_worker
-    depends_on:
-      - rabbitmq
-    volumes:
-      - ./rabbitmq-config.json:/app/rabbitmq-config.json
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: none
-    #TODO: remove tty and stdin_open
-    stdin_open: true
-    tty: true
-
-  manager:
-    image: grid_search_cpp_manager
-    depends_on:
-      - rabbitmq
-    volumes:
-      - ./rabbitmq-config.json:/app/rabbitmq-config.json
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: none
-    #TODO: remove tty and stdin_open
-    stdin_open: true
-    tty: true

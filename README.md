@@ -4,7 +4,7 @@
 
 The minimum required version of CMake is 3.11 as per requested in the `CMakeLists.txt` file.
 There are two projects in this repository, one in `src/master` and the other in `src/worker`. Either of them can be built with the 
-following commands once you are in the root directory of the project:
+following commands once you are in the root directory of the desired project:
 
 ```bash
 mkdir cmake-build-debug
@@ -13,11 +13,21 @@ cmake .. -DAMQP-CPP_LINUX_TCP=ON
 cmake --build .
 ```
 
-## Running RabbitMQ for development
+## Running all services and RabbitMQ with Docker
+
+```bash
+docker compose -f=docker-compose.yml up
+```
+
+## Running only RabbitMQ with Docker
 
 ```bash
 docker compose -f=docker-compose-dev.yml up
 ```
+
+## Makefile
+
+There is a Makefile in the root directory of the project that can be used to build and run the project
 
 ## Running the project
 
