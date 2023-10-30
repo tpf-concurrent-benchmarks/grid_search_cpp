@@ -23,7 +23,9 @@ std::vector<Interval> Interval::split(int n_partitions)
         sub_end = start + (sub_start + (max_elems_per_interval * step));
         intervals.push_back(Interval(sub_start, sub_end, step));
     }
-    intervals.push_back(Interval(sub_end, end, step));
+    Interval interval_reminder = Interval(sub_end, end, step);
+    std::vector<Interval> sub_intervals_reminder = interval_reminder.split(n_partitions - n_sub_intervals_full);
+    intervals.insert(intervals.end(), sub_intervals_reminder.begin(), sub_intervals_reminder.end());
     return intervals;
 }
 
