@@ -1,13 +1,59 @@
 #include "partition.h"
+#include <math.h>
+#include <numeric>
+#include <iostream>
 
-Partition::Partition(size_t n_partitions) : n_partitions_(n_partitions){};
+Partition::Partition(std::vector<std::array<float, 3>>&& intervals, size_t n_intervals) :
+    intervals(std::move(intervals)), n_intervals(n_intervals)
+{
+    //TODO: remove this
+    std::cout << n_intervals << std::endl;
+}
 
 bool Partition::available() const
 {
     return current_partition_ < n_partitions_;
 }
 
-std::array<int, 3> Partition::next()
+std::array<std::array<int, 3>, 3> Partition::next()
 {
-    return partitions[current_partition_++];
+    current_partition_++;
+    return partitions;
 }
+
+std::vector<int> Partition::calc_partitions_per_interval(int max_chunk_size)
+{
+    int min_batches = floor(n_intervals / max_chunk_size) + 1;
+    std::cout << min_batches << std::endl;
+    std::vector<int> partitions_per_interval(n_intervals, 1);
+    int missing_partitions;
+    int elements;
+    for(int i = 0; i < n_intervals; i++){
+        missing_partitions = calc_amount_of_missing_partitions(min_batches, partitions_per_interval);
+
+        elements = interval_size(intervals[i]);
+        if (elements > missing_partitions) {
+            partitions_per_interval[i] *= missing_partitions;
+        } else {
+            partitions_per_interval[i] *= elements;
+        }
+    };
+    return partitions_per_interval;
+}
+
+int Partition::calc_amount_of_missing_partitions(int min_batches, std::vector<int>& partitions_per_interval)
+{
+    return ceil(min_batches / calc_partitions_amount(partitions_per_interval));
+}
+
+
+int Partition::calc_partitions_amount(std::vector<int>& partitions_per_interval)
+{
+    return std::reduce(partitions_per_interval.begin(), partitions_per_interval.end(), 1, std::multiplies<int>());
+}
+
+int Partition::interval_size(std::array<float, 3>& interval)
+{
+    return ceil((interval[1] - interval[0]) / interval[2]);
+}
+
