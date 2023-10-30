@@ -19,8 +19,8 @@ int main()
 
     while (partition.available())
     {
-        std::array<int, 3> partition_data = partition.next();
-        protocol.sendData(Constants::EXCHANGE_NAME, Constants::ROUTING_KEY, partition_data);
+        auto partition_data = partition.next();
+        protocol.sendData(Constants::EXCHANGE_NAME, Constants::WORK_ROUTING_KEY, partition_data);
     }
 
     for (int i = 0; i < n_workers; i++)
