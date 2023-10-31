@@ -8,6 +8,7 @@ class Interval
         Interval(float start, float end, float step);
         std::vector<Interval> split(int n_partitions);
         void print();
+        int interval_size();
 
     private:
         float start;

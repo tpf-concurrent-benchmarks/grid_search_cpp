@@ -3,6 +3,7 @@
 #include "partition.h"
 #include "protocol.h"
 #include <nlohmann/json.hpp>
+#include "interval.h"
 
 using json = nlohmann::json;
 
@@ -14,7 +15,7 @@ int main()
 
     Protocol protocol(brokerAddress, n_workers);
 
-    std::vector<std::array<float, 3>> intervals{{0, 12, 3}, {-8, 4, 2}, {3, 12, 3}};
+    std::vector<Interval> intervals{Interval(0, 12, 3), Interval(-8, 4, 2), Interval(3, 12, 3)};
     Partition partition(std::move(intervals), intervals.size());
 
     while (partition.available())
@@ -37,6 +38,10 @@ int main()
     for (int i = 0; i < partitions_per_interval.size(); i++)
     {
         std::cout << partitions_per_interval[i] << std::endl;
+    }
+    std::vector<Interval> intervals2 = Interval(-6.5, -5, 0.01).split(3);
+    for (auto interval : intervals2) {
+        interval.print();
     }
     return 0;
 }

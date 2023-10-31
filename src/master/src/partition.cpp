@@ -3,7 +3,7 @@
 #include <numeric>
 #include <iostream>
 
-Partition::Partition(std::vector<std::array<float, 3>>&& intervals, size_t n_intervals) :
+Partition::Partition(std::vector<Interval>&& intervals, size_t n_intervals) :
     intervals(std::move(intervals)), n_intervals(n_intervals)
 {
     //TODO: remove this
@@ -31,7 +31,7 @@ std::vector<int> Partition::calc_partitions_per_interval(int max_chunk_size)
     for(int i = 0; i < n_intervals; i++){
         missing_partitions = calc_amount_of_missing_partitions(min_batches, partitions_per_interval);
 
-        elements = interval_size(intervals[i]);
+        elements = intervals[i].interval_size();
         if (elements > missing_partitions) {
             partitions_per_interval[i] *= missing_partitions;
         } else {
@@ -51,9 +51,3 @@ int Partition::calc_partitions_amount(std::vector<int>& partitions_per_interval)
 {
     return std::reduce(partitions_per_interval.begin(), partitions_per_interval.end(), 1, std::multiplies<int>());
 }
-
-int Partition::interval_size(std::array<float, 3>& interval)
-{
-    return ceil((interval[1] - interval[0]) / interval[2]);
-}
-
