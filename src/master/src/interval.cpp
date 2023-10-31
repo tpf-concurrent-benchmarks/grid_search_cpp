@@ -17,15 +17,20 @@ std::vector<Interval> Interval::split(int n_partitions)
     {
         return split_evenly(n_partitions);
     }
-    int max_elems_per_interval = ceil(size / n_partitions);
-    int n_sub_intervals_full = floor((size - n_partitions) / (max_elems_per_interval - 1));
+    int max_elems_per_interval = ceil((float)size / (float)n_partitions);
+    std::cout<< "a ver" << size << std::endl;
+    std::cout << "max_elems_per_interval: " << max_elems_per_interval << std::endl;
+    int n_sub_intervals_full = floor(((float)(size - n_partitions)) / ((float)(max_elems_per_interval - 1)));
+    std::cout << "n_sub_intervals_full: " << n_sub_intervals_full << std::endl;
     float sub_start;
     float sub_end;
     std::vector<Interval> intervals;
     for (int i = 0; i < n_sub_intervals_full; i++)
     {
         sub_start = start + (i * max_elems_per_interval * step);
+        std::cout << "sub_start: " << sub_start << std::endl;
         sub_end = start + (sub_start + (max_elems_per_interval * step));
+        std::cout << "sub_end: " << sub_end << std::endl;
         intervals.push_back(Interval(sub_start, sub_end, step));
     }
     Interval interval_reminder = Interval(sub_end, end, step);
@@ -40,10 +45,10 @@ std::vector<Interval> Interval::split_evenly(int n_partitions)
     float sub_start;
     float sub_end;
     float interval_size = size / n_partitions;
-    for (int i = 0; i < n_partitions; i++)
+    for (float i = 0; i < n_partitions; i++)
     {
-        sub_start = start + (floor(i * size / n_partitions) * step);
-        sub_end = start + (floor((i + 1) * size / n_partitions) * step);
+        sub_start = start + (floor(i * ((float)size) / ((float)n_partitions)) * step);
+        sub_end = start + (floor((i + 1) * ((float)size) / ((float)n_partitions)) * step);
         intervals.push_back(Interval(sub_start, sub_end, step));
     };
     return intervals;
