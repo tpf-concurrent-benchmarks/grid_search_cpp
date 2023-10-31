@@ -11,7 +11,6 @@ int main()
 {
     std::string brokerAddress = getBrokerAddress();
     int n_workers = 1;
-    size_t n_partitions = 1;
 
     Protocol protocol(brokerAddress, n_workers);
 

@@ -31,7 +31,12 @@ json configFileToJson(ifstream &configFile)
 
 string getBrokerAddress()
 {
-    ifstream configFile = readConfigFile("./rabbitmq-config.json");
+    const char *rabbitPath = "./rabbitmq-config.json";
+    if (getenv("ENV") != nullptr && string(getenv("ENV")) == "LOCAL")
+    {
+        rabbitPath = "../../../rabbitmq-config-local.json";
+    }
+    ifstream configFile = readConfigFile(rabbitPath);
     json configData = configFileToJson(configFile);
     return createBrokerAddress(configData["user"], configData["password"], configData["address"], configData["port"]);
 }
