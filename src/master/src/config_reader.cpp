@@ -40,3 +40,10 @@ string getBrokerAddress()
     json configData = configFileToJson(configFile);
     return createBrokerAddress(configData["user"], configData["password"], configData["address"], configData["port"]);
 }
+
+json getDataFromJson() {
+    const char *dataPath = "../resources/example-min.json";
+    ifstream dataFile = readConfigFile(dataPath);
+    json data = configFileToJson(dataFile);
+    return data;
+}

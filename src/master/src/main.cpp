@@ -10,6 +10,9 @@ using json = nlohmann::json;
 int main()
 {
     std::string brokerAddress = getBrokerAddress();
+    json data = getDataFromJson();
+    std::cout << data.dump(4) << std::endl;
+
     int n_workers = 1;
 
     Protocol protocol(brokerAddress, n_workers);
