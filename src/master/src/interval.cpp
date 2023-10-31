@@ -1,5 +1,6 @@
 #include "interval.h"
 #include <math.h>
+#include <iostream>
 
 Interval::Interval(float start, float end, float step) : start(start), end(end), step(step)
 {
@@ -8,6 +9,10 @@ Interval::Interval(float start, float end, float step) : start(start), end(end),
 
 std::vector<Interval> Interval::split(int n_partitions)
 {
+    if (n_partitions == 0)
+    {
+        return std::vector<Interval>();
+    }
     if (size % n_partitions == 0)
     {
         return split_evenly(n_partitions);
@@ -42,4 +47,9 @@ std::vector<Interval> Interval::split_evenly(int n_partitions)
         intervals.push_back(Interval(sub_start, sub_end, step));
     };
     return intervals;
+}
+
+void Interval::print()
+{
+    std::cout << "start: " << start << ", end: " << end << ", step: " << step << std::endl;
 }

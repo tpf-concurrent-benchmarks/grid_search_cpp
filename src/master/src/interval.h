@@ -7,6 +7,7 @@ class Interval
     public:
         Interval(float start, float end, float step);
         std::vector<Interval> split(int n_partitions);
+        void print();
 
     private:
         float start;
@@ -15,5 +16,7 @@ class Interval
         int size;
         std::vector<Interval> split_evenly(int n_partitions);
 };
+
+#include "interval.cpp"
 
 #endif //MASTERGRIDSEARCH_INTERVAL_H
