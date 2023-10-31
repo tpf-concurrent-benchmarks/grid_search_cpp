@@ -4,6 +4,7 @@
 #include "params.h"
 #include <functional>
 #include <vector>
+#include <string>
 
 template <std::size_t Size> class GridSearch
 {

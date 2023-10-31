@@ -1,9 +1,9 @@
 #include "config_reader.h"
 #include "constants.h"
+#include "interval.h"
 #include "partition.h"
 #include "protocol.h"
 #include <nlohmann/json.hpp>
-#include "interval.h"
 
 using json = nlohmann::json;
 
@@ -33,7 +33,7 @@ int main()
 
     protocol.installConsumer();
 
-    //test partition creator
+    // test partition creator
 
     std::vector<int> partitions_per_interval = partition.calc_partitions_per_interval(2);
     std::cout << "partis" << std::endl;
@@ -42,7 +42,8 @@ int main()
         std::cout << partitions_per_interval[i] << std::endl;
     }
     std::vector<Interval> intervals2 = Interval(-6.5, -5, 0.01).split(3);
-    for (auto interval : intervals2) {
+    for (auto interval : intervals2)
+    {
         interval.print();
     }
     return 0;

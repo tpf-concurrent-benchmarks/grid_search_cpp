@@ -13,10 +13,6 @@ class MessageProcessor
   public:
     MessageProcessor();
     void processMessage(std::array<std::array<int, 3>, 3> message);
-    void saveResults();
-
-  private:
-    std::string results_;
 };
 
 #include "message_processor.cpp"
