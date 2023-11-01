@@ -1,10 +1,10 @@
 #ifndef MASTERGRIDSEARCH_PARTITION_H
 #define MASTERGRIDSEARCH_PARTITION_H
 
+#include "interval.h"
 #include <array>
 #include <string>
 #include <vector>
-#include "interval.h"
 
 class Partition
 {
@@ -16,8 +16,10 @@ class Partition
     std::vector<int> calc_partitions_per_interval(int min_batches);
 
   private:
-    size_t n_partitions_;
+    // Dummy values for testing
+    size_t n_partitions_ = 1;
     size_t current_partition_ = 0;
+    std::array<std::array<int, 3>, 3> partitions = {{{0, 10, 1}, {0, 10, 1}, {0, 10, 1}}};
     size_t n_intervals;
     std::vector<Interval> intervals;
     // Example partitions

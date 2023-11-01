@@ -33,7 +33,7 @@ build_master_local:
 	cd src/master/cmake-build-debug && cmake --build .
 
 run_master_local:
-	cd src/master/cmake-build-debug && ./${EXEC_MASTER}
+	cd src/master/cmake-build-debug && ENV=LOCAL ./${EXEC_MASTER}
 
 full_build_worker_local:
 	cd src/worker/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake .. -DAMQP-CPP_LINUX_TCP=ON && cmake --build .
@@ -42,7 +42,7 @@ build_worker_local:
 	cd src/worker/cmake-build-debug && cmake --build .
 
 run_worker_local:
-	cd src/worker/cmake-build-debug && ./$(EXEC_WORKER)
+	cd src/worker/cmake-build-debug && ENV=LOCAL./$(EXEC_WORKER)
 
 valgrind_master:
 	valgrind $(VFLAGS) ./src/master/cmake-build-debug/$(EXEC_MASTER)

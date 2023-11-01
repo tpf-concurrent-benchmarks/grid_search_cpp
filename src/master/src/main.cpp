@@ -1,17 +1,19 @@
 #include "config_reader.h"
 #include "constants.h"
+#include "interval.h"
 #include "partition.h"
 #include "protocol.h"
 #include <nlohmann/json.hpp>
-#include "interval.h"
 
 using json = nlohmann::json;
 
 int main()
 {
     std::string brokerAddress = getBrokerAddress();
+    json data = getDataFromJson();
+    std::cout << data.dump(4) << std::endl;
+
     int n_workers = 1;
-    size_t n_partitions = 1;
 
     Protocol protocol(brokerAddress, n_workers);
 
@@ -31,7 +33,7 @@ int main()
 
     protocol.installConsumer();
 
-    //test partition creator
+    // test partition creator
 
     std::vector<std::vector<Interval>> splited_intervals = partition.split(7);
     std::cout << "amount of partitions:" << splited_intervals.size() << std::endl;

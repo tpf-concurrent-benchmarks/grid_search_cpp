@@ -1,9 +1,11 @@
 #ifndef GRIDSEARCHCPP_CONFIG_READER_H
 #define GRIDSEARCHCPP_CONFIG_READER_H
 
+#include <nlohmann/json.hpp>
 #include <string>
 
 std::string getBrokerAddress();
+nlohmann::json getDataFromJson();
 
 #include "config_reader.cpp"
 

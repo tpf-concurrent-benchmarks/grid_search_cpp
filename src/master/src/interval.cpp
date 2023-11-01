@@ -1,7 +1,7 @@
 #include "interval.h"
-#include <math.h>
 #include "util.h"
 #include <iostream>
+#include <math.h>
 
 Interval::Interval(float start, float end, float step) : start(start), end(end), step(step)
 {
@@ -19,7 +19,7 @@ std::vector<Interval> Interval::split(int n_partitions)
         return split_evenly(n_partitions);
     }
     int max_elems_per_interval = ceil((float)size / (float)n_partitions);
-    std::cout<< "a ver" << size << std::endl;
+    std::cout << "a ver" << size << std::endl;
     std::cout << "max_elems_per_interval: " << max_elems_per_interval << std::endl;
     int n_sub_intervals_full = floor(((float)(size - n_partitions)) / ((float)(max_elems_per_interval - 1)));
     std::cout << "n_sub_intervals_full: " << n_sub_intervals_full << std::endl;
