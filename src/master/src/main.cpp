@@ -18,12 +18,12 @@ int main()
     Protocol protocol(brokerAddress, n_workers);
 
     std::vector<Interval> intervals{Interval(0, 12, 3), Interval(-8, 4, 2), Interval(3, 12, 3)};
-    Partition partition(std::move(intervals), intervals.size());
+    Partition partition(std::move(intervals), intervals.size(), 7);
 
     while (partition.available())
     {
         auto partition_data = partition.next();
-        protocol.sendData(Constants::EXCHANGE_NAME, Constants::WORK_ROUTING_KEY, partition_data);
+        // protocol.sendData(Constants::EXCHANGE_NAME, Constants::WORK_ROUTING_KEY, partition_data);
     }
 
     for (int i = 0; i < n_workers; i++)
@@ -35,14 +35,14 @@ int main()
 
     // test partition creator
 
-    std::vector<std::vector<Interval>> splited_intervals = partition.split(7);
-    std::cout << "amount of partitions:" << splited_intervals.size() << std::endl;
-    for (auto interval : splited_intervals)
+
+    while (partition.available())
     {
+        auto partition_data = partition.next();
         std::cout << "partition:" << std::endl;
-        for (auto interval2 : interval)
+        for (auto interval : partition_data)
         {
-            interval2.print();
+            interval.print();
         }
     }
     return 0;

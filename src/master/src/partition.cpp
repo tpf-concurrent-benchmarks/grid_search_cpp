@@ -3,9 +3,10 @@
 #include <math.h>
 #include <numeric>
 
-Partition::Partition(std::vector<Interval> &&intervals, size_t n_intervals)
+Partition::Partition(std::vector<Interval> &&intervals, size_t n_intervals, int max_chunk_size)
     : intervals(std::move(intervals)), n_intervals(n_intervals)
 {
+    split(max_chunk_size);
 }
 
 bool Partition::available() const
@@ -13,10 +14,27 @@ bool Partition::available() const
     return current_partition_ < n_partitions_;
 }
 
-std::array<std::array<int, 3>, 3> Partition::next()
+std::vector<Interval> Partition::next()
 {
+        std::vector<Interval> _partition;
+        for (int j = 0; j < n_intervals; j++)
+        {
+            _partition.push_back(splited_intervals[j][current_index[j]]);
+        };
+        for (int j = 0; j < n_intervals; j++)
+        {
+            if (current_index[j] + 1 < partitions_per_interval[j])
+            {
+                current_index[j]++;
+                break;
+            }
+            else
+            {
+                current_index[j] = 0;
+            }
+        }
     current_partition_++;
-    return partitions;
+    return _partition;
 }
 
 std::vector<int> Partition::calc_partitions_per_interval(int min_batches)
@@ -50,17 +68,18 @@ int Partition::calc_partitions_amount(std::vector<int> &partitions_per_interval)
     return std::reduce(partitions_per_interval.begin(), partitions_per_interval.end(), 1, std::multiplies<int>());
 }
 
-std::vector<std::vector<Interval>> Partition::split(int max_chunk_size)
+void  Partition::split(int max_chunk_size)
 {
     int min_batches = floor(full_calculation_size() / max_chunk_size) + 1;
 
-    std::vector<int> partitions_per_interval = calc_partitions_per_interval(min_batches);
-    std::vector<std::vector<Interval>> splited_intervals;
+    partitions_per_interval = calc_partitions_per_interval(min_batches);
+    n_partitions_ = calc_partitions_amount(partitions_per_interval);
     for (int i = 0; i < n_intervals; i++)
     {
         splited_intervals.push_back(intervals[i].split(partitions_per_interval[i]));
     }
-    return cartesian_product(splited_intervals, partitions_per_interval);
+    iterations = calc_partitions_amount(partitions_per_interval);
+    current_index = std::vector<int>(n_intervals, 0);
 }
 
 std::vector<std::vector<Interval>> Partition::cartesian_product(std::vector<std::vector<Interval>> &splited_intervals,
