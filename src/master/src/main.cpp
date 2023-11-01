@@ -37,9 +37,11 @@ int main()
 
     std::vector<std::vector<Interval>> splited_intervals = partition.split(7);
     std::cout << "amount of partitions:" << splited_intervals.size() << std::endl;
-    for (auto interval : splited_intervals) {
+    for (auto interval : splited_intervals)
+    {
         std::cout << "partition:" << std::endl;
-        for (auto interval2 : interval) {
+        for (auto interval2 : interval)
+        {
             interval2.print();
         }
     }

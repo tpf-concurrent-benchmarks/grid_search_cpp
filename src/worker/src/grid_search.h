@@ -3,8 +3,8 @@
 
 #include "params.h"
 #include <functional>
-#include <vector>
 #include <string>
+#include <vector>
 
 template <std::size_t Size> class GridSearch
 {

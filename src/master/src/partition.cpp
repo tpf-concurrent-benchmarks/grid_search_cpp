@@ -63,7 +63,8 @@ std::vector<std::vector<Interval>> Partition::split(int max_chunk_size)
     return cartesian_product(splited_intervals, partitions_per_interval);
 }
 
-std::vector<std::vector<Interval>> Partition::cartesian_product(std::vector<std::vector<Interval>>& splited_intervals, std::vector<int>& partitions_per_interval)
+std::vector<std::vector<Interval>> Partition::cartesian_product(std::vector<std::vector<Interval>> &splited_intervals,
+                                                                std::vector<int> &partitions_per_interval)
 {
     int iterations = calc_partitions_amount(partitions_per_interval);
     std::vector<std::vector<Interval>> result;

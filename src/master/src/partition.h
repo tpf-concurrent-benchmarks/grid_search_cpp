@@ -23,12 +23,10 @@ class Partition
     size_t n_intervals;
     std::vector<Interval> intervals;
     // Example partitions
-    int calc_amount_of_missing_partitions(int min_batches, std::vector<int>& partitions_per_interval);
-    int calc_partitions_amount(std::vector<int>& partitions_per_interval);
-    std::vector<std::vector<Interval>> cartesian_product(
-      std::vector<std::vector<Interval>>& splited_intervals,
-      std::vector<int>& partitions_per_interval
-    );
+    int calc_amount_of_missing_partitions(int min_batches, std::vector<int> &partitions_per_interval);
+    int calc_partitions_amount(std::vector<int> &partitions_per_interval);
+    std::vector<std::vector<Interval>> cartesian_product(std::vector<std::vector<Interval>> &splited_intervals,
+                                                         std::vector<int> &partitions_per_interval);
     int full_calculation_size();
 };
 
