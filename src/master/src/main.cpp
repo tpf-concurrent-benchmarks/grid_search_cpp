@@ -33,15 +33,13 @@ int main()
 
     //test partition creator
 
-    std::vector<int> partitions_per_interval = partition.calc_partitions_per_interval(2);
-    std::cout << "partis" << std::endl;
-    for (int i = 0; i < partitions_per_interval.size(); i++)
-    {
-        std::cout << partitions_per_interval[i] << std::endl;
-    }
-    std::vector<Interval> intervals2 = Interval(-6.5, -5, 0.01).split(3);
-    for (auto interval : intervals2) {
-        interval.print();
+    std::vector<std::vector<Interval>> splited_intervals = partition.split(7);
+    std::cout << "amount of partitions:" << splited_intervals.size() << std::endl;
+    for (auto interval : splited_intervals) {
+        std::cout << "partition:" << std::endl;
+        for (auto interval2 : interval) {
+            interval2.print();
+        }
     }
     return 0;
 }
