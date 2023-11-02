@@ -13,13 +13,13 @@ template <std::size_t Size> class GridSearch
     {
     }
     void search(std::function<float(std::array<float, Size> &)> callback);
-    std::string get_id();
-    float get_max();
-    float get_min();
-    float get_total();
-    int get_total_inputs(); 
-    std::array<float, Size> get_max_input();
-    std::array<float, Size> get_min_input();
+    std::string getId();
+    float getMax();
+    float getMin();
+    float getTotal();
+    int getTotalInputs();
+    std::array<float, Size> getMaxInput();
+    std::array<float, Size> getMinInput();
 
 
   private:

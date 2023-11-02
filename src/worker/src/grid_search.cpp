@@ -16,7 +16,7 @@ template <std::size_t Size> void GridSearch<Size>::search(std::function<float(st
     }
 }
 
-template <std::size_t Size> std::string GridSearch<Size>::get_id()
+template <std::size_t Size> std::string GridSearch<Size>::getId()
 {
     return params_.get_id();
 }
@@ -45,32 +45,32 @@ template <std::size_t Size> void GridSearch<Size>::accumulate(float res, std::ar
     total += res;
 }
 
-template <std::size_t Size> float GridSearch<Size>::get_max()
+template <std::size_t Size> float GridSearch<Size>::getMax()
 {
     return max;
 }
 
-template <std::size_t Size> float GridSearch<Size>::get_min()
+template <std::size_t Size> float GridSearch<Size>::getMin()
 {
     return min;
 }
 
-template <std::size_t Size> float GridSearch<Size>::get_total()
+template <std::size_t Size> float GridSearch<Size>::getTotal()
 {
     return total;
 }
 
-template <std::size_t Size> int GridSearch<Size>::get_total_inputs()
+template <std::size_t Size> int GridSearch<Size>::getTotalInputs()
 {
     return total_inputs;
 }
 
-template <std::size_t Size> std::array<float, Size> GridSearch<Size>::get_max_input()
+template <std::size_t Size> std::array<float, Size> GridSearch<Size>::getMaxInput()
 {
     return max_input;
 }
 
-template <std::size_t Size> std::array<float, Size> GridSearch<Size>::get_min_input()
+template <std::size_t Size> std::array<float, Size> GridSearch<Size>::getMinInput()
 {
     return min_input;
 }

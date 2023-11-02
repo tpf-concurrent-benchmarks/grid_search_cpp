@@ -1,9 +1,10 @@
-#ifndef MASTERGRIDSEARCH_MESSAGE_PROCESSOR_H
-#define MASTERGRIDSEARCH_MESSAGE_PROCESSOR_H
+#ifndef WORKERGRIDSEARCH_MESSAGE_PROCESSOR_H
+#define WORKERGRIDSEARCH_MESSAGE_PROCESSOR_H
 
 #include "nlohmann/json.hpp"
 #include <cstdint>
 #include <string>
+#include "ResultsDTO.h"
 
 using json = nlohmann::json;
 
@@ -12,9 +13,9 @@ class MessageProcessor
 
   public:
     MessageProcessor();
-    void processMessage(std::array<std::array<float, 3>, 3> message);
+    ResultsDTO processMessage(json message);
 };
 
 #include "message_processor.cpp"
 
-#endif // MASTERGRIDSEARCH_MESSAGE_PROCESSOR_H
+#endif // WORKERGRIDSEARCH_MESSAGE_PROCESSOR_H

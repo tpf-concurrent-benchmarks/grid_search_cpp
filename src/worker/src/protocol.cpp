@@ -9,14 +9,6 @@ Protocol::Protocol(const std::string &brokerAddress)
     channel_ = new AMQP::TcpChannel(connection_);
 }
 
-void Protocol::sendData(const std::string &exchangeName, const std::string &routingKey, json data)
-{
-    json message = {
-        {"data", data},
-    };
-    channel_->publish(exchangeName, routingKey, message.dump());
-}
-
 void Protocol::sendData(const std::string &exchangeName, const std::string &routingKey, std::string data)
 {
     channel_->publish(exchangeName, routingKey, data);
@@ -38,9 +30,9 @@ void Protocol::installConsumer()
             else
             {
                 json jsonMessage = json::parse(body_string);
-                std::cout << "Processing message ..." << std::endl;
-                messageProcessor_.processMessage(jsonMessage["data"]);
-                // TODO: format and send the response
+                ResultsDTO results = messageProcessor_.processMessage(jsonMessage);
+                json response = {{"value", results.getValue()}, {"parameters", results.getParameters()}};
+                sendData(Constants::EXCHANGE_NAME, Constants::RESULTS_ROUTING_KEY, response.dump());
                 channel_->ack(deliveryTag);
             }
         });
