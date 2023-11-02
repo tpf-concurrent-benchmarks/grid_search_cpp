@@ -21,7 +21,6 @@ template <std::size_t Size> class GridSearch
     std::array<float, Size> getMaxInput();
     std::array<float, Size> getMinInput();
 
-
   private:
     Params<Size> params_;
     float max;
@@ -30,7 +29,7 @@ template <std::size_t Size> class GridSearch
     int total_inputs;
     std::array<float, Size> max_input;
     std::array<float, Size> min_input;
-    void init_accumulation(float res, std::array<float, Size> &current);
+    void initAccumulation(float res, std::array<float, Size> &current);
     void accumulate(float res, std::array<float, Size> &current);
 };
 

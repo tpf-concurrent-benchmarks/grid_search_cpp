@@ -1,7 +1,7 @@
 #include "message_processor.h"
-#include "params.h"
 #include "grid_search.h"
 #include "objective_fun.h"
+#include "params.h"
 
 MessageProcessor::MessageProcessor() = default;
 
@@ -13,16 +13,19 @@ ResultsDTO MessageProcessor::processMessage(json message)
     GridSearch<3> grid_search(std::move(params));
     grid_search.search(objectiveFun);
 
-    if (aggregation == "MAX") {
+    if (aggregation == "MAX")
+    {
         ResultsDTO resultsDto(grid_search.getMax(), grid_search.getMaxInput());
         return resultsDto;
-    } else if (aggregation == "MIN") {
+    }
+    else if (aggregation == "MIN")
+    {
         ResultsDTO resultsDto(grid_search.getMin(), grid_search.getMinInput());
         return resultsDto;
-    } else {
-        // TODO: implement AVG
-        return ResultsDTO(0, {0, 0, 0});
     }
-
-
+    else
+    {
+        // TODO: implement AVG
+        return ResultsDTO(111, {111, 0, 0});
+    }
 }

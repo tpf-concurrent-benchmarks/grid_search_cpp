@@ -14,9 +14,10 @@ using json = nlohmann::json;
 class Protocol
 {
   public:
-    Protocol(const std::string &brokerAddress, size_t n_workers);
+    Protocol(const std::string &brokerAddress, MessageProcessor messageProcessor, size_t n_workers);
     void sendData(const std::string &exchangeName, const std::string &routingKey, std::string data);
-    void sendData(const std::string &exchangeName, const std::string &routingKey, std::vector<Interval> intervals, const std::string &aggregation);
+    void sendData(const std::string &exchangeName, const std::string &routingKey, std::vector<Interval> intervals,
+                  const std::string &aggregation);
     void installConsumer();
     void clean();
 
@@ -25,7 +26,7 @@ class Protocol
     AMQP::LibUvHandler *handler_;
     AMQP::TcpConnection *connection_;
     uv_loop_t *loop_;
-    MessageProcessor messageProcessor_ = MessageProcessor();
+    MessageProcessor messageProcessor_;
     size_t n_workers_;
 };
 

@@ -18,7 +18,6 @@ void Protocol::installConsumer()
 {
     channel_->consume(Constants::WORK_QUEUE_NAME)
         .onReceived([this](const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
-            std::cout << "Message received: " << message.body() << std::endl;
             const std::basic_string_view<char> &body = std::string_view(message.body(), message.bodySize());
             std::string body_string(body.begin(), body.end());
             if (body_string == Constants::STOP_MESSAGE)

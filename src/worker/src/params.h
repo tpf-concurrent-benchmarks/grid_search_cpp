@@ -8,7 +8,8 @@
 template <std::size_t Size> class Params
 {
   public:
-    Params(std::array<float, Size> &&start, std::array<float, Size> &&end, std::array<float, Size> &&step, std::string &&id);
+    Params(std::array<float, Size> &&start, std::array<float, Size> &&end, std::array<float, Size> &&step,
+           std::string &&id);
     std::array<float, Size> &get_current();
     void next();
     int get_total_iterations();

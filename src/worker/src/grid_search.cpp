@@ -5,7 +5,7 @@ template <std::size_t Size> void GridSearch<Size>::search(std::function<float(st
 {
     std::array<float, Size> &current = params_.get_current();
     float res = callback(current);
-    init_accumulation(res, current);
+    initAccumulation(res, current);
     params_.next();
     for (int i = 1; i < params_.get_total_iterations(); i++)
     {
@@ -21,7 +21,7 @@ template <std::size_t Size> std::string GridSearch<Size>::getId()
     return params_.get_id();
 }
 
-template <std::size_t Size> void GridSearch<Size>::init_accumulation(float res, std::array<float, Size> &current)
+template <std::size_t Size> void GridSearch<Size>::initAccumulation(float res, std::array<float, Size> &current)
 {
     max = res;
     min = res;
@@ -37,7 +37,8 @@ template <std::size_t Size> void GridSearch<Size>::accumulate(float res, std::ar
     {
         max = res;
         max_input = current;
-    } else if (res < min)
+    }
+    else if (res < min)
     {
         min = res;
         min_input = current;

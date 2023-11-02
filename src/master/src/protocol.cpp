@@ -1,7 +1,10 @@
 #include "protocol.h"
-#include "constants.h"
 
-Protocol::Protocol(const std::string &brokerAddress, size_t n_workers = 1) : n_workers_(n_workers)
+#include "constants.h"
+#include <utility>
+
+Protocol::Protocol(const std::string &brokerAddress, MessageProcessor messageProcessor, size_t n_workers = 1)
+    : n_workers_(n_workers), messageProcessor_(std::move(messageProcessor))
 {
     loop_ = uv_default_loop();
     handler_ = new AMQP::LibUvHandler(loop_);
@@ -31,7 +34,6 @@ void Protocol::installConsumer()
 {
     channel_->consume(Constants::RESULTS_QUEUE_NAME)
         .onReceived([this](const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
-            std::cout << "Message received: " << message.body() << std::endl;
             const std::basic_string_view<char> &body = std::string_view(message.body(), message.bodySize());
             std::string body_string(body.begin(), body.end());
             if (body_string == Constants::END_WORK_MESSAGE)
@@ -46,7 +48,7 @@ void Protocol::installConsumer()
             }
             else
             {
-                messageProcessor_.processMessage(body_string);
+                messageProcessor_.processMessage(json::parse(body_string));
                 channel_->ack(deliveryTag);
             }
         });
@@ -64,7 +66,8 @@ void Protocol::clean()
     delete handler_;
 }
 
-void Protocol::sendData(const string &exchangeName, const string &routingKey, std::vector<Interval> intervals, const string &aggregation)
+void Protocol::sendData(const string &exchangeName, const string &routingKey, std::vector<Interval> intervals,
+                        const string &aggregation)
 {
     json intervalList = json::array();
     for (auto interval : intervals)

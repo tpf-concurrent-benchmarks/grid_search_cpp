@@ -1,20 +1,20 @@
 #ifndef WORKERGRIDSEARCH_OBJECTIVE_FUN_H
 #define WORKERGRIDSEARCH_OBJECTIVE_FUN_H
 
-#include <cmath>
 #include <array>
+#include <cmath>
 
 float objectiveFun(std::array<float, 3> &values)
 {
     float a = values[0];
     float b = values[1];
-    float c = values[2];    
+    float c = values[2];
     return (1.0 / 4000.0) * (a * a + b * b + c * c) - cos(a) * cos(b) * cos(c);
 }
 
-int maxSum(std::array<int, 3> &current, int res)
+float maxSum(std::array<float, 3> &current, float res)
 {
-    int sum = current[0] + current[1] + current[2];
+    float sum = current[0] + current[1] + current[2];
     if (sum > res)
     {
         return sum;

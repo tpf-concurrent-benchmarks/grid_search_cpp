@@ -1,6 +1,5 @@
 #include "config_reader.h"
 #include "protocol.h"
-#include "grid_search.h"
 
 int main()
 {
