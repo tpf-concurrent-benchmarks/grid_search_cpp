@@ -1,11 +1,14 @@
 #include "message_processor.h"
+#include "avg_results_DTO.h"
+#include "max_results_DTO.h"
+#include "min_results_DTO.h"
 #include "grid_search.h"
 #include "objective_fun.h"
 #include "params.h"
 
 MessageProcessor::MessageProcessor() = default;
 
-ResultsDTO MessageProcessor::processMessage(json message)
+ResultsDTO *MessageProcessor::processMessage(json message)
 {
     std::string aggregation = message["agg"];
     std::array<std::array<float, 3>, 3> parameters = message["data"];
@@ -15,17 +18,18 @@ ResultsDTO MessageProcessor::processMessage(json message)
 
     if (aggregation == "MAX")
     {
-        ResultsDTO resultsDto(grid_search.getMax(), grid_search.getMaxInput());
-        return resultsDto;
+        auto *maxResultsDto = new MaxResultsDTO(grid_search.getMax(), grid_search.getMaxInput());
+        return maxResultsDto;
     }
     else if (aggregation == "MIN")
     {
-        ResultsDTO resultsDto(grid_search.getMin(), grid_search.getMinInput());
-        return resultsDto;
+        auto *minResultsDto = new MinResultsDTO(grid_search.getMin(), grid_search.getMinInput());
+        return minResultsDto;
     }
     else
     {
         // TODO: implement AVG
-        return ResultsDTO(111, {111, 0, 0});
+        auto *avgResultsDto = new AvgResultsDTO(grid_search.getTotal(), grid_search.getTotalInputs());
+        return avgResultsDto;
     }
 }
