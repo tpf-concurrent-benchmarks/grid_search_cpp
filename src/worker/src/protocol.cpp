@@ -29,9 +29,9 @@ void Protocol::installConsumer()
             else
             {
                 json jsonMessage = json::parse(body_string);
-                ResultsDTO results = messageProcessor_.processMessage(jsonMessage);
-                json response = {{"value", results.getValue()}, {"parameters", results.getParameters()}};
-                sendData(Constants::EXCHANGE_NAME, Constants::RESULTS_ROUTING_KEY, response.dump());
+                ResultsDTO *results = messageProcessor_.processMessage(jsonMessage);
+                sendData(Constants::EXCHANGE_NAME, Constants::RESULTS_ROUTING_KEY, results->toJson());
+                delete results;
                 channel_->ack(deliveryTag);
             }
         });

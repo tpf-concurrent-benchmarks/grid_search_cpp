@@ -1,7 +1,7 @@
 #ifndef WORKERGRIDSEARCH_MESSAGE_PROCESSOR_H
 #define WORKERGRIDSEARCH_MESSAGE_PROCESSOR_H
 
-#include "ResultsDTO.h"
+#include "results_DTO.h"
 #include "nlohmann/json.hpp"
 #include <cstdint>
 #include <string>
@@ -13,7 +13,7 @@ class MessageProcessor
 
   public:
     MessageProcessor();
-    ResultsDTO processMessage(json message);
+    ResultsDTO *processMessage(json message);
 };
 
 #include "message_processor.cpp"
