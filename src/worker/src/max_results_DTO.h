@@ -1,8 +1,8 @@
 #ifndef WORKERGRIDSEARCH_MAX_RESULTS_DTO_H
 #define WORKERGRIDSEARCH_MAX_RESULTS_DTO_H
 
-#include "results_DTO.h"
 #include "nlohmann/json.hpp"
+#include "results_DTO.h"
 
 class MaxResultsDTO : public ResultsDTO
 {

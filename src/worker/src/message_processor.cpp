@@ -1,8 +1,8 @@
 #include "message_processor.h"
 #include "avg_results_DTO.h"
+#include "grid_search.h"
 #include "max_results_DTO.h"
 #include "min_results_DTO.h"
-#include "grid_search.h"
 #include "objective_fun.h"
 #include "params.h"
 
