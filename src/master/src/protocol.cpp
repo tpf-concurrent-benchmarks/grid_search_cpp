@@ -64,16 +64,16 @@ void Protocol::clean()
     delete handler_;
 }
 
-void Protocol::sendData(const string &exchangeName, const string &routingKey, std::vector<Interval> data)
+void Protocol::sendData(const string &exchangeName, const string &routingKey, std::vector<Interval> intervals, const string &aggregation)
 {
     json intervalList = json::array();
-    for (auto interval : data)
+    for (auto interval : intervals)
     {
         intervalList.push_back(interval.get_interval());
     }
-    // TODO: add the aggregatoin function name to the message
     json message = {
         {"data", intervalList},
+        {"agg", aggregation},
     };
     channel_->publish(exchangeName, routingKey, message.dump());
 }

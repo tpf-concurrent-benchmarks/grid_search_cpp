@@ -11,7 +11,7 @@ int main()
 {
     std::string brokerAddress = getBrokerAddress();
     json data = getDataFromJson();
-    std::cout << data.dump(4) << std::endl;
+    std::cout << data.dump() << std::endl;
 
     int n_workers = 1;
 
@@ -23,7 +23,7 @@ int main()
     while (partition.available())
     {
         auto partition_data = partition.next();
-        protocol.sendData(Constants::EXCHANGE_NAME, Constants::WORK_ROUTING_KEY, partition_data);
+        protocol.sendData(Constants::EXCHANGE_NAME, Constants::WORK_ROUTING_KEY, partition_data, "MAX");
     }
 
     for (int i = 0; i < n_workers; i++)
