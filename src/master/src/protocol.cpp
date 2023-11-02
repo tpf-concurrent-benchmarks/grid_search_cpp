@@ -22,14 +22,6 @@ Protocol::Protocol(const std::string &brokerAddress, size_t n_workers = 1) : n_w
     channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::RESULTS_QUEUE_NAME, Constants::RESULTS_ROUTING_KEY);
 }
 
-void Protocol::sendData(const std::string &exchangeName, const std::string &routingKey, json data)
-{
-    json message = {
-        {"data", data},
-    };
-    channel_->publish(exchangeName, routingKey, message.dump());
-}
-
 void Protocol::sendData(const std::string &exchangeName, const std::string &routingKey, std::string data)
 {
     channel_->publish(exchangeName, routingKey, data);
@@ -70,4 +62,18 @@ void Protocol::clean()
     delete channel_;
     delete connection_;
     delete handler_;
+}
+
+void Protocol::sendData(const string &exchangeName, const string &routingKey, std::vector<Interval> data)
+{
+    json intervalList = json::array();
+    for (auto interval : data)
+    {
+        intervalList.push_back(interval.get_interval());
+    }
+    // TODO: add the aggregatoin function name to the message
+    json message = {
+        {"data", intervalList},
+    };
+    channel_->publish(exchangeName, routingKey, message.dump());
 }

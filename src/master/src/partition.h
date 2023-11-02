@@ -24,7 +24,7 @@ class Partition
     std::vector<int> partitions_per_interval;
     std::vector<std::vector<Interval>> splited_intervals;
     std::vector<int> current_index;
-    
+
     int calc_amount_of_missing_partitions(int min_batches, std::vector<int> &partitions_per_interval);
     int calc_partitions_amount(std::vector<int> &partitions_per_interval);
     std::vector<std::vector<Interval>> cartesian_product(std::vector<std::vector<Interval>> &splited_intervals,

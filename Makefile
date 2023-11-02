@@ -42,7 +42,7 @@ build_worker_local:
 	cd src/worker/cmake-build-debug && cmake --build .
 
 run_worker_local:
-	cd src/worker/cmake-build-debug && ENV=LOCAL./$(EXEC_WORKER)
+	cd src/worker/cmake-build-debug && ENV=LOCAL ./$(EXEC_WORKER)
 
 valgrind_master:
 	valgrind $(VFLAGS) ./src/master/cmake-build-debug/$(EXEC_MASTER)

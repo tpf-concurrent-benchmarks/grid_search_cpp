@@ -1,7 +1,6 @@
 #include "interval.h"
 #include "util.h"
 #include <iostream>
-#include <math.h>
 
 Interval::Interval(float start, float end, float step) : start(start), end(end), step(step)
 {
@@ -63,4 +62,9 @@ void Interval::print()
 int Interval::interval_size()
 {
     return size;
+}
+
+std::array<float, 3> Interval::get_interval()
+{
+    return {start, end, step};
 }

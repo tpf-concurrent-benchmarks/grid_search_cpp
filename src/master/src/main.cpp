@@ -23,7 +23,7 @@ int main()
     while (partition.available())
     {
         auto partition_data = partition.next();
-        // protocol.sendData(Constants::EXCHANGE_NAME, Constants::WORK_ROUTING_KEY, partition_data);
+        protocol.sendData(Constants::EXCHANGE_NAME, Constants::WORK_ROUTING_KEY, partition_data);
     }
 
     for (int i = 0; i < n_workers; i++)
@@ -33,17 +33,5 @@ int main()
 
     protocol.installConsumer();
 
-    // test partition creator
-
-
-    while (partition.available())
-    {
-        auto partition_data = partition.next();
-        std::cout << "partition:" << std::endl;
-        for (auto interval : partition_data)
-        {
-            interval.print();
-        }
-    }
     return 0;
 }

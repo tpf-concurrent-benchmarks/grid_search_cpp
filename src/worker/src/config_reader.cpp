@@ -36,6 +36,7 @@ string getBrokerAddress()
     {
         rabbitPath = "../../../rabbitmq-config-local.json";
     }
+    ifstream configFile = readConfigFile(rabbitPath);
     json configData = configFileToJson(configFile);
     return createBrokerAddress(configData["user"], configData["password"], configData["address"], configData["port"]);
 }

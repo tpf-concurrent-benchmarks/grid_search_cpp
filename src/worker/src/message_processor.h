@@ -12,7 +12,7 @@ class MessageProcessor
 
   public:
     MessageProcessor();
-    void processMessage(std::array<std::array<int, 3>, 3> message);
+    void processMessage(std::array<std::array<float, 3>, 3> message);
 };
 
 #include "message_processor.cpp"

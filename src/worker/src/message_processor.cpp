@@ -3,7 +3,7 @@
 
 MessageProcessor::MessageProcessor() = default;
 
-void MessageProcessor::processMessage(std::array<std::array<int, 3>, 3> message)
+void MessageProcessor::processMessage(std::array<std::array<float, 3>, 3> message)
 {
     // TODO: use params to unpack parameters then do grid search
     // also change the return type of the method so the protocol can format and send the response

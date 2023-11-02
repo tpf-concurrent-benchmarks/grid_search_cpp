@@ -1,6 +1,5 @@
 #include "partition.h"
-#include <iostream>
-#include <math.h>
+#include <cmath>
 #include <numeric>
 
 Partition::Partition(std::vector<Interval> &&intervals, size_t n_intervals, int max_chunk_size)
@@ -16,23 +15,23 @@ bool Partition::available() const
 
 std::vector<Interval> Partition::next()
 {
-        std::vector<Interval> _partition;
-        for (int j = 0; j < n_intervals; j++)
+    std::vector<Interval> _partition;
+    for (int j = 0; j < n_intervals; j++)
+    {
+        _partition.push_back(splited_intervals[j][current_index[j]]);
+    };
+    for (int j = 0; j < n_intervals; j++)
+    {
+        if (current_index[j] + 1 < partitions_per_interval[j])
         {
-            _partition.push_back(splited_intervals[j][current_index[j]]);
-        };
-        for (int j = 0; j < n_intervals; j++)
-        {
-            if (current_index[j] + 1 < partitions_per_interval[j])
-            {
-                current_index[j]++;
-                break;
-            }
-            else
-            {
-                current_index[j] = 0;
-            }
+            current_index[j]++;
+            break;
         }
+        else
+        {
+            current_index[j] = 0;
+        }
+    }
     current_partition_++;
     return _partition;
 }
@@ -68,7 +67,7 @@ int Partition::calc_partitions_amount(std::vector<int> &partitions_per_interval)
     return std::reduce(partitions_per_interval.begin(), partitions_per_interval.end(), 1, std::multiplies<int>());
 }
 
-void  Partition::split(int max_chunk_size)
+void Partition::split(int max_chunk_size)
 {
     int min_batches = floor(full_calculation_size() / max_chunk_size) + 1;
 

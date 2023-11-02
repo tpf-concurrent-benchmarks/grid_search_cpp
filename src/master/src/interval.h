@@ -7,6 +7,7 @@ class Interval
   public:
     Interval(float start, float end, float step);
     std::vector<Interval> split(int n_partitions);
+    std::array<float, 3> get_interval();
     void print();
     int interval_size();
 

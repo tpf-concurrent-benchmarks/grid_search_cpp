@@ -43,7 +43,7 @@ string getBrokerAddress()
 
 json getDataFromJson()
 {
-    const char *dataPath = "../resources/example-min.json";
+    const char *dataPath = "../resources/example-max.json";
     ifstream dataFile = readConfigFile(dataPath);
     json data = configFileToJson(dataFile);
     return data;
