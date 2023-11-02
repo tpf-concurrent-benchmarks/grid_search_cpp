@@ -72,6 +72,7 @@ void Partition::split(int max_chunk_size)
     int min_batches = floor(full_calculation_size() / max_chunk_size) + 1;
 
     partitions_per_interval = calc_partitions_per_interval(min_batches);
+
     n_partitions_ = calc_partitions_amount(partitions_per_interval);
     for (int i = 0; i < n_intervals; i++)
     {

@@ -17,13 +17,12 @@ int main()
 
     // TODO n_workers should be the same as the number of workers in docker compose
     int n_workers = 1;
-    // TODO the aggregation should be passed as a parameter, stored in data["agg"]
+
     const std::string aggregation = data["agg"];
     MessageProcessor messageProcessor(aggregation);
     Protocol protocol(brokerAddress, messageProcessor, n_workers);
 
-    // Dummy value for testing
-    Partition partition(std::move(intervals), intervals.size(), 7);
+    Partition partition(std::move(intervals), intervals.size(), data["maxItemsPerBatch"]);
 
     while (partition.available())
     {
