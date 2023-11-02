@@ -1,6 +1,7 @@
 #ifndef MASTERGRIDSEARCH_INTERVAL_H
 #define MASTERGRIDSEARCH_INTERVAL_H
 #include <vector>
+#include <array>
 
 class Interval
 {
@@ -10,12 +11,14 @@ class Interval
     std::array<float, 3> get_interval();
     void print();
     int interval_size();
+    void setPrecision(int _precision);
 
   private:
     float start;
     float end;
     float step;
     int size;
+    int precision = 10;
     std::vector<Interval> split_evenly(int n_partitions);
 };
 

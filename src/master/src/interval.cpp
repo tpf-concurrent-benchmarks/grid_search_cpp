@@ -27,9 +27,9 @@ std::vector<Interval> Interval::split(int n_partitions)
     std::vector<Interval> intervals;
     for (int i = 0; i < n_sub_intervals_full; i++)
     {
-        sub_start = round_float(start + (i * max_elems_per_interval * step), 10);
+        sub_start = round_float(start + (i * max_elems_per_interval * step), precision);
         std::cout << "sub_start: " << sub_start << std::endl;
-        sub_end = round_float(start + (sub_start + (max_elems_per_interval * step)), 10);
+        sub_end = round_float(start + (sub_start + (max_elems_per_interval * step)), precision);
         std::cout << "sub_end: " << sub_end << std::endl;
         intervals.push_back(Interval(sub_start, sub_end, step));
     }
@@ -47,8 +47,8 @@ std::vector<Interval> Interval::split_evenly(int n_partitions)
     float interval_size = size / n_partitions;
     for (float i = 0; i < n_partitions; i++)
     {
-        sub_start = round_float(start + (floor(i * ((float)size) / ((float)n_partitions)) * step), 10);
-        sub_end = round_float(start + (floor((i + 1) * ((float)size) / ((float)n_partitions)) * step), 10);
+        sub_start = round_float(start + (floor(i * ((float)size) / ((float)n_partitions)) * step), precision);
+        sub_end = round_float(start + (floor((i + 1) * ((float)size) / ((float)n_partitions)) * step), precision);
         intervals.push_back(Interval(sub_start, sub_end, step));
     };
     return intervals;
@@ -67,4 +67,9 @@ int Interval::interval_size()
 std::array<float, 3> Interval::get_interval()
 {
     return {start, end, step};
+}
+
+void Interval::setPrecision(int _precision)
+{
+    precision = _precision;
 }
