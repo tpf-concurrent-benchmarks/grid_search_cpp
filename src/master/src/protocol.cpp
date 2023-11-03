@@ -1,11 +1,7 @@
 #include "protocol.h"
-
 #include "constants.h"
 
-#include <utility>
-
-Protocol::Protocol(MessageProcessor messageProcessor, size_t n_workers = 1)
-    : n_workers_(n_workers), messageProcessor_(std::move(messageProcessor))
+Protocol::Protocol()
 {
     context_ = zmq::context_t(1);
     sender_ = zmq::socket_t(context_, ZMQ_PUSH);

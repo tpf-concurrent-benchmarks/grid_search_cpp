@@ -32,7 +32,7 @@ int main()
     size_t n_workers = 1;
     size_t workersReady = 0;
 
-    Protocol protocol(messageProcessor, n_workers);
+    Protocol protocol;
 
     while (!allWorkersReady(&n_workers, &workersReady))
     {
