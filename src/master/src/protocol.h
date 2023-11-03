@@ -1,7 +1,6 @@
 #ifndef MASTERGRIDSEARCH_PROTOCOL_H
 #define MASTERGRIDSEARCH_PROTOCOL_H
 
-#include "message_processor.h"
 #include "zmq.hpp"
 #include <nlohmann/json.hpp>
 #include <string>
@@ -14,9 +13,6 @@ class Protocol
     Protocol();
     void send(const std::vector<Interval> &intervals, const std::string &aggregation);
     void send(const string &message);
-    void installConsumer();
-    void clean();
-
     std::string receive();
 
   private:

@@ -1,31 +1,20 @@
 #ifndef WORKERGRIDSEARCH_PROTOCOL_H
 #define WORKERGRIDSEARCH_PROTOCOL_H
 
-#include "message_processor.h"
-#include <amqpcpp.h>
-#include <amqpcpp/libuv.h>
-#include <amqpcpp/linux_tcp.h>
-#include <nlohmann/json.hpp>
+#include "zmq.hpp"
 #include <string>
-#include <uv.h>
-
-using json = nlohmann::json;
 
 class Protocol
 {
   public:
-    Protocol(const std::string &brokerAddress);
-    void sendData(const std::string &exchangeName, const std::string &routingKey, json data);
-    void sendData(const std::string &exchangeName, const std::string &routingKey, std::string data);
-    void installConsumer();
-    void clean();
+    Protocol();
+    void send(const std::string &message);
+    std::string receive();
 
   private:
-    AMQP::TcpChannel *channel_;
-    AMQP::LibUvHandler *handler_;
-    AMQP::TcpConnection *connection_;
-    uv_loop_t *loop_;
-    MessageProcessor messageProcessor_ = MessageProcessor();
+    zmq::context_t context_;
+    zmq::socket_t sender_;
+    zmq::socket_t receiver_;
 };
 
 #include "protocol.cpp"
