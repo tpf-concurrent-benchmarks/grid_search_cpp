@@ -8,6 +8,16 @@
 
 using json = nlohmann::json;
 
+bool allWorkersReady(size_t *n_workers, size_t *workersReady)
+{
+    return *workersReady == *n_workers;
+}
+
+bool allWorkersHaveFinished(size_t *n_workers)
+{
+    return *n_workers == 0;
+}
+
 int main()
 {
     std::string brokerAddress = getBrokerAddress();
@@ -24,10 +34,10 @@ int main()
 
     Protocol protocol(messageProcessor, n_workers);
 
-    while (workersReady != n_workers)
+    while (!allWorkersReady(&n_workers, &workersReady))
     {
         std::string message = protocol.receive();
-        if (message == "ready")
+        if (message == Constants::READY_MESSAGE)
         {
             workersReady++;
         }
@@ -46,7 +56,7 @@ int main()
         protocol.send(Constants::STOP_MESSAGE);
     }
 
-    while (n_workers != 0)
+    while (!allWorkersHaveFinished(&n_workers))
     {
         std::string message = protocol.receive();
         if (message == Constants::END_WORK_MESSAGE)
