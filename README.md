@@ -23,16 +23,10 @@ cmake --build .
 
 This is particularly useful when you are developing and want to build the project faster, as you don't need to build the dependencies every time.
 
-## Running all services and RabbitMQ with Docker
+## Running all services with DOcker
 
 ```bash
 docker compose -f=docker-compose.yml up
-```
-
-## Running only RabbitMQ with Docker
-
-```bash
-docker compose -f=docker-compose-dev.yml up
 ```
 
 ## Makefile
