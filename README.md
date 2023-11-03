@@ -40,5 +40,5 @@ Once one of the projects is built, you can run the executable `worker-gs` (or `m
 ## Libraries used
 
 - [json](https://github.com/nlohmann/json): JSON for Modern C++
-- [AMQP-CPP](https://github.com/CopernicaMarketingSoftware/AMQP-CPP): C++ library for asynchronous non-blocking communication with RabbitMQ
-- [libuv](https://libuv.org/): multi-platform support library with a focus on asynchronous I/O
+- [libzmq](https://github.com/zeromq/libzmq): ZeroMQ core engine in C++
+- [cppzmq](https://github.com/zeromq/cppzmq): C++ binding for [ZeroMQ](https://zeromq.org/)
