@@ -6,15 +6,15 @@
 using namespace std;
 using json = nlohmann::json;
 
-ifstream readConfigFile(string path)
+ifstream readFile(string path)
 {
-    ifstream configFile(path);
-    if (!configFile)
+    ifstream file(path);
+    if (!file)
     {
-        cerr << "Error: Could not open the configuration file." << endl;
+        cerr << "Error: Could not open the file: " << path << endl;
         exit(1);
     }
-    return configFile;
+    return file;
 }
 
 json configFileToJson(ifstream &configFile)
@@ -26,7 +26,7 @@ json configFileToJson(ifstream &configFile)
 
 json getDataFromJson(const char *dataPath)
 {
-    ifstream dataFile = readConfigFile(dataPath);
+    ifstream dataFile = readFile(dataPath);
     json data = configFileToJson(dataFile);
     return data;
 }

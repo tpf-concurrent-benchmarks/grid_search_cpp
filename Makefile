@@ -12,10 +12,7 @@ build:
 	docker build -t grid_search_cpp_worker ./src/worker/
 	docker build -t grid_search_cpp_manager ./src/master/
 
-build_rabbitmq:
-	docker build -t rostov_rabbitmq ./src/rabbitmq/
-
-setup: init build build_rabbitmq
+setup: init build
 
 deploy:
 	docker stack deploy -c docker-compose.yml gs_cpp
@@ -27,28 +24,28 @@ manager_logs:
 	docker service logs -f gs_cpp_manager
 
 full_build_master_local:
-	cd src/master/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake .. -DAMQP-CPP_LINUX_TCP=ON && cmake --build .
+	cd src/master/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake .. && cmake --build .
 
 build_master_local:
 	cd src/master/cmake-build-debug && cmake --build .
 
 run_master_local:
-	cd src/master/cmake-build-debug && ENV=LOCAL ./${EXEC_MASTER}
+	cd src/master/cmake-build-debug && ./${EXEC_MASTER}
 
 full_build_worker_local:
-	cd src/worker/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake .. -DAMQP-CPP_LINUX_TCP=ON && cmake --build .
+	cd src/worker/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake .. && cmake --build .
 
 build_worker_local:
 	cd src/worker/cmake-build-debug && cmake --build .
 
 run_worker_local:
-	cd src/worker/cmake-build-debug && ENV=LOCAL ./$(EXEC_WORKER)
+	cd src/worker/cmake-build-debug && ./$(EXEC_WORKER)
 
 valgrind_master:
-	valgrind $(VFLAGS) ./src/master/cmake-build-debug/$(EXEC_MASTER)
+	cd src/master/cmake-build-debug  && valgrind $(VFLAGS) ./$(EXEC_MASTER)
 
 valgrind_worker:
-	valgrind $(VFLAGS) ./src/worker/cmake-build-debug/$(EXEC_WORKER)
+	cd src/worker/cmake-build-debug && valgrind $(VFLAGS) ./$(EXEC_WORKER)
 
 
 format:
