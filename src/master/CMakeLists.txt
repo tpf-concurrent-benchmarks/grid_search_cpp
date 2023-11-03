@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.11)
 project(MasterGridSearch)
 add_executable(master-gs src/main.cpp)
+cmake_policy(SET CMP0135 NEW)
 
 include(FetchContent)
 
@@ -15,7 +16,6 @@ FetchContent_MakeAvailable(json)
 
 target_link_libraries(master-gs PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(master-gs PRIVATE cppzmq)
-
 
 
 set(DOWNLOAD_EXTRACT_TIMESTAMP True)

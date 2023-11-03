@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.11)
 project(WorkerGridSearch)
 add_executable(worker-gs src/main.cpp)
+cmake_policy(SET CMP0135 NEW)
 
 include(FetchContent)
 
