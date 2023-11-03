@@ -35,7 +35,7 @@ void MessageProcessor::saveResults()
     std::cout << "Saving results" << std::endl;
     json results = {{"value", value_}, {"parameters", parameters_}, {"agg", aggregation_}};
     std::ofstream file;
-    file.open(RESULTS_PATH);
+    file.open(Constants::RESULTS_PATH);
     file << std::setw(2) << results;
     file.close();
 }

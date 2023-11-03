@@ -1,4 +1,3 @@
-
 #include "interval.h"
 #include <nlohmann/json.hpp>
 #include <vector>

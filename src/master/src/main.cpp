@@ -69,5 +69,7 @@ int main()
         }
     }
 
+    messageProcessor.saveResults();
+
     return 0;
 }

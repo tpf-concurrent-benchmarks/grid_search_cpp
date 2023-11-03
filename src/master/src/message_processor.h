@@ -16,12 +16,10 @@ class MessageProcessor
     void saveResults();
 
   private:
-    float value_;
-    std::array<float, 3> parameters_;
+    float value_{};
+    std::array<float, 3> parameters_{};
     std::string aggregation_;
 };
-
-static const char *const RESULTS_PATH = "results.json";
 
 #include "message_processor.cpp"
 

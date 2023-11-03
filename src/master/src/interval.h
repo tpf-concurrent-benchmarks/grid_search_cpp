@@ -1,5 +1,6 @@
 #ifndef MASTERGRIDSEARCH_INTERVAL_H
 #define MASTERGRIDSEARCH_INTERVAL_H
+
 #include <array>
 #include <vector>
 
