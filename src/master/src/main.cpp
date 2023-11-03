@@ -4,6 +4,7 @@
 #include "json_parsing.h"
 #include "partition.h"
 #include "protocol.h"
+#include "message_processor.h"
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
@@ -20,7 +21,6 @@ bool allWorkersHaveFinished(size_t *n_workers)
 
 int main()
 {
-    std::string brokerAddress = getBrokerAddress();
     json data = getDataFromJson();
     std::cout << data.dump() << std::endl;
     std::vector<Interval> intervals = jsonToIntervals(data["data"]);

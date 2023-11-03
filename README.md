@@ -9,9 +9,19 @@ following commands once you are in the root directory of the desired project:
 ```bash
 mkdir cmake-build-debug
 cd cmake-build-debug
-cmake .. -DAMQP-CPP_LINUX_TCP=ON
+cmake ..
 cmake --build .
 ```
+
+## Building only the project
+
+If you have already built the project (with its dependencies) and only want to build the executable, run the following command:
+
+```bash
+cmake --build .
+```
+
+This is particularly useful when you are developing and want to build the project faster, as you don't need to build the dependencies every time.
 
 ## Running all services and RabbitMQ with Docker
 
