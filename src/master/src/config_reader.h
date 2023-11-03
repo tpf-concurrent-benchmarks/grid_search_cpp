@@ -4,7 +4,6 @@
 #include <nlohmann/json.hpp>
 #include <string>
 
-std::string getBrokerAddress();
 nlohmann::json getDataFromJson();
 
 #include "config_reader.cpp"

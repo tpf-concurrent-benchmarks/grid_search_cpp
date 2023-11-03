@@ -6,11 +6,6 @@
 using namespace std;
 using json = nlohmann::json;
 
-string createBrokerAddress(const string &user, const string &password, const string &address, const int port)
-{
-    return "amqp://" + user + ":" + password + "@" + address + ":" + to_string(port) + "/";
-}
-
 ifstream readConfigFile(string path)
 {
     ifstream configFile(path);
@@ -29,21 +24,8 @@ json configFileToJson(ifstream &configFile)
     return configData;
 }
 
-string getBrokerAddress()
+json getDataFromJson(const char *dataPath)
 {
-    const char *rabbitPath = "./rabbitmq-config.json";
-    if (getenv("ENV") != nullptr && string(getenv("ENV")) == "LOCAL")
-    {
-        rabbitPath = "../../../rabbitmq-config-local.json";
-    }
-    ifstream configFile = readConfigFile(rabbitPath);
-    json configData = configFileToJson(configFile);
-    return createBrokerAddress(configData["user"], configData["password"], configData["address"], configData["port"]);
-}
-
-json getDataFromJson()
-{
-    const char *dataPath = "../resources/example-max.json";
     ifstream dataFile = readConfigFile(dataPath);
     json data = configFileToJson(dataFile);
     return data;
