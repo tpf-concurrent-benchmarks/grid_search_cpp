@@ -14,7 +14,7 @@ ResultsDTO *MessageProcessor::processMessage(json message)
     std::array<std::array<float, 3>, 3> parameters = message["data"];
     Params<3> params(std::move(parameters[0]), std::move(parameters[1]), std::move(parameters[2]), "id");
     GridSearch<3> grid_search(std::move(params));
-    grid_search.search(objectiveFun);
+    grid_search.search(griewankFun);
 
     if (aggregation == "MAX")
     {

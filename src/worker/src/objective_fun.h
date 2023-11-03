@@ -4,25 +4,12 @@
 #include <array>
 #include <cmath>
 
-float objectiveFun(std::array<float, 3> &values)
+float griewankFun(std::array<float, 3> &parameters)
 {
-    float a = values[0];
-    float b = values[1];
-    float c = values[2];
-    return (1.0 / 4000.0) * (a * a + b * b + c * c) - cos(a) * cos(b) * cos(c);
-}
-
-float maxSum(std::array<float, 3> &current, float res)
-{
-    float sum = current[0] + current[1] + current[2];
-    if (sum > res)
-    {
-        return sum;
-    }
-    else
-    {
-        return res;
-    }
+    float a = parameters[0];
+    float b = parameters[1];
+    float c = parameters[2];
+    return (1.0 / 4000.0) * (a * a + b * b + c * c) - cos(a) * cos(b / sqrt(2)) * cos(c / sqrt(3)) + 1;
 }
 
 #endif // WORKERGRIDSEARCH_OBJECTIVE_FUN_H
