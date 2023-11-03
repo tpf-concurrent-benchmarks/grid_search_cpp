@@ -82,36 +82,6 @@ void Partition::split(int max_chunk_size)
     current_index = std::vector<int>(n_intervals, 0);
 }
 
-std::vector<std::vector<Interval>> Partition::cartesian_product(std::vector<std::vector<Interval>> &splited_intervals,
-                                                                std::vector<int> &partitions_per_interval)
-{
-    int iterations = calc_partitions_amount(partitions_per_interval);
-    std::vector<std::vector<Interval>> result;
-    std::vector<int> current_index(n_intervals, 0);
-    for (int i = 0; i < iterations; i++)
-    {
-        std::vector<Interval> temp;
-        for (int j = 0; j < n_intervals; j++)
-        {
-            temp.push_back(splited_intervals[j][current_index[j]]);
-        };
-        result.push_back(temp);
-        for (int j = 0; j < n_intervals; j++)
-        {
-            if (current_index[j] + 1 < partitions_per_interval[j])
-            {
-                current_index[j]++;
-                break;
-            }
-            else
-            {
-                current_index[j] = 0;
-            }
-        }
-    }
-    return result;
-}
-
 int Partition::full_calculation_size()
 {
     int result = 1;

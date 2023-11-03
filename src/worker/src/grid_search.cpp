@@ -16,11 +16,6 @@ template <std::size_t Size> void GridSearch<Size>::search(std::function<float(st
     }
 }
 
-template <std::size_t Size> std::string GridSearch<Size>::getId()
-{
-    return params_.get_id();
-}
-
 template <std::size_t Size> void GridSearch<Size>::initAccumulation(float res, std::array<float, Size> &current)
 {
     max = res;

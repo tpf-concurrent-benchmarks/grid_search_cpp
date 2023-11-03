@@ -2,9 +2,8 @@
 #include <cmath>
 
 template <std::size_t Size>
-Params<Size>::Params(std::array<float, Size> &&start, std::array<float, Size> &&end, std::array<float, Size> &&step,
-                     std::string &&id)
-    : start_(std::move(start)), end_(std::move(end)), step_(std::move(step)), id_(std::move(id))
+Params<Size>::Params(std::array<float, Size> &&start, std::array<float, Size> &&end, std::array<float, Size> &&step)
+    : start_(std::move(start)), end_(std::move(end)), step_(std::move(step))
 {
     current_ = start_;
     total_iterations = 1;
@@ -38,9 +37,4 @@ template <std::size_t Size> void Params<Size>::next()
 template <std::size_t Size> int Params<Size>::get_total_iterations()
 {
     return total_iterations;
-}
-
-template <std::size_t Size> std::string Params<Size>::get_id()
-{
-    return id_;
 }
