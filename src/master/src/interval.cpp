@@ -1,7 +1,7 @@
 #include "interval.h"
 #include "util.h"
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
 Interval::Interval(float start, float end, float step) : start(start), end(end), step(step)
 {
@@ -26,7 +26,7 @@ std::vector<Interval> Interval::split(int n_partitions)
     for (int i = 0; i < n_sub_intervals_full; i++)
     {
         sub_start = round_float(start + (i * max_elems_per_interval * step), precision);
-        sub_end = round_float(std::min(end,(sub_start + (max_elems_per_interval * step))), precision);
+        sub_end = round_float(std::min(end, (sub_start + (max_elems_per_interval * step))), precision);
         intervals.push_back(Interval(sub_start, sub_end, step));
     }
     Interval interval_reminder = Interval(sub_end, end, step);

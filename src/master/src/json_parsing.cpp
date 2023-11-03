@@ -1,7 +1,7 @@
 
-#include <vector>
 #include "interval.h"
 #include <nlohmann/json.hpp>
+#include <vector>
 
 std::vector<Interval> jsonToIntervals(const nlohmann::json &json_params)
 {

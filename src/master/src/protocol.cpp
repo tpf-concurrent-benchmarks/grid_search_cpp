@@ -1,73 +1,20 @@
 #include "protocol.h"
 
 #include "constants.h"
+
 #include <utility>
 
-Protocol::Protocol(const std::string &brokerAddress, MessageProcessor messageProcessor, size_t n_workers = 1)
+Protocol::Protocol(MessageProcessor messageProcessor, size_t n_workers = 1)
     : n_workers_(n_workers), messageProcessor_(std::move(messageProcessor))
 {
-    loop_ = uv_default_loop();
-    handler_ = new AMQP::LibUvHandler(loop_);
-    connection_ = new AMQP::TcpConnection(handler_, AMQP::Address(brokerAddress));
-    channel_ = new AMQP::TcpChannel(connection_);
-    channel_->declareExchange(Constants::EXCHANGE_NAME, AMQP::topic)
-        .onSuccess([]() { std::cout << "Exchange " << Constants::EXCHANGE_NAME << " is ready" << std::endl; })
-        .onError([](const char *message) { std::cout << "Exchange declare error: " << message << std::endl; });
-    channel_->declareQueue(Constants::WORK_QUEUE_NAME)
-        .onSuccess([](const std::string &name, uint32_t messageCount, uint32_t consumerCount) {
-            std::cout << "Queue " << name << " is ready" << std::endl;
-        });
-    channel_->declareQueue(Constants::RESULTS_QUEUE_NAME)
-        .onSuccess([](const std::string &name, uint32_t messageCount, uint32_t consumerCount) {
-            std::cout << "Queue " << name << " is ready" << std::endl;
-        });
-    channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::WORK_QUEUE_NAME, Constants::WORK_ROUTING_KEY);
-    channel_->bindQueue(Constants::EXCHANGE_NAME, Constants::RESULTS_QUEUE_NAME, Constants::RESULTS_ROUTING_KEY);
+    context_ = zmq::context_t(1);
+    sender_ = zmq::socket_t(context_, ZMQ_PUSH);
+    receiver_ = zmq::socket_t(context_, ZMQ_PULL);
+    sender_.bind("tcp://*:5557");
+    receiver_.bind("tcp://*:5558");
 }
 
-void Protocol::sendData(const std::string &exchangeName, const std::string &routingKey, std::string data)
-{
-    channel_->publish(exchangeName, routingKey, data);
-}
-
-void Protocol::installConsumer()
-{
-    channel_->consume(Constants::RESULTS_QUEUE_NAME)
-        .onReceived([this](const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
-            const std::basic_string_view<char> &body = std::string_view(message.body(), message.bodySize());
-            std::string body_string(body.begin(), body.end());
-            if (body_string == Constants::END_WORK_MESSAGE)
-            {
-                n_workers_--;
-                channel_->ack(deliveryTag);
-                if (n_workers_ == 0)
-                {
-                    messageProcessor_.saveResults();
-                    clean();
-                }
-            }
-            else
-            {
-                messageProcessor_.processMessage(json::parse(body_string));
-                channel_->ack(deliveryTag);
-            }
-        });
-    uv_run(loop_, UV_RUN_DEFAULT);
-}
-
-void Protocol::clean()
-{
-    channel_->close();
-    connection_->close();
-    uv_stop(loop_);
-    uv_loop_close(loop_);
-    delete channel_;
-    delete connection_;
-    delete handler_;
-}
-
-void Protocol::sendData(const string &exchangeName, const string &routingKey, std::vector<Interval> intervals,
-                        const string &aggregation)
+void Protocol::send(const std::vector<Interval> &intervals, const string &aggregation)
 {
     json intervalList = json::array();
     for (auto interval : intervals)
@@ -78,5 +25,43 @@ void Protocol::sendData(const string &exchangeName, const string &routingKey, st
         {"data", intervalList},
         {"agg", aggregation},
     };
-    channel_->publish(exchangeName, routingKey, message.dump());
+    zmq::message_t zmqMessage = createZmqMessage(message);
+    const zmq::send_result_t &anOptional = sender_.send(zmqMessage, zmq::send_flags::none);
+    if (!anOptional.has_value())
+    {
+        std::cout << "Error sending message" << std::endl;
+    }
+}
+
+void Protocol::send(const string &message)
+{
+    zmq::message_t zmqMessage(message.size());
+    memcpy(zmqMessage.data(), message.c_str(), message.size());
+
+    const zmq::send_result_t &anOptional = sender_.send(zmqMessage, zmq::send_flags::none);
+    if (!anOptional.has_value())
+    {
+        std::cout << "Error sending message" << std::endl;
+    }
+}
+
+zmq::message_t Protocol::createZmqMessage(const json &message) const
+{
+    string messageAsString = message.dump();
+    size_t messageSize = messageAsString.size();
+
+    zmq::message_t zmqMessage(messageSize);
+    memcpy(zmqMessage.data(), messageAsString.c_str(), messageSize);
+    return zmqMessage;
+}
+
+string Protocol::receive()
+{
+    zmq::message_t message;
+    const zmq::recv_result_t &anOptional = receiver_.recv(message);
+    if (!anOptional.has_value())
+    {
+        return "Error message";
+    }
+    return std::string(static_cast<char *>(message.data()), message.size());
 }

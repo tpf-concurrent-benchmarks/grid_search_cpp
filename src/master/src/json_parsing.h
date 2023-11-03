@@ -1,9 +1,9 @@
 #ifndef JSON_PARSING_H
 #define JSON_PARSING_H
 
-#include <vector>
 #include "interval.h"
 #include <nlohmann/json.hpp>
+#include <vector>
 
 using json = nlohmann::json;
 
