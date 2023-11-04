@@ -8,7 +8,7 @@ class Protocol
 {
   public:
     Protocol(const std::string &host, const std::string &pushPort, const std::string &pullPort);
-    void send(const std::string &message);
+    void send(const std::string &message, const std::string basicString);
     std::string receive();
 
   private:

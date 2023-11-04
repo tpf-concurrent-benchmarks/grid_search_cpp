@@ -12,7 +12,7 @@ class Protocol
   public:
     Protocol(const std::string &pushPort, const std::string &pullPort);
     void send(const std::vector<Interval> &intervals, const std::string &aggregation);
-    void send(const string &message);
+    void send(const std::string &message);
     std::string receive();
 
   private:

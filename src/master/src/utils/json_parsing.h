@@ -7,7 +7,7 @@
 
 using json = nlohmann::json;
 
-std::vector<Interval> jsonToIntervals(const json &json_params)
+std::vector<Interval> intervalsFromJson(const json &json_params)
 {
     std::vector<Interval> intervals;
     for (int i = 0; i < json_params.size(); i++)

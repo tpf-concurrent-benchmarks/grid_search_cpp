@@ -9,7 +9,7 @@ Protocol::Protocol(const std::string &pushPort, const std::string &pullPort)
     receiver_.bind("tcp://*:" + pullPort);
 }
 
-void Protocol::send(const std::vector<Interval> &intervals, const string &aggregation)
+void Protocol::send(const std::vector<Interval> &intervals, const std::string &aggregation)
 {
     json intervalList = json::array();
     for (auto interval : intervals)
@@ -28,7 +28,7 @@ void Protocol::send(const std::vector<Interval> &intervals, const string &aggreg
     }
 }
 
-void Protocol::send(const string &message)
+void Protocol::send(const std::string &message)
 {
     zmq::message_t zmqMessage(message.size());
     memcpy(zmqMessage.data(), message.c_str(), message.size());

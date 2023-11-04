@@ -1,4 +1,5 @@
 #include "protocol.h"
+#include "../../cmake-build-debug/_deps/cppzmq-src/zmq.hpp"
 #include <iostream>
 
 Protocol::Protocol(const std::string &host, const std::string &pushPort, const std::string &pullPort)
@@ -10,7 +11,7 @@ Protocol::Protocol(const std::string &host, const std::string &pushPort, const s
     receiver_.connect("tcp://" + host + ":" + pullPort);
 }
 
-void Protocol::send(const std::string &message)
+void Protocol::send(const std::string &message, const std::string basicString)
 {
     zmq::message_t zmqMessage(message.size());
     memcpy(zmqMessage.data(), message.c_str(), message.size());
