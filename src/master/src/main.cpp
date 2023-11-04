@@ -1,11 +1,11 @@
 #include "config_reader/config_reader.h"
-#include "constants/constants.h"
 #include "interval/interval.h"
 #include "interval/partition.h"
 #include "message_processor/message_processor.h"
 #include "protocol/protocol.h"
 #include "utils/json_parsing.h"
 #include <nlohmann/json.hpp>
+#include <constants.h>
 
 using json = nlohmann::json;
 

@@ -3,6 +3,7 @@
 
 #include "nlohmann/json.hpp"
 #include <cstdint>
+#include <constants.h>
 #include <string>
 
 using json = nlohmann::json;

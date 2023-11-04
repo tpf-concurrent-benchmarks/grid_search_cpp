@@ -1,5 +1,5 @@
-#ifndef MASTERGRIDSEARCH_CONSTANTS_H
-#define MASTERGRIDSEARCH_CONSTANTS_H
+#ifndef GRIDSEARCH_CONSTANTS_H
+#define GRIDSEARCH_CONSTANTS_H
 
 #include <string>
 
@@ -11,4 +11,4 @@ const std::string READY_MESSAGE = "ready";
 const std::string RESULTS_PATH = "results.json";
 } // namespace Constants
 
-#endif // MASTERGRIDSEARCH_CONSTANTS_H
+#endif // GRIDSEARCH_CONSTANTS_H
