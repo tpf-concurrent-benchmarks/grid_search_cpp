@@ -1,5 +1,6 @@
 #include "message_processor/message_processor.h"
 #include "protocol/protocol.h"
+#include <constants.h>
 
 int main()
 {
