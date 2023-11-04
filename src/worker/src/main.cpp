@@ -6,7 +6,7 @@
 int main()
 {
     // TODO: These ports should be from the docker compose --> env variable.
-    // Also change the host should be changed accordingly
+    // Also the host should be changed accordingly
     Protocol protocol("localhost", "5558", "5557");
     MessageProcessor messageProcessor;
     protocol.send(Constants::READY_MESSAGE);
@@ -25,10 +25,11 @@ int main()
         {
             json jsonMessage = json::parse(message);
             ResultsDTO *results = messageProcessor.processMessage(jsonMessage);
-            protocol.send(results->toJson().dump(), std::string());
+            protocol.send(results->toJson().dump());
             delete results;
         }
     }
+    protocol.close();
 
     return 0;
 }

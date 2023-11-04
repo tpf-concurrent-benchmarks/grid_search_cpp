@@ -25,6 +25,7 @@ int main()
     Manager manager(1, &protocol, &messageProcessor);
 
     manager.run(Partition(std::move(intervals), intervals.size(), data["maxItemsPerBatch"]), aggregation);
+    protocol.close();
 
     return 0;
 }

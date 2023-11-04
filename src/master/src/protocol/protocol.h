@@ -14,6 +14,7 @@ class Protocol
     void send(const std::vector<Interval> &intervals, const std::string &aggregation);
     void send(const std::string &message);
     std::string receive();
+    void close();
 
   private:
     zmq::context_t context_;

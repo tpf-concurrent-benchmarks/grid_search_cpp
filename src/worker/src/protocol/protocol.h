@@ -10,6 +10,7 @@ class Protocol
     Protocol(const std::string &host, const std::string &pushPort, const std::string &pullPort);
     void send(const std::string &message);
     std::string receive();
+    void close();
 
   private:
     zmq::context_t context_;

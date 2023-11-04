@@ -33,3 +33,10 @@ std::string Protocol::receive()
     }
     return std::string(static_cast<char *>(message.data()), message.size());
 }
+
+void Protocol::close()
+{
+    sender_.close();
+    receiver_.close();
+    context_.close();
+}
