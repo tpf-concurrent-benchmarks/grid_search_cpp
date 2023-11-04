@@ -1,8 +1,8 @@
 #ifndef WORKERGRIDSEARCH_MESSAGE_PROCESSOR_H
 #define WORKERGRIDSEARCH_MESSAGE_PROCESSOR_H
 
+#include "../results_dto/results_DTO.h"
 #include "nlohmann/json.hpp"
-#include "results_DTO.h"
 #include <cstdint>
 #include <string>
 

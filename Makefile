@@ -49,4 +49,5 @@ valgrind_worker:
 
 
 format:
-	clang-format -i src/master/src/**/*.cpp src/master/src/**/*.h src/worker/src/*.cpp src/worker/src/*.h
+	clang-format -i src/master/src/**/*.cpp src/master/src/**/*.h src/worker/src/**/*.cpp src/worker/src/**/*.h
+	clang-format -i src/master/src/main.cpp src/worker/src/main.cpp

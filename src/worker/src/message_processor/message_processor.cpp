@@ -1,10 +1,9 @@
 #include "message_processor.h"
-#include "avg_results_DTO.h"
-#include "grid_search.h"
-#include "max_results_DTO.h"
-#include "min_results_DTO.h"
-#include "objective_fun.h"
-#include "params.h"
+#include "../grid_search/grid_search.h"
+#include "../grid_search/objective_fun.h"
+#include "../results_dto/avg_results_DTO.h"
+#include "../results_dto/max_results_DTO.h"
+#include "../results_dto/min_results_DTO.h"
 
 MessageProcessor::MessageProcessor() = default;
 

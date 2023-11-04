@@ -1,5 +1,5 @@
 #include "protocol.h"
-#include "constants.h"
+#include "../constants/constants.h"
 #include <iostream>
 
 Protocol::Protocol()

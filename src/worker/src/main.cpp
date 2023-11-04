@@ -1,10 +1,10 @@
-#include "message_processor.h"
-#include "protocol.h"
+#include "message_processor/message_processor.h"
+#include "protocol/protocol.h"
 
 int main()
 {
     Protocol protocol;
-    MessageProcessor messageProcessor_;
+    MessageProcessor messageProcessor;
     protocol.send(Constants::READY_MESSAGE);
 
     bool shouldStop = false;
@@ -20,7 +20,7 @@ int main()
         else
         {
             json jsonMessage = json::parse(message);
-            ResultsDTO *results = messageProcessor_.processMessage(jsonMessage);
+            ResultsDTO *results = messageProcessor.processMessage(jsonMessage);
             protocol.send(results->toJson().dump());
             delete results;
         }
