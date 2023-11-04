@@ -1,7 +1,7 @@
 #ifndef GRIDSEARCHCPP_CONFIG_READER_H
 #define GRIDSEARCHCPP_CONFIG_READER_H
 
-#include <nlohmann/json.hpp>
+#include "nlohmann/json.hpp"
 #include <string>
 
 nlohmann::json getDataFromJson(const char *dataPath);

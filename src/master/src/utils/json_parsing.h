@@ -1,13 +1,14 @@
 #ifndef JSON_PARSING_H
 #define JSON_PARSING_H
 
-#include "interval.h"
-#include <nlohmann/json.hpp>
+#include "../interval/interval.h"
+#include "nlohmann/json.hpp"
 #include <vector>
 
 using json = nlohmann::json;
 
-std::vector<Interval> jsonToIntervals(const json &json_params) {
+std::vector<Interval> jsonToIntervals(const json &json_params)
+{
     std::vector<Interval> intervals;
     for (int i = 0; i < json_params.size(); i++)
     {
@@ -19,6 +20,5 @@ std::vector<Interval> jsonToIntervals(const json &json_params) {
     }
     return intervals;
 }
-
 
 #endif // JSON_PARSING_H

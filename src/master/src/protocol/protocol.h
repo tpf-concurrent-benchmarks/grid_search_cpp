@@ -1,8 +1,8 @@
 #ifndef MASTERGRIDSEARCH_PROTOCOL_H
 #define MASTERGRIDSEARCH_PROTOCOL_H
 
+#include "nlohmann/json.hpp"
 #include "zmq.hpp"
-#include <nlohmann/json.hpp>
 #include <string>
 
 using json = nlohmann::json;

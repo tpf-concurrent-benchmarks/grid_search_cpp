@@ -1,5 +1,5 @@
 #include "interval.h"
-#include "utils.h"
+#include "../utils/utils.h"
 #include <algorithm>
 #include <iostream>
 
@@ -43,8 +43,8 @@ std::vector<Interval> Interval::split_evenly(int n_partitions)
     float interval_size = size / n_partitions;
     for (float i = 0; i < n_partitions; i++)
     {
-        sub_start = roundFloat(start + (floor(i * ((float) size) / ((float) n_partitions)) * step), precision);
-        sub_end = roundFloat(start + (floor((i + 1) * ((float) size) / ((float) n_partitions)) * step), precision);
+        sub_start = roundFloat(start + (floor(i * ((float)size) / ((float)n_partitions)) * step), precision);
+        sub_end = roundFloat(start + (floor((i + 1) * ((float)size) / ((float)n_partitions)) * step), precision);
         intervals.push_back(Interval(sub_start, sub_end, step));
     };
     return intervals;
