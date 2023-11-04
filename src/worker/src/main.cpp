@@ -4,7 +4,7 @@
 
 int main()
 {
-    Protocol protocol;
+    Protocol protocol("localhost", "5558", "5557");
     MessageProcessor messageProcessor;
     protocol.send(Constants::READY_MESSAGE);
 

@@ -1,13 +1,13 @@
 #include "protocol.h"
 #include <iostream>
 
-Protocol::Protocol()
+Protocol::Protocol(const std::string &host, const std::string &pushPort, const std::string &pullPort)
 {
     context_ = zmq::context_t(1);
     sender_ = zmq::socket_t(context_, ZMQ_PUSH);
     receiver_ = zmq::socket_t(context_, ZMQ_PULL);
-    sender_.connect("tcp://localhost:5558");
-    receiver_.connect("tcp://localhost:5557");
+    sender_.connect("tcp://" + host + ":" + pushPort);
+    receiver_.connect("tcp://" + host + ":" + pullPort);
 }
 
 void Protocol::send(const std::string &message)

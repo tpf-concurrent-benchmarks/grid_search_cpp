@@ -4,8 +4,8 @@
 #include "message_processor/message_processor.h"
 #include "protocol/protocol.h"
 #include "utils/json_parsing.h"
-#include <nlohmann/json.hpp>
 #include <constants.h>
+#include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 

@@ -2,8 +2,8 @@
 #define MASTERGRIDSEARCH_MESSAGE_PROCESSOR_H
 
 #include "nlohmann/json.hpp"
-#include <cstdint>
 #include <constants.h>
+#include <cstdint>
 #include <string>
 
 using json = nlohmann::json;
