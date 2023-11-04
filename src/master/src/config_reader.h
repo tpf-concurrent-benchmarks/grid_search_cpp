@@ -4,7 +4,7 @@
 #include <nlohmann/json.hpp>
 #include <string>
 
-nlohmann::json getDataFromJson();
+nlohmann::json getDataFromJson(const char *dataPath);
 
 #include "config_reader.cpp"
 

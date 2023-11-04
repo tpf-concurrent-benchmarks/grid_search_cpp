@@ -1,5 +1,5 @@
 #include "interval.h"
-#include "util.h"
+#include "utils.h"
 #include <algorithm>
 #include <iostream>
 
@@ -25,8 +25,8 @@ std::vector<Interval> Interval::split(int n_partitions)
     std::vector<Interval> intervals;
     for (int i = 0; i < n_sub_intervals_full; i++)
     {
-        sub_start = round_float(start + (i * max_elems_per_interval * step), precision);
-        sub_end = round_float(std::min(end, (sub_start + (max_elems_per_interval * step))), precision);
+        sub_start = roundFloat(start + (i * max_elems_per_interval * step), precision);
+        sub_end = roundFloat(std::min(end, (sub_start + (max_elems_per_interval * step))), precision);
         intervals.push_back(Interval(sub_start, sub_end, step));
     }
     Interval interval_reminder = Interval(sub_end, end, step);
@@ -43,8 +43,8 @@ std::vector<Interval> Interval::split_evenly(int n_partitions)
     float interval_size = size / n_partitions;
     for (float i = 0; i < n_partitions; i++)
     {
-        sub_start = round_float(start + (floor(i * ((float)size) / ((float)n_partitions)) * step), precision);
-        sub_end = round_float(start + (floor((i + 1) * ((float)size) / ((float)n_partitions)) * step), precision);
+        sub_start = roundFloat(start + (floor(i * ((float) size) / ((float) n_partitions)) * step), precision);
+        sub_end = roundFloat(start + (floor((i + 1) * ((float) size) / ((float) n_partitions)) * step), precision);
         intervals.push_back(Interval(sub_start, sub_end, step));
     };
     return intervals;
