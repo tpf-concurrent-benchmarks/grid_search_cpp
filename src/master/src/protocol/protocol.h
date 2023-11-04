@@ -10,7 +10,7 @@ using json = nlohmann::json;
 class Protocol
 {
   public:
-    Protocol();
+    Protocol(const std::string& pushPort, const std::string& pullPort);
     void send(const std::vector<Interval> &intervals, const std::string &aggregation);
     void send(const string &message);
     std::string receive();

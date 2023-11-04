@@ -32,7 +32,8 @@ int main()
     size_t n_workers = 1;
     size_t workersReady = 0;
 
-    Protocol protocol;
+    // This ports should be from the docker compose --> env variable
+    Protocol protocol("5557", "5558");
 
     while (!allWorkersReady(&n_workers, &workersReady))
     {

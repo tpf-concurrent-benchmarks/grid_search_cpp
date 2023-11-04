@@ -1,12 +1,12 @@
 #include "protocol.h"
 
-Protocol::Protocol()
+Protocol::Protocol(const std::string& pushPort, const std::string& pullPort)
 {
     context_ = zmq::context_t(1);
     sender_ = zmq::socket_t(context_, ZMQ_PUSH);
     receiver_ = zmq::socket_t(context_, ZMQ_PULL);
-    sender_.bind("tcp://*:5557");
-    receiver_.bind("tcp://*:5558");
+    sender_.bind("tcp://*:" + pushPort);
+    receiver_.bind("tcp://*:" + pullPort);
 }
 
 void Protocol::send(const std::vector<Interval> &intervals, const string &aggregation)
