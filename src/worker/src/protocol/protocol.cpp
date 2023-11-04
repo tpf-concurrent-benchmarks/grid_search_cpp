@@ -11,7 +11,7 @@ Protocol::Protocol(const std::string &host, const std::string &pushPort, const s
     receiver_.connect("tcp://" + host + ":" + pullPort);
 }
 
-void Protocol::send(const std::string &message, const std::string basicString)
+void Protocol::send(const std::string &message)
 {
     zmq::message_t zmqMessage(message.size());
     memcpy(zmqMessage.data(), message.c_str(), message.size());

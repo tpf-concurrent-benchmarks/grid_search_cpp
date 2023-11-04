@@ -14,7 +14,7 @@ class Manager
 {
 
   public:
-    Manager(size_t nWorkers, Protocol *protocol, MessageProcessor *messageProcessor);
+    Manager(size_t n_workers, Protocol *protocol, MessageProcessor *messageProcessor);
     void run(Partition partition, const std::string &aggregation);
 
   private:

@@ -14,7 +14,7 @@ void Protocol::send(const std::vector<Interval> &intervals, const std::string &a
     json intervalList = json::array();
     for (auto interval : intervals)
     {
-        intervalList.push_back(interval.get_interval());
+        intervalList.push_back(interval.getInterval());
     }
     json message = {
         {"data", intervalList},

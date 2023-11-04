@@ -44,7 +44,7 @@ std::vector<int> Partition::calc_partitions_per_interval(int min_batches)
     for (int i = 0; i < n_intervals; i++)
     {
         missing_partitions = calc_amount_of_missing_partitions(min_batches, partitions_per_interval);
-        elements = intervals[i].interval_size();
+        elements = intervals[i].intervalSize();
         if (elements > missing_partitions)
         {
             partitions_per_interval[i] *= missing_partitions;
@@ -87,7 +87,7 @@ int Partition::full_calculation_size()
     int result = 1;
     for (int i = 0; i < n_intervals; i++)
     {
-        result *= intervals[i].interval_size();
+        result *= intervals[i].intervalSize();
     }
     return result;
 }

@@ -1,9 +1,7 @@
 #include "manager.h"
-#include "../config_reader/config_reader.h"
-#include "../interval/partition.h"
 
-Manager::Manager(size_t nWorkers, Protocol *protocol, MessageProcessor *messageProcessor)
-    : nWorkers_(nWorkers), protocol_(protocol), messageProcessor_(messageProcessor)
+Manager::Manager(size_t n_workers, Protocol *protocol, MessageProcessor *messageProcessor)
+    : nWorkers_(n_workers), protocol_(protocol), messageProcessor_(messageProcessor)
 {
 }
 

@@ -5,9 +5,11 @@
 
 int main()
 {
+    // TODO: These ports should be from the docker compose --> env variable.
+    // Also change the host should be changed accordingly
     Protocol protocol("localhost", "5558", "5557");
     MessageProcessor messageProcessor;
-    protocol.send(Constants::READY_MESSAGE, std::string());
+    protocol.send(Constants::READY_MESSAGE);
 
     bool shouldStop = false;
 
@@ -17,7 +19,7 @@ int main()
         if (message == Constants::STOP_MESSAGE)
         {
             shouldStop = true;
-            protocol.send(Constants::END_WORK_MESSAGE, std::string());
+            protocol.send(Constants::END_WORK_MESSAGE);
         }
         else
         {

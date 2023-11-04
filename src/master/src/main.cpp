@@ -14,14 +14,14 @@ int main()
 {
     json data = getDataFromJson("../resources/example-max.json");
     std::vector<Interval> intervals = intervalsFromJson(data["data"]);
-
     const std::string aggregation = data["agg"];
+
     MessageProcessor messageProcessor(aggregation);
 
     // TODO: These ports should be from the docker compose --> env variable
     Protocol protocol("5557", "5558");
 
-    // TODO n_workers should be the same as the number of workers in docker compose
+    // TODO n_workers should be the same as the number of workers (replicas) in docker compose
     Manager manager(1, &protocol, &messageProcessor);
 
     manager.run(Partition(std::move(intervals), intervals.size(), data["maxItemsPerBatch"]), aggregation);

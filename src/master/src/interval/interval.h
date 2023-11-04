@@ -8,19 +8,19 @@ class Interval
 {
   public:
     Interval(float start, float end, float step);
-    std::vector<Interval> split(int n_partitions);
-    std::array<float, 3> get_interval();
+    std::vector<Interval> split(size_t n_partitions);
+    std::array<float, 3> getInterval();
     void print();
-    int interval_size();
-    void setPrecision(int _precision);
+    size_t intervalSize();
+    void setPrecision(size_t precision);
 
   private:
-    float start;
-    float end;
-    float step;
-    int size;
-    int precision = 10;
-    std::vector<Interval> split_evenly(int n_partitions);
+    float start_;
+    float end_;
+    float step_;
+    size_t size_;
+    size_t precision_ = 10;
+    std::vector<Interval> split_evenly(size_t n_partitions);
 };
 
 #include "interval.cpp"
