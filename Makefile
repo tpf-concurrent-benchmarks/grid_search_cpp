@@ -52,3 +52,13 @@ format:
 	clang-format -i src/master/src/**/*.cpp src/master/src/**/*.h src/worker/src/**/*.cpp src/worker/src/**/*.h
 	clang-format -i src/master/src/main.cpp src/worker/src/main.cpp
 	clang-format -i src/shared/*.h
+
+run_graphite: down_graphite
+	docker stack deploy -c docker-compose-graphite.yaml graphite
+.PHONY: run_graphite
+
+down_graphite:
+	if docker stack ls | grep -q graphite; then \
+		docker stack rm graphite; \
+	fi
+.PHONY: down_graphite
