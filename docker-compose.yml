@@ -11,6 +11,8 @@ services:
     #TODO: remove tty and stdin_open
     stdin_open: true
     tty: true
+    environment:
+      - NODE_ID=worker_{{.Task.Slot}}
 
   manager:
     image: grid_search_cpp_manager

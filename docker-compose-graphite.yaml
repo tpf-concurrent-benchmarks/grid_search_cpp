@@ -6,6 +6,7 @@ services:
     volumes:
       - "./statsd.config.js:/opt/statsd/config.js"
       - "./graphite.storage-schemas.conf:/opt/graphite/conf/storage-schemas.conf"
+      - "./graphite:/opt/graphite/storage/:rw"
     ports:
       - "8080:8080"
       - "8125:8125/udp"
@@ -33,6 +34,11 @@ services:
     ports:
       - "8081:3000"
     volumes:
-      - "./grafana_config/dashboard.json:/var/lib/grafana/dashboard.json"
+      # - "./grafana_config/dashboard.json:/var/lib/grafana/dashboard.json"
+      - "grafana_cofig:/var/lib/grafana"
     depends_on:
       - graphite
+
+volumes:
+  grafana_config:
+    driver: local

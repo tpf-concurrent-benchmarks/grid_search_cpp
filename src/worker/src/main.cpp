@@ -2,13 +2,19 @@
 #include "message_processor/message_processor.h"
 #include "protocol/protocol.h"
 #include <constants.h>
+#include <cstdlib>
 
 int main()
 {
     // TODO: These ports should be from the docker compose --> env variable.
     // Also the host should be changed accordingly
     Protocol protocol("localhost", "5558", "5557");
-    MessageProcessor messageProcessor;
+    const char *ID = std::getenv("NODE_ID");
+    if (ID == nullptr)
+    {
+        ID = "0";
+    }
+    MessageProcessor messageProcessor(ID);
     protocol.send(Constants::READY_MESSAGE);
 
     bool shouldStop = false;

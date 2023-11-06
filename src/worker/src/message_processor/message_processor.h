@@ -14,7 +14,7 @@ class MessageProcessor
 {
 
   public:
-    MessageProcessor();
+    MessageProcessor(std::string ID);
     ResultsDTO *processMessage(json message);
 
   private:

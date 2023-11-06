@@ -15,7 +15,7 @@ using json = nlohmann::json;
 int main()
 {
     //TODO: add this to a config file
-    Statsd::StatsdClient statClient{"localhost", 8125, "grid_search"};
+    Statsd::StatsdClient statClient{"localhost", 8125, "manager"};
     chrono::milliseconds start_time_ms = chrono::duration_cast< chrono::milliseconds >(
         chrono::system_clock::now().time_since_epoch()
     );
@@ -42,6 +42,7 @@ int main()
     );
     chrono::milliseconds completion_time = end_time_ms - start_time_ms;
     statClient.gauge("completion_time", completion_time.count(), 1, {});
+    std::cout << "sent completion_time" << std::endl;
 
     protocol.close();
 
