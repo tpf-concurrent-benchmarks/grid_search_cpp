@@ -7,7 +7,7 @@
 #include <StatsdClient.hpp>
 #include <chrono>
 
-MessageProcessor::MessageProcessor(std::string ID) : statClient{"localhost", 8125, "worker_" + ID} {
+MessageProcessor::MessageProcessor(std::string ID) : statClient{"localhost", 8125, ID} {
     //TODO: add this to config file
 };
 
