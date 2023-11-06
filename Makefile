@@ -60,5 +60,7 @@ run_graphite: down_graphite
 down_graphite:
 	if docker stack ls | grep -q graphite; then \
 		docker stack rm graphite; \
+		docker stack rm grafana; \
+		docker stack rm cadvisor; \
 	fi
 .PHONY: down_graphite
