@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <string>
 #include <StatsdClient.hpp>
+#include "../grid_search/grid_search.h"
 
 using json = nlohmann::json;
 
@@ -18,7 +19,7 @@ class MessageProcessor
 
   private:
     Statsd::StatsdClient statClient;
-    ResultsDTO *aggregate(GridSearch<3> &grid_search, std::string aggregation);
+    ResultsDTO *aggregate(GridSearch<3> &grid_search, std::string &aggregation);
 };
 
 #include "message_processor.cpp"

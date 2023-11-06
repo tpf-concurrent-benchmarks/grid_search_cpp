@@ -12,7 +12,7 @@ MessageProcessor::MessageProcessor() : statClient{"localhost", 8125, "grid_searc
     //TODO: change prefix to be distinct among different workers
 };
 
-ResultsDTO *MessageProcessor::aggregate(GridSearch<3> &grid_search, std::string aggregation)
+ResultsDTO *MessageProcessor::aggregate(GridSearch<3> &grid_search, std::string &aggregation)
 {
     if (aggregation == "MAX")
     {
