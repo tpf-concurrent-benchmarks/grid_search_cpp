@@ -15,7 +15,7 @@ using json = nlohmann::json;
 int main()
 {
     //TODO: add this to a config file
-    Statsd::StatsdClient statClient{"localhost", 8125, "myPrefix"};
+    Statsd::StatsdClient statClient{"localhost", 8125, "grid_search"};
     chrono::milliseconds start_time_ms = chrono::duration_cast< chrono::milliseconds >(
         chrono::system_clock::now().time_since_epoch()
     );
