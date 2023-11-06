@@ -4,17 +4,16 @@
 #include "../results_dto/avg_results_DTO.h"
 #include "../results_dto/max_results_DTO.h"
 #include "../results_dto/min_results_DTO.h"
+#include <StatsdClient.hpp>
+#include <chrono>
 
-MessageProcessor::MessageProcessor() = default;
+MessageProcessor::MessageProcessor() : statClient{"localhost", 8125, "grid_search"} {
+    //TODO: add this to config file
+    //TODO: change prefix to be distinct among different workers
+};
 
-ResultsDTO *MessageProcessor::processMessage(json message)
+ResultsDTO *MessageProcessor::aggregate(GridSearch<3> &grid_search, std::string aggregation)
 {
-    std::string aggregation = message["agg"];
-    std::array<std::array<float, 3>, 3> parameters = message["data"];
-    Params<3> params(std::move(parameters[0]), std::move(parameters[1]), std::move(parameters[2]));
-    GridSearch<3> grid_search(std::move(params));
-    grid_search.search(griewankFun);
-
     if (aggregation == "MAX")
     {
         auto *maxResultsDto = new MaxResultsDTO(grid_search.getMax(), grid_search.getMaxInput());
@@ -31,4 +30,28 @@ ResultsDTO *MessageProcessor::processMessage(json message)
         auto *avgResultsDto = new AvgResultsDTO(grid_search.getTotal(), grid_search.getTotalInputs());
         return avgResultsDto;
     }
+}
+
+
+ResultsDTO *MessageProcessor::processMessage(json message)
+{
+    std::chrono::milliseconds start_time_ms = std::chrono::duration_cast< std::chrono::milliseconds >(
+        std::chrono::system_clock::now().time_since_epoch()
+    );
+
+    std::string aggregation = message["agg"];
+    std::array<std::array<float, 3>, 3> parameters = message["data"];
+    Params<3> params(std::move(parameters[0]), std::move(parameters[1]), std::move(parameters[2]));
+    GridSearch<3> grid_search(std::move(params));
+    grid_search.search(griewankFun);
+
+    ResultsDTO *resultsDto = aggregate(grid_search, aggregation);
+
+    std::chrono::milliseconds end_time_ms = std::chrono::duration_cast< std::chrono::milliseconds >(
+        std::chrono::system_clock::now().time_since_epoch()
+    );
+    std::chrono::milliseconds completion_time = end_time_ms - start_time_ms;
+    statClient.timing("work_time", completion_time.count(), 1);
+    statClient.increment("results_produced");
+    return resultsDto;
 }

@@ -5,6 +5,7 @@
 #include "nlohmann/json.hpp"
 #include <cstdint>
 #include <string>
+#include <StatsdClient.hpp>
 
 using json = nlohmann::json;
 
@@ -14,6 +15,10 @@ class MessageProcessor
   public:
     MessageProcessor();
     ResultsDTO *processMessage(json message);
+
+  private:
+    Statsd::StatsdClient statClient;
+    ResultsDTO *aggregate(GridSearch<3> &grid_search, std::string aggregation);
 };
 
 #include "message_processor.cpp"
