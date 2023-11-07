@@ -15,6 +15,7 @@ ResultsDTO *MessageProcessor::aggregate(GridSearch<3> &grid_search, std::string 
 {
     if (aggregation == "MAX")
     {
+        std::cout << "MAX: " << grid_search.getResult() << std::endl;
         auto *maxResultsDto = new MaxResultsDTO(grid_search.getResult(), grid_search.getInput());
         return maxResultsDto;
     }
@@ -40,7 +41,9 @@ ResultsDTO *MessageProcessor::processMessage(json message)
 
     std::string aggregation = message["agg"];
     std::array<std::array<float, 3>, 3> parameters = message["data"];
+    std::cout << "data: " << message["data"] << std::endl;
     Params<3> params(std::move(parameters[0]), std::move(parameters[1]), std::move(parameters[2]));
+    std::cout << "total iterations: " << params.get_total_iterations() << std::endl;
     GridSearch<3> grid_search(std::move(params), aggregation);
     grid_search.search(griewankFun);
 

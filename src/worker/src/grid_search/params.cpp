@@ -1,5 +1,6 @@
 #include "params.h"
 #include <cmath>
+#include <iostream>
 
 template <std::size_t Size>
 Params<Size>::Params(std::array<float, Size> &&start, std::array<float, Size> &&end, std::array<float, Size> &&step)
@@ -9,6 +10,7 @@ Params<Size>::Params(std::array<float, Size> &&start, std::array<float, Size> &&
     total_iterations = 1;
     for (int i = 0; i < Size; ++i)
     {
+        std::cout << "total_iterations caca : " << total_iterations << std::endl;
         total_iterations *= floor((end_[i] - start_[i]) / step_[i]);
     }
 }
