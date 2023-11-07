@@ -2,7 +2,7 @@
 
 ## How to build with CMake
 
-The minimum required version of CMake is 3.11 as per requested in the `CMakeLists.txt` file.
+The minimum required version of CMake is 3.25 as per requested in the `CMakeLists.txt` file.
 There are two projects in this repository, one in `src/master` and the other in `src/worker`. Either of them can be built with the 
 following commands once you are in the root directory of the desired project:
 
