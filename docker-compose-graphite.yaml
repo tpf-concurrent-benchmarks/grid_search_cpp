@@ -35,7 +35,7 @@ services:
       - "8081:3000"
     volumes:
       # - "./grafana_config/dashboard.json:/var/lib/grafana/dashboard.json"
-      - "grafana_cofig:/var/lib/grafana"
+      - "grafana_config:/var/lib/grafana"
     depends_on:
       - graphite
 
