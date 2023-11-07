@@ -52,7 +52,8 @@ There is a Makefile in the root directory of the project that can be used to bui
 
 ## Running the project
 
-Once one of the projects is built, you can run the executable `worker-gs` (or `master-gs`) with the following command:
+Once one of the projects is built, you can run the executable `worker-gs` (or `master-gs`) with the following command
+once you are in the `cmake-build-debug `directory:
 
 ```bash
 ./worker-gs

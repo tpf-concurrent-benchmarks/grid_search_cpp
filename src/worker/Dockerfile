@@ -18,4 +18,4 @@ RUN cd worker; \
 EXPOSE 5557
 EXPOSE 5558
 
-CMD ["./app/cmake-build-debug/worker-gs"]
+CMD cd /app/worker/cmake-build-debug; ./worker-gs

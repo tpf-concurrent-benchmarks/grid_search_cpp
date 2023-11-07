@@ -19,4 +19,4 @@ RUN cd master; \
 EXPOSE 5557
 EXPOSE 5558
 
-CMD ["./app/cmake-build-debug/master-gs"]
+CMD cd /app/master/cmake-build-debug; ./master-gs
