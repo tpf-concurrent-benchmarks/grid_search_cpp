@@ -19,16 +19,20 @@ template <std::size_t Size> class GridSearch
     int getTotalInputs();
     std::array<float, Size> getMaxInput();
     std::array<float, Size> getMinInput();
+    float getResult();
+    std::array<float, Size> getInput();
 
   private:
     Params<Size> params_;
     float max;
     float min;
     float total;
+    float result;
     int total_inputs;
     std::string accum_type;
     std::array<float, Size> max_input;
     std::array<float, Size> min_input;
+    std::array<float, Size> input;
     void initAccumulation(float res, std::array<float, Size> &current);
     void accumulate(float res, std::array<float, Size> &current);
 };

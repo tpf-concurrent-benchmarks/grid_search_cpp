@@ -15,18 +15,18 @@ ResultsDTO *MessageProcessor::aggregate(GridSearch<3> &grid_search, std::string 
 {
     if (aggregation == "MAX")
     {
-        auto *maxResultsDto = new MaxResultsDTO(grid_search.getMax(), grid_search.getMaxInput());
+        auto *maxResultsDto = new MaxResultsDTO(grid_search.getResult(), grid_search.getInput());
         return maxResultsDto;
     }
     else if (aggregation == "MIN")
     {
-        auto *minResultsDto = new MinResultsDTO(grid_search.getMin(), grid_search.getMinInput());
+        auto *minResultsDto = new MinResultsDTO(grid_search.getResult(), grid_search.getInput());
         return minResultsDto;
     }
     else
     {
         // TODO: implement AVG
-        auto *avgResultsDto = new AvgResultsDTO(grid_search.getTotal(), grid_search.getTotalInputs());
+        auto *avgResultsDto = new AvgResultsDTO(grid_search.getResult(), grid_search.getTotalInputs());
         return avgResultsDto;
     }
 }

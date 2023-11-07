@@ -43,9 +43,10 @@ int main()
     // }
     // protocol.close();
 
-    Params<3> params(std::array<float, 3>{0, 0, 0}, std::array<float, 3>{1, 1, 1}, std::array<float, 3>{1, 1, 1});
-    GridSearch<3> grid_search(std::move(params), "MAX");
+    Params<3> params(std::array<float, 3>{0, 0, 0}, std::array<float, 3>{1, 10, 10}, std::array<float, 3>{1, 1, 1});
+    GridSearch<3> grid_search(std::move(params), "MIN");
     grid_search.search(griewankFun);
+    std::cout << grid_search.getResult() << std::endl;
     
 
     return 0;

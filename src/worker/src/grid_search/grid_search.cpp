@@ -37,17 +37,17 @@ template <std::size_t Size> Accumulator<Size>::Accumulator(std::string accum_typ
 {
     if (accum_type == "MAX")
     {
-        callback_ = std::bind(&Accumulator<Size>::max, this, std::placeholders::_1, std::placeholders::_2);
-        true_result = std::numeric_limits<float>::min();
+        callback_ = [this](float res, std::array<float, Size>& current) { this->max(res, current); };
+        true_result = std::numeric_limits<float>::lowest();
     }
     else if (accum_type == "MIN")
     {
-        callback_ = std::bind(&Accumulator<Size>::min, this, std::placeholders::_1, std::placeholders::_2);
+        callback_ = [this](float res, std::array<float, Size>& current) { this->min(res, current); };
         true_result = std::numeric_limits<float>::max();
     }
     else
     {
-        callback_ = std::bind(&Accumulator<Size>::avg, this, std::placeholders::_1, std::placeholders::_2);
+        callback_ = [this](float res, std::array<float, Size>& current) { this->avg(res, current); };
         true_result = 0;
     }
 }
@@ -100,7 +100,8 @@ template <std::size_t Size> void GridSearch<Size>::search(std::function<float(st
         accumulator.accumulate(res, current);
         params_.next();
     }
-    std::cout << "Result: " << accumulator.get_result() << std::endl;
+    result = accumulator.get_result();
+    input = accumulator.get_input();
 }
 
 template <std::size_t Size> void GridSearch<Size>::initAccumulation(float res, std::array<float, Size> &current)
@@ -158,5 +159,12 @@ template <std::size_t Size> std::array<float, Size> GridSearch<Size>::getMinInpu
     return min_input;
 }
 
+template <std::size_t Size> float GridSearch<Size>::getResult()
+{
+    return result;
+}
 
-
+template <std::size_t Size> std::array<float, Size> GridSearch<Size>::getInput()
+{
+    return input;
+}
