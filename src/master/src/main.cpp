@@ -10,10 +10,6 @@
 #include <constants.h>
 #include <nlohmann/json.hpp>
 
-std::string getGraphiteHost();
-
-uint16_t getGraphitePort();
-
 using json = nlohmann::json;
 
 int main()
@@ -31,10 +27,13 @@ int main()
     MessageProcessor messageProcessor(aggregation);
 
     // TODO: These ports should be from the docker compose --> env variable
-    Protocol protocol("5557", "5558");
+    std::string pushPort = getPushPort();
+    std::string pullPort = getPullPort();
+    Protocol protocol(pushPort, pullPort);
 
     // TODO n_workers should be the same as the number of workers (replicas) in docker compose
-    Manager manager(1, &protocol, &messageProcessor);
+    size_t n_workers = getNWorkers();
+    Manager manager(n_workers, &protocol, &messageProcessor);
 
     manager.run(Partition(std::move(intervals), intervals.size(), data["maxItemsPerBatch"]), aggregation);
 
@@ -48,17 +47,4 @@ int main()
     protocol.close();
 
     return 0;
-}
-
-uint16_t getGraphitePort() {
-    return 8125;
-}
-
-std::string getGraphiteHost() {
-    const char *graphiteHost = "graphite";
-    if (getenv("ENV") != nullptr && string(getenv("ENV")) == "LOCAL")
-    {
-        graphiteHost = "localhost";
-    }
-    return graphiteHost;
 }
