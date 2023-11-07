@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY . /app/
 
-RUN cmake . -DAMQP-CPP_LINUX_TCP=ON
+RUN cmake -DCMAKE_BUILD_TYPE=Release .
 RUN cmake --build .
 ENTRYPOINT ["/bin/sh"]

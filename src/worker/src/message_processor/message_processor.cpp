@@ -1,10 +1,8 @@
 #include "message_processor.h"
-#include "../grid_search/grid_search.h"
 #include "../grid_search/objective_fun.h"
 #include "../results_dto/avg_results_DTO.h"
 #include "../results_dto/max_results_DTO.h"
 #include "../results_dto/min_results_DTO.h"
-#include <StatsdClient.hpp>
 #include <chrono>
 
 MessageProcessor::MessageProcessor(std::string ID)
