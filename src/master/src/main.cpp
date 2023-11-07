@@ -10,12 +10,17 @@
 #include <constants.h>
 #include <nlohmann/json.hpp>
 
+std::string getGraphiteHost();
+
+uint16_t getGraphitePort();
+
 using json = nlohmann::json;
 
 int main()
 {
-    // TODO: add this to a config file
-    Statsd::StatsdClient statClient{"localhost", 8125, "manager"};
+    std::string graphiteHost = getGraphiteHost();
+    uint16_t graphitePort = getGraphitePort();
+    Statsd::StatsdClient statClient{graphiteHost, graphitePort, "manager"};
     chrono::milliseconds start_time_ms =
         chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch());
 
@@ -43,4 +48,17 @@ int main()
     protocol.close();
 
     return 0;
+}
+
+uint16_t getGraphitePort() {
+    return 8125;
+}
+
+std::string getGraphiteHost() {
+    const char *graphiteHost = "graphite";
+    if (getenv("ENV") != nullptr && string(getenv("ENV")) == "LOCAL")
+    {
+        graphiteHost = "localhost";
+    }
+    return graphiteHost;
 }
