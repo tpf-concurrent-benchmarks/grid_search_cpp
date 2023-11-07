@@ -1,19 +1,19 @@
 #include "../../shared/constants.h"
+#include "config_reader/config_reader.h"
 #include "message_processor/message_processor.h"
 #include "protocol/protocol.h"
-#include <cstdlib>
 
 int main()
 {
     // TODO: These ports should be from the docker compose --> env variable.
     // Also the host should be changed accordingly
-    Protocol protocol("localhost", "5558", "5557");
-    const char *ID = std::getenv("NODE_ID");
-    if (ID == nullptr)
-    {
-        ID = "0";
-    }
-    MessageProcessor messageProcessor(ID);
+    std::string pushPort = getPushPort();
+    std::string pullPort = getPullPort();
+    std::string masterHost = getMasterHost();
+
+    Protocol protocol(masterHost, pushPort, pullPort);
+    std::string nodeId = getNodeId();
+    MessageProcessor messageProcessor(nodeId);
     protocol.send(Constants::READY_MESSAGE);
 
     bool shouldStop = false;

@@ -14,11 +14,11 @@ class MessageProcessor
 {
 
   public:
-    MessageProcessor(std::string ID);
+    explicit MessageProcessor(const std::string &ID);
     ResultsDTO *processMessage(json message);
 
   private:
-    Statsd::StatsdClient statClient;
+    Statsd::StatsdClient statsdClient_;
     ResultsDTO *aggregate(GridSearch<3> &grid_search, std::string &aggregation);
 };
 

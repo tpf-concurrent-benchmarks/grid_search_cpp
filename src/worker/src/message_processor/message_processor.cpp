@@ -5,10 +5,7 @@
 #include "../results_dto/min_results_DTO.h"
 #include <chrono>
 
-MessageProcessor::MessageProcessor(std::string ID)
-    : statClient{"localhost", 8125, ID} {
-          // TODO: add this to config file
-      };
+MessageProcessor::MessageProcessor(const std::string &ID) : statsdClient_{getGraphiteHost(), getGraphitePort(), ID} {};
 
 ResultsDTO *MessageProcessor::aggregate(GridSearch<3> &grid_search, std::string &aggregation)
 {
@@ -45,7 +42,7 @@ ResultsDTO *MessageProcessor::processMessage(json message)
     std::chrono::milliseconds end_time_ms =
         std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
     std::chrono::milliseconds completion_time = end_time_ms - start_time_ms;
-    statClient.timing("work_time", completion_time.count(), 1);
-    statClient.increment("results_produced");
+    statsdClient_.timing("work_time", completion_time.count(), 1);
+    statsdClient_.increment("results_produced");
     return resultsDto;
 }
