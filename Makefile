@@ -24,7 +24,7 @@ manager_logs:
 	docker service logs -f gs_cpp_manager
 
 full_build_master_local:
-	cd src/master/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake .. && cmake --build .
+	cd src/master/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake -DCMAKE_BUILD_TYPE=Release ..  && cmake --build .
 
 build_master_local:
 	cd src/master/cmake-build-debug && cmake --build .
@@ -33,7 +33,7 @@ run_master_local:
 	cd src/master/cmake-build-debug && ./${EXEC_MASTER}
 
 full_build_worker_local:
-	cd src/worker/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake .. && cmake --build .
+	cd src/worker/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build .
 
 build_worker_local:
 	cd src/worker/cmake-build-debug && cmake --build .

@@ -29,12 +29,11 @@ services:
       - "/dev/disk/:/dev/disk:ro"
 
   grafana:
-    # grafana user is admin admin
+    # Grafana user is admin/admin
     image: grafana/grafana:latest
     ports:
       - "8081:3000"
     volumes:
-      # - "./grafana_config/dashboard.json:/var/lib/grafana/dashboard.json"
       - "grafana_config:/var/lib/grafana"
     depends_on:
       - graphite

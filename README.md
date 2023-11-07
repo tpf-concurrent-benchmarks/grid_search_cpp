@@ -9,7 +9,7 @@ following commands once you are in the root directory of the desired project:
 ```bash
 mkdir cmake-build-debug
 cd cmake-build-debug
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=Release ..
 cmake --build .
 ```
 
@@ -23,10 +23,16 @@ cmake --build .
 
 This is particularly useful when you are developing and want to build the project faster, as you don't need to build the dependencies every time.
 
-## Running all services with DOcker
+## Running all services with Docker
 
 ```bash
-docker compose -f=docker-compose.yml up
+docker compose -f=docker-compose-deploy.yml up
+```
+
+## Running only Graphite, Grafana and cAdvisor with Docker
+
+```bash
+docker compose -f=docker-compose-graphite.yaml up
 ```
 
 ## Makefile
@@ -41,7 +47,7 @@ Once one of the projects is built, you can run the executable `worker-gs` (or `m
 ./worker-gs
 ```
 
-## Libraries used
+## Used libraries
 
 - [json](https://github.com/nlohmann/json): JSON for Modern C++
 - [libzmq](https://github.com/zeromq/libzmq): ZeroMQ core engine in C++

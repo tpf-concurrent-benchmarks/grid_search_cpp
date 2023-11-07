@@ -3,8 +3,8 @@
 
 #include "../grid_search/grid_search.h"
 #include "../results_dto/results_DTO.h"
-#include "nlohmann/json.hpp"
 #include "cpp-statsd-client/StatsdClient.hpp"
+#include "nlohmann/json.hpp"
 #include <cstdint>
 #include <string>
 

@@ -1,11 +1,13 @@
 version: "3.7"
 services:
   worker:
-    image: grid_search_cpp_worker
+    build:
+      context: ./src/
+      dockerfile: worker/Dockerfile
     depends_on:
       - manager
     deploy:
-      replicas: 3
+      replicas: 2
       restart_policy:
         condition: none
     # TODO: remove tty and stdin_open
@@ -13,9 +15,12 @@ services:
     tty: true
     environment:
       - NODE_ID=worker_{{.Task.Slot}}
+      - N_WORKERS=2
 
   manager:
-    image: grid_search_cpp_manager
+    build:
+      context: ./src/
+      dockerfile: master/Dockerfile
     deploy:
       replicas: 1
       restart_policy:

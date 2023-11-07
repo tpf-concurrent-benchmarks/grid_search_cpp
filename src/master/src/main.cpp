@@ -1,11 +1,11 @@
 #include "config_reader/config_reader.h"
+#include "cpp-statsd-client/StatsdClient.hpp"
 #include "interval/interval.h"
 #include "interval/partition.h"
 #include "manager/manager.h"
 #include "message_processor/message_processor.h"
 #include "protocol/protocol.h"
 #include "utils/json_parsing.h"
-#include "cpp-statsd-client/StatsdClient.hpp"
 #include <chrono>
 #include <constants.h>
 #include <nlohmann/json.hpp>
