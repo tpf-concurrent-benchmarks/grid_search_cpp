@@ -1,4 +1,7 @@
-FROM rikorose/gcc-cmake:latest
+FROM gcc:latest
+
+RUN apt-get update; \
+    apt-get install -y cmake
 
 WORKDIR /app
 
@@ -10,7 +13,7 @@ COPY ./master/src /app/master/src
 RUN cd master; \
     mkdir cmake-build-debug; \
     cd cmake-build-debug; \
-    cmake -DCMAKE_BUILD_TYPE=Debug ..; \
+    cmake -DCMAKE_BUILD_TYPE=Release ..; \
     cmake --build .
 
 ENTRYPOINT ["/bin/sh"]

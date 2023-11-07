@@ -1,4 +1,7 @@
-FROM rikorose/gcc-cmake:latest
+FROM gcc:latest
+
+RUN apt-get update; \
+    apt-get install -y cmake
 
 WORKDIR /app
 

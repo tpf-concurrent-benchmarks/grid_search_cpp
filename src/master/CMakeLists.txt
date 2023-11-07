@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.25)
 project(MasterGridSearch)
 add_executable(master-gs src/main.cpp)
 cmake_policy(SET CMP0135 NEW)
