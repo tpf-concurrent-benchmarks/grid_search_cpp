@@ -41,7 +41,18 @@ std::string getGraphiteHost()
     return graphiteHost;
 }
 
-std::string getNodeId() {
+std::string getMasterHost()
+{
+    const char *host = "manager";
+    if (getenv("ENV") != nullptr && string(getenv("ENV")) == "LOCAL")
+    {
+        host = "localhost";
+    }
+    return host;
+}
+
+std::string getNodeId()
+{
     const char *nodeId = "0";
     char *nodeIdFromEnv = getenv("NODE_ID");
     if (nodeIdFromEnv != nullptr)

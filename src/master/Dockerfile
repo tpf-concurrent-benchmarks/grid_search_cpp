@@ -16,4 +16,7 @@ RUN cd master; \
     cmake -DCMAKE_BUILD_TYPE=Release ..; \
     cmake --build .
 
-ENTRYPOINT ["/bin/sh"]
+EXPOSE 5557
+EXPOSE 5558
+
+CMD ["./app/cmake-build-debug/master-gs"]

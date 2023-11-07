@@ -1,6 +1,7 @@
 #ifndef WORKERGRIDSEARCHCPP_CONFIG_READER_H
 #define WORKERGRIDSEARCHCPP_CONFIG_READER_H
 
+#include <cstdint>
 #include <string>
 
 std::string getGraphiteHost();

@@ -62,6 +62,8 @@ services:
     deploy:
       restart_policy:
         condition: none
+    tty: true
+    stdin_open: true
     environment:
       - LOCAL=${LOCAL}
       - NODE_ID=manager
