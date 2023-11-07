@@ -41,7 +41,7 @@ ResultsDTO *MessageProcessor::processMessage(json message)
     std::string aggregation = message["agg"];
     std::array<std::array<float, 3>, 3> parameters = message["data"];
     Params<3> params(std::move(parameters[0]), std::move(parameters[1]), std::move(parameters[2]));
-    GridSearch<3> grid_search(std::move(params));
+    GridSearch<3> grid_search(std::move(params), aggregation);
     grid_search.search(griewankFun);
 
     ResultsDTO *resultsDto = aggregate(grid_search, aggregation);
