@@ -35,15 +35,18 @@ services:
       - "grafana_config:/var/lib/grafana"
     depends_on:
       - graphite
+
   worker:
-    image: grid_search_cpp_worker
+    build:
+      context: ./src/
+      dockerfile: worker/Dockerfile
     tty: true
     stdin_open: true
     depends_on:
       - graphite
       - manager
     deploy:
-      replicas: 2
+      replicas: 2 # This number should be equal to N_WORKERS
       restart_policy:
         condition: none
     environment:
@@ -51,7 +54,9 @@ services:
       - NODE_ID=worker_{{.Task.Slot}}
 
   manager:
-    image: grid_search_cpp_manager
+    build:
+      context: ./src/
+      dockerfile: master/Dockerfile
     depends_on:
       - graphite
     deploy:
@@ -60,6 +65,7 @@ services:
     environment:
       - LOCAL=${LOCAL}
       - NODE_ID=manager
+      - N_WORKERS=2 # This number should be equal to "replicas" in worker service
 
 volumes:
   grafana_config:

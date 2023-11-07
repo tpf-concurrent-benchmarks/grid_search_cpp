@@ -7,7 +7,7 @@ services:
     depends_on:
       - manager
     deploy:
-      replicas: 2
+      replicas: 2 # This number should be equal to N_WORKERS
       restart_policy:
         condition: none
     # TODO: remove tty and stdin_open
@@ -15,7 +15,6 @@ services:
     tty: true
     environment:
       - NODE_ID=worker_{{.Task.Slot}}
-      - N_WORKERS=2
 
   manager:
     build:
@@ -28,3 +27,5 @@ services:
     # TODO: remove tty and stdin_open
     stdin_open: true
     tty: true
+    environment:
+      - N_WORKERS=2 # This number should be equal to "replicas" in worker service

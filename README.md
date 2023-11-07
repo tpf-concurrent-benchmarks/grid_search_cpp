@@ -35,6 +35,17 @@ docker compose -f=docker-compose-deploy.yml up
 docker compose -f=docker-compose-graphite.yaml up
 ```
 
+## Compile only with Docker
+
+```bash
+docker compose up
+```
+
+## About ports on worker and master
+
+The default ZMQ ports for the master are 5557 (PUSH) and 5558 (PULL). The ports in the worker must be the same as the ones in the master but interchanged.
+For instance, if the master is using 5557 (PUSH) and 5558 (PULL), the worker must use 5558 (PUSH) and 5557 (PULL).
+
 ## Makefile
 
 There is a Makefile in the root directory of the project that can be used to build and run the project
