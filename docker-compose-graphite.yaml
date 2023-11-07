@@ -29,7 +29,7 @@ services:
       - "/dev/disk/:/dev/disk:ro"
 
   grafana:
-    #grafana user is admin admin
+    # grafana user is admin admin
     image: grafana/grafana:latest
     ports:
       - "8081:3000"
