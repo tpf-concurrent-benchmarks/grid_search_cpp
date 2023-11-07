@@ -1,12 +1,12 @@
 #ifndef WORKERGRIDSEARCH_MESSAGE_PROCESSOR_H
 #define WORKERGRIDSEARCH_MESSAGE_PROCESSOR_H
 
+#include "../grid_search/grid_search.h"
 #include "../results_dto/results_DTO.h"
 #include "nlohmann/json.hpp"
+#include <StatsdClient.hpp>
 #include <cstdint>
 #include <string>
-#include <StatsdClient.hpp>
-#include "../grid_search/grid_search.h"
 
 using json = nlohmann::json;
 
