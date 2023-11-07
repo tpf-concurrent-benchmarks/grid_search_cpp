@@ -5,8 +5,6 @@
 
 int main()
 {
-    // TODO: These ports should be from the docker compose --> env variable.
-    // Also the host should be changed accordingly
     std::string pushPort = getPushPort();
     std::string pullPort = getPullPort();
     std::string masterHost = getMasterHost();

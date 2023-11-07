@@ -26,12 +26,10 @@ int main()
 
     MessageProcessor messageProcessor(aggregation);
 
-    // TODO: These ports should be from the docker compose --> env variable
     std::string pushPort = getPushPort();
     std::string pullPort = getPullPort();
     Protocol protocol(pushPort, pullPort);
 
-    // TODO n_workers should be the same as the number of workers (replicas) in docker compose
     size_t n_workers = getNWorkers();
     Manager manager(n_workers, &protocol, &messageProcessor);
 
