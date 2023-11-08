@@ -54,3 +54,6 @@ _deps
 .vscode
 .idea
 
+# Others
+graphite
+

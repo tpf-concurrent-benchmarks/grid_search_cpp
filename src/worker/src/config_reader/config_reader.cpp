@@ -1,50 +1,10 @@
 #include "config_reader.h"
-#include "nlohmann/json.hpp"
-#include <fstream>
-#include <iostream>
 
 using namespace std;
-using json = nlohmann::json;
-
-ifstream readFile(string path)
-{
-    ifstream file(path);
-    if (!file)
-    {
-        cerr << "Error: Could not open the file: " << path << endl;
-        exit(1);
-    }
-    return file;
-}
-
-json configFileToJson(ifstream &configFile)
-{
-    json configData;
-    configFile >> configData;
-    return configData;
-}
-
-json getDataFromJson(const char *dataPath)
-{
-    ifstream dataFile = readFile(dataPath);
-    json data = configFileToJson(dataFile);
-    return data;
-}
-
-size_t getNWorkers()
-{
-    size_t nWorkers = 1;
-    char *nWorkersFromEnv = getenv("N_WORKERS");
-    if (nWorkersFromEnv != nullptr)
-    {
-        nWorkers = atoi(nWorkersFromEnv);
-    }
-    return nWorkers;
-}
 
 std::string getPullPort()
 {
-    const char *pullPort = "5558";
+    const char *pullPort = "5557";
     char *pullPortFromEnv = getenv("PULL_PORT");
     if (pullPortFromEnv != nullptr)
     {
@@ -56,7 +16,7 @@ std::string getPullPort()
 
 std::string getPushPort()
 {
-    const char *pushPort = "5557";
+    const char *pushPort = "5558";
     char *pushPortFromEnv = getenv("PUSH_PORT");
     if (pushPortFromEnv != nullptr)
     {
@@ -89,4 +49,15 @@ std::string getMasterHost()
         host = "localhost";
     }
     return host;
+}
+
+std::string getNodeId()
+{
+    const char *nodeId = "0";
+    char *nodeIdFromEnv = getenv("NODE_ID");
+    if (nodeIdFromEnv != nullptr)
+    {
+        nodeId = nodeIdFromEnv;
+    }
+    return nodeId;
 }

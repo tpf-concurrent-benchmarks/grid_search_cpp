@@ -24,10 +24,6 @@ void MessageProcessor::processMessage(const json &message)
             parameters_ = parameters;
         }
     }
-    else
-    {
-        // TODO: add avg
-    }
 }
 
 void MessageProcessor::saveResults()

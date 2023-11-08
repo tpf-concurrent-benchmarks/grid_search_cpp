@@ -4,13 +4,12 @@ services:
   graphite:
     image: graphiteapp/graphite-statsd:1.1.10-4
     volumes:
-      - "./statsd.config.js:/opt/statsd/config.js"
-      - "./graphite.storage-schemas.conf:/opt/graphite/conf/storage-schemas.conf"
+      - "./statsd.config.js:/opt/statsd/config.js:ro"
+      - "./graphite.storage-schemas.conf:/opt/graphite/conf/storage-schemas.conf:ro"
       - "./graphite:/opt/graphite/storage/:rw"
     ports:
       - "8080:8080"
-      - "8125:8125/udp"
-  
+
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.47.0
     command: >
@@ -29,7 +28,6 @@ services:
       - "/dev/disk/:/dev/disk:ro"
 
   grafana:
-    # Grafana user is admin/admin
     image: grafana/grafana:latest
     ports:
       - "8081:3000"
@@ -37,6 +35,39 @@ services:
       - "grafana_config:/var/lib/grafana"
     depends_on:
       - graphite
+
+  worker:
+    build:
+      context: ./src/
+      dockerfile: worker/Dockerfile
+    tty: true
+    stdin_open: true
+    depends_on:
+      - graphite
+      - manager
+    deploy:
+      replicas: 2 # This number should be equal to N_WORKERS
+      restart_policy:
+        condition: none
+    environment:
+      - LOCAL=${LOCAL}
+      - NODE_ID=worker_{{.Task.Slot}}
+
+  manager:
+    build:
+      context: ./src/
+      dockerfile: master/Dockerfile
+    depends_on:
+      - graphite
+    deploy:
+      restart_policy:
+        condition: none
+    tty: true
+    stdin_open: true
+    environment:
+      - LOCAL=${LOCAL}
+      - NODE_ID=manager
+      - N_WORKERS=2 # This number should be equal to "replicas" in worker service
 
 volumes:
   grafana_config:

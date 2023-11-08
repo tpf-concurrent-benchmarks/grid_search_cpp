@@ -1,9 +1,21 @@
-FROM rikorose/gcc-cmake:latest
+FROM gcc:latest
+
+RUN apt-get update; \
+    apt-get install -y cmake
 
 WORKDIR /app
 
-COPY . /app/
+COPY ./shared /app/shared
+COPY ./worker/CMakeLists.txt /app/worker/CMakeLists.txt
+COPY ./worker/src /app/worker/src
 
-RUN cmake . -DAMQP-CPP_LINUX_TCP=ON
-RUN cmake --build .
-ENTRYPOINT ["/bin/sh"]
+RUN cd worker; \
+    mkdir -p cmake-build-debug; \
+    cd cmake-build-debug; \
+    cmake -DCMAKE_BUILD_TYPE=Release ..; \
+    cmake --build .
+
+EXPOSE 5557
+EXPOSE 5558
+
+CMD cd /app/worker/cmake-build-debug; ./worker-gs

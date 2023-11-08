@@ -1,25 +1,24 @@
 #include "config_reader/config_reader.h"
+#include "cpp-statsd-client/StatsdClient.hpp"
 #include "interval/interval.h"
 #include "interval/partition.h"
 #include "manager/manager.h"
 #include "message_processor/message_processor.h"
 #include "protocol/protocol.h"
 #include "utils/json_parsing.h"
+#include <chrono>
 #include <constants.h>
 #include <nlohmann/json.hpp>
-#include <StatsdClient.hpp>
-#include <chrono>
 
 using json = nlohmann::json;
 
 int main()
 {
-    //TODO: add this to a config file
-    Statsd::StatsdClient statClient{"localhost", 8125, "manager"};
-    chrono::milliseconds start_time_ms = chrono::duration_cast< chrono::milliseconds >(
-        chrono::system_clock::now().time_since_epoch()
-    );
-    
+    std::string graphiteHost = getGraphiteHost();
+    uint16_t graphitePort = getGraphitePort();
+    Statsd::StatsdClient statClient{graphiteHost, graphitePort, "manager"};
+    chrono::milliseconds start_time_ms =
+        chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch());
 
     json data = getDataFromJson("../resources/example-max.json");
     std::vector<Interval> intervals = intervalsFromJson(data["data"]);
@@ -27,19 +26,18 @@ int main()
 
     MessageProcessor messageProcessor(aggregation);
 
-    // TODO: These ports should be from the docker compose --> env variable
-    Protocol protocol("5557", "5558");
+    std::string pushPort = getPushPort();
+    std::string pullPort = getPullPort();
+    Protocol protocol(pushPort, pullPort);
 
-    // TODO n_workers should be the same as the number of workers (replicas) in docker compose
-    Manager manager(1, &protocol, &messageProcessor);
+    size_t n_workers = getNWorkers();
+    Manager manager(n_workers, &protocol, &messageProcessor);
 
     manager.run(Partition(std::move(intervals), intervals.size(), data["maxItemsPerBatch"]), aggregation);
 
-
-    //send the total processing time
-    chrono::milliseconds end_time_ms = chrono::duration_cast< chrono::milliseconds >(
-        chrono::system_clock::now().time_since_epoch()
-    );
+    // send the total processing time
+    chrono::milliseconds end_time_ms =
+        chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch());
     chrono::milliseconds completion_time = end_time_ms - start_time_ms;
     statClient.gauge("completion_time", completion_time.count(), 1, {});
     std::cout << "sent completion_time" << std::endl;
