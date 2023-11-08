@@ -11,7 +11,7 @@ COPY ./shared /app/shared
 COPY ./master/src /app/master/src
 
 RUN cd master; \
-    mkdir cmake-build-debug; \
+    mkdir -p cmake-build-debug; \
     cd cmake-build-debug; \
     cmake -DCMAKE_BUILD_TYPE=Release ..; \
     cmake --build .

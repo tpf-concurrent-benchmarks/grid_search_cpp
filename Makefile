@@ -30,7 +30,7 @@ build_master_local:
 	cd src/master/cmake-build-debug && cmake --build .
 
 run_master_local:
-	cd src/master/cmake-build-debug && ./${EXEC_MASTER}
+	cd src/master/cmake-build-debug && ENV=LOCAL ./${EXEC_MASTER}
 
 full_build_worker_local:
 	cd src/worker/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build .
@@ -39,7 +39,7 @@ build_worker_local:
 	cd src/worker/cmake-build-debug && cmake --build .
 
 run_worker_local:
-	cd src/worker/cmake-build-debug && ./$(EXEC_WORKER)
+	cd src/worker/cmake-build-debug && ENV=LOCAL ./$(EXEC_WORKER)
 
 valgrind_master:
 	cd src/master/cmake-build-debug  && valgrind $(VFLAGS) ./$(EXEC_MASTER)
@@ -47,11 +47,14 @@ valgrind_master:
 valgrind_worker:
 	cd src/worker/cmake-build-debug && valgrind $(VFLAGS) ./$(EXEC_WORKER)
 
-
 format:
 	clang-format -i src/master/src/**/*.cpp src/master/src/**/*.h src/worker/src/**/*.cpp src/worker/src/**/*.h
 	clang-format -i src/master/src/main.cpp src/worker/src/main.cpp
 	clang-format -i src/shared/*.h
+
+deploy_remote:
+	mkdir -p graphite
+	MY_UID="$(shell id -u)" MY_GID="$(shell id -g)" docker stack deploy -c docker-compose-deploy.yaml gs_cpp
 
 run_graphite: down_graphite
 	docker stack deploy -c docker-compose-graphite.yaml graphite

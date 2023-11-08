@@ -21,7 +21,7 @@ If you have already built the project (with its dependencies) and only want to b
 cmake --build .
 ```
 
-This is particularly useful when you are developing and want to build the project faster, as you don't need to build the dependencies every time.
+This is particularly useful when you are local developing and want to build the project faster, as you don't need to build the dependencies every time.
 
 ## Running all services with Docker
 
@@ -45,6 +45,11 @@ docker compose up
 
 The default ZMQ ports for the master are 5557 (PUSH) and 5558 (PULL). The ports in the worker must be the same as the ones in the master but interchanged.
 For instance, if the master is using 5557 (PUSH) and 5558 (PULL), the worker must use 5558 (PUSH) and 5557 (PULL).
+
+## Number of replicas
+
+If you wish to change the number of replicas, you can do so by changing the `N_WORKERS` environment variable (manager service) in the `docker-compose-deploy.yml` file.
+Also, you must set with the same value the `deploy.replicas` in the `worker` service in the same file.
 
 ## Makefile
 
