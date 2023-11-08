@@ -8,17 +8,17 @@ template <std::size_t Size> Accumulator<Size>::Accumulator(std::string accum_typ
 {
     if (accum_type == "MAX")
     {
-        callback_ = Accumulator::max;
-        true_result = std::numeric_limits<float>::max();
+        callback_ = [this](float res, std::array<float, Size>& current) { this->max(res, current); };
+        true_result = std::numeric_limits<float>::lowest();
     }
     else if (accum_type == "MIN")
     {
-        callback_ = Accumulator::min;
-        true_result = std::numeric_limits<float>::min();
+        callback_ = [this](float res, std::array<float, Size>& current) { this->min(res, current); };
+        true_result = std::numeric_limits<float>::max();
     }
     else
     {
-        callback_ = Accumulator::avg;
+        callback_ = [this](float res, std::array<float, Size>& current) { this->avg(res, current); };
         true_result = 0;
     }
 }
@@ -58,4 +58,3 @@ template<std::size_t Size>
 void Accumulator<Size>::avg(float res, std::array<float, Size> &current) {
     true_result += res;
 }
-

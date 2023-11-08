@@ -27,4 +27,6 @@ private:
     void avg(float res, std::array<float, Size> &current);
 };
 
+#include "accumulator.cpp"
+
 #endif // ACCUMULATOR_H
