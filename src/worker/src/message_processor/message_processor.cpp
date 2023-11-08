@@ -11,17 +11,18 @@ ResultsDTO *MessageProcessor::aggregate(GridSearch<3> &grid_search, std::string 
 {
     if (aggregation == "MAX")
     {
-        auto *maxResultsDto = new MaxResultsDTO(grid_search.getMax(), grid_search.getMaxInput());
+        auto *maxResultsDto = new MaxResultsDTO(grid_search.getResult(), grid_search.getInput());
         return maxResultsDto;
     }
     else if (aggregation == "MIN")
     {
-        auto *minResultsDto = new MinResultsDTO(grid_search.getMin(), grid_search.getMinInput());
+        auto *minResultsDto = new MinResultsDTO(grid_search.getResult(), grid_search.getInput());
         return minResultsDto;
     }
     else
     {
-        auto *avgResultsDto = new AvgResultsDTO(grid_search.getTotal(), grid_search.getTotalInputs());
+        // TODO: implement AVG
+        auto *avgResultsDto = new AvgResultsDTO(grid_search.getResult(), grid_search.getTotalInputs());
         return avgResultsDto;
     }
 }
@@ -33,8 +34,17 @@ ResultsDTO *MessageProcessor::processMessage(json message)
 
     std::string aggregation = message["agg"];
     std::array<std::array<float, 3>, 3> parameters = message["data"];
-    Params<3> params(std::move(parameters[0]), std::move(parameters[1]), std::move(parameters[2]));
-    GridSearch<3> grid_search(std::move(params));
+    std::array<float, 3> start;
+    std::array<float, 3> end;
+    std::array<float, 3> step;
+    for (int i = 0; i < 3; i++)
+    {
+        start[i] = parameters[i][0];
+        end[i] = parameters[i][1];
+        step[i] = parameters[i][2];
+    }
+    Params<3> params(std::move(start), std::move(end), std::move(step));
+    GridSearch<3> grid_search(std::move(params), aggregation);
     grid_search.search(griewankFun);
 
     ResultsDTO *resultsDto = aggregate(grid_search, aggregation);
