@@ -1,6 +1,5 @@
 #include "grid_search.h"
 #include <string>
-#include <iostream>
 
 //TODO borrar
 #include <functional>
@@ -69,7 +68,6 @@ std::array<float, Size> Accumulator<Size>::get_input() {
 
 template<std::size_t Size>
 void Accumulator<Size>::max(float res, std::array<float, Size> &current) {
-    std::cout << "res: " << res << std::endl;
     if (res > true_result){
         true_result = res;
         true_input = current;
@@ -94,7 +92,6 @@ template <std::size_t Size> void GridSearch<Size>::search(std::function<float(st
 {
     Accumulator<Size> accumulator(accum_type);
     float res;
-    std::cout << "total iterations: " << params_.get_total_iterations() << std::endl;
     for (int i = 0; i < params_.get_total_iterations(); i++)
     {
         std::array<float, Size> &current = params_.get_current();
