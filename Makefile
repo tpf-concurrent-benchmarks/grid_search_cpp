@@ -9,8 +9,8 @@ init:
 build:
 	docker rmi grid_search_cpp_worker -f
 	docker rmi grid_search_cpp_manager -f
-	docker build -t grid_search_cpp_worker ./src/worker/
-	docker build -t grid_search_cpp_manager ./src/master/
+	docker build -t grid_search_cpp_worker ./src/ -f ./src/worker/Dockerfile
+	docker build -t grid_search_cpp_manager ./src/ -f ./src/master/Dockerfile
 
 setup: init build
 

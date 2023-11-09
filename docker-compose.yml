@@ -1,9 +1,11 @@
 version: "3.7"
 services:
   worker:
-    build:
-      context: ./src/
-      dockerfile: worker/Dockerfile
+    image: grid_search_cpp_worker
+    # build:
+    #   context: ./src/
+    #   dockerfile: worker/Dockerfile
+    entrypoint: ./app/worker/cmake-build-debug/master-gs
     depends_on:
       - manager
     deploy:
@@ -17,9 +19,11 @@ services:
       - NODE_ID=worker_{{.Task.Slot}}
 
   manager:
-    build:
-      context: ./src/
-      dockerfile: master/Dockerfile
+    image: grid_search_cpp_manager
+    # build:
+    #   context: ./src/
+    #   dockerfile: master/Dockerfile
+    entrypoint: ./app/worker/cmake-build-debug/worker-gs
     deploy:
       replicas: 1
       restart_policy:
