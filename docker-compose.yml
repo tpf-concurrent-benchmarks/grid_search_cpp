@@ -23,7 +23,7 @@ services:
     # build:
     #   context: ./src/
     #   dockerfile: master/Dockerfile
-    entrypoint: ./app/worker/cmake-build-debug/worker-gs
+    entrypoint: ./app/master/cmake-build-debug/worker-gs
     deploy:
       replicas: 1
       restart_policy:
