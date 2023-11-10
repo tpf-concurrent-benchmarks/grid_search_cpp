@@ -48,12 +48,26 @@ For instance, if the master is using 5557 (PUSH) and 5558 (PULL), the worker mus
 
 ## Number of replicas
 
-If you wish to change the number of replicas, you can do so by changing the `N_WORKERS` environment variable (manager service) in the `docker-compose-deploy.yml` file.
+**Local replicas**
+
+If you wish to change the number of replicas, you can do so by changing the `N_WORKERS` environment variable (manager service) in the `docker-compose-deploy-local.yml` file.
 Also, you must set with the same value the `deploy.replicas` in the `worker` service in the same file.
+
+**Docker swarm replicas**
+
+If you wish to change the number of replicas, you can do so by changing the `N_WORKERS` constants in the `Makefile` file.
 
 ## Makefile
 
 There is a Makefile in the root directory of the project that can be used to build and run the project
+
+- `make build`: builds manager and worker images
+- `make deploy`: deploys the manager and worker services locally, alongside with Graphite, Grafana and cAdvisor.
+- `make deploy_remote`: deploys (with Docker Swarm) the manager and worker services, alongside with Graphite, Grafana and cAdvisor.
+- `make remove`: removes all services (stops the swarm)
+- `make full_build_master_local:`  uilds the manager locally (it downloads and builds all dependencies, so it may take a while). Same for `make full_build_worker_local`.
+- `make build_master_local:` builds the manager locally, useful when doing local development and you already run `make full_build_master_local:`. Same for `make build_worker_local`.
+- `make run_master_local:` runs the worker locally. It asumes that the master project has been built. Same for `make run_worker_local`.
 
 ## Running the project
 
