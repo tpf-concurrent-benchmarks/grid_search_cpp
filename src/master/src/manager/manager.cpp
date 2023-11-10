@@ -13,7 +13,7 @@ void Manager::run(Partition partition, const std::string &aggregation)
         if (message == Constants::READY_MESSAGE)
         {
             workersReady_++;
-            std::cout << "Worker ready: " << workersReady_ << "of " << nWorkers_ << std::endl;
+            std::cout << "Worker ready: " << workersReady_ << " of " << nWorkers_ << std::endl;
         }
     }
 
@@ -24,9 +24,9 @@ void Manager::run(Partition partition, const std::string &aggregation)
         protocol_->send(partition_data, aggregation);
     }
 
-    for (size_t i = 0; i < nWorkers_; i++)
+    for (size_t i = 0; i < nWorkers_; i++) // 0 a 1, 1 a 2, 2 a 3, 3 a 4
     {
-        std::cout << "Sending stop message to workers: " << i + 1 << "of " << nWorkers_ << std::endl;
+        std::cout << "Sending stop message to workers: " << i + 1 << " of " << nWorkers_ << std::endl;
         protocol_->send(Constants::STOP_MESSAGE);
     }
 
@@ -36,10 +36,11 @@ void Manager::run(Partition partition, const std::string &aggregation)
         if (message == Constants::END_WORK_MESSAGE)
         {
             nWorkers_--;
-            std::cout << "Worker finished: " << nWorkers_ << "left" << std::endl;
+            std::cout << "Worker finished: " << nWorkers_ << " left" << std::endl;
         }
         else
         {
+            std::cout << "Processing message " << message << std::endl;
             messageProcessor_->processMessage(json::parse(message));
         }
     }
