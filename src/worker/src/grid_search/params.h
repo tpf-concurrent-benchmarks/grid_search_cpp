@@ -11,14 +11,14 @@ template <std::size_t Size> class Params
     Params(std::array<float, Size> &&start, std::array<float, Size> &&end, std::array<float, Size> &&step);
     std::array<float, Size> &get_current();
     void next();
-    int get_total_iterations();
+    double get_total_iterations();
 
   private:
     std::array<float, Size> start_;
     std::array<float, Size> end_;
     std::array<float, Size> step_;
     std::array<float, Size> current_;
-    int total_iterations;
+    double total_iterations;
 };
 
 #include "params.cpp"

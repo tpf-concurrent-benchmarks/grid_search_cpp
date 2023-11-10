@@ -1,12 +1,15 @@
 #include "grid_search.h"
 #include <string>
 #include "accumulator.h"
+#include <iostream>
 
 template <std::size_t Size> void GridSearch<Size>::search(std::function<float(std::array<float, Size> &)> callback)
 {
     Accumulator<Size> accumulator(accum_type);
     float res;
-    for (int i = 0; i < params_.get_total_iterations(); i++)
+    std::cout << "total iterations" << params_.get_total_iterations() << std::endl;
+
+    for (double i = 0; i < params_.get_total_iterations(); i++)
     {
         std::array<float, Size> &current = params_.get_current();
         res = callback(current);
@@ -14,6 +17,7 @@ template <std::size_t Size> void GridSearch<Size>::search(std::function<float(st
         params_.next();
     }
     result = accumulator.get_result();
+    std::cout << "result" << result << std::endl;
     input = accumulator.get_input();
 }
 
