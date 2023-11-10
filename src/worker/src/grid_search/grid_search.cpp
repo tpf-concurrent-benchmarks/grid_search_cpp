@@ -9,7 +9,7 @@ template <std::size_t Size> void GridSearch<Size>::search(std::function<float(st
     float res;
     std::cout << "total iterations" << params_.get_total_iterations() << std::endl;
 
-    for (double i = 0; i < params_.get_total_iterations(); i++)
+    for (long i = 0; i < params_.get_total_iterations(); i++)
     {
         std::array<float, Size> &current = params_.get_current();
         res = callback(current);

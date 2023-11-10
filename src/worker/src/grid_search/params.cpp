@@ -41,7 +41,7 @@ template <std::size_t Size> void Params<Size>::next()
     }
 }
 
-template <std::size_t Size> double Params<Size>::get_total_iterations()
+template <std::size_t Size> long Params<Size>::get_total_iterations()
 {
     return total_iterations;
 }
