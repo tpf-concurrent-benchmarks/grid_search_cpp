@@ -1,14 +1,14 @@
 #ifndef ACCUMULATOR_H
 #define ACCUMULATOR_H
 
-#include <functional>
 #include <array>
-#include <string>
 #include <cstddef>
+#include <functional>
+#include <string>
 
-template<std::size_t Size>
-class Accumulator {
-public:
+template <std::size_t Size> class Accumulator
+{
+  public:
     using Callback = std::function<void(float, std::array<float, Size> &)>;
 
     Accumulator(std::string accum_type);
@@ -18,7 +18,7 @@ public:
     float get_result();
     std::array<float, Size> get_input();
 
-private:
+  private:
     Callback callback_;
     float true_result;
     std::array<float, Size> true_input;

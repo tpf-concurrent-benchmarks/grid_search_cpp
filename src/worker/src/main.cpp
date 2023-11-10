@@ -6,7 +6,7 @@
 #include "grid_search/grid_search.h"
 #include "grid_search/objective_fun.h"
 #include "results_dto/avg_results_DTO.h"
-//include params
+// include params
 #include "grid_search/params.h"
 
 int main()

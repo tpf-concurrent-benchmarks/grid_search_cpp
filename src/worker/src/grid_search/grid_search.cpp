@@ -1,7 +1,7 @@
 #include "grid_search.h"
-#include <string>
 #include "accumulator.h"
 #include <iostream>
+#include <string>
 
 template <std::size_t Size> void GridSearch<Size>::search(std::function<float(std::array<float, Size> &)> callback)
 {
