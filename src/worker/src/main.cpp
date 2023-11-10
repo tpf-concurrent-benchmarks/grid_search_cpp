@@ -18,6 +18,7 @@ int main()
     Protocol protocol(masterHost, pushPort, pullPort);
     std::string nodeId = getNodeId();
     MessageProcessor messageProcessor(nodeId);
+    std::cout << "Worker " << nodeId << " ready, sending meessage to Manager" << std::endl;
     protocol.send(Constants::READY_MESSAGE);
 
     bool shouldStop = false;
@@ -28,11 +29,13 @@ int main()
         if (message == Constants::STOP_MESSAGE)
         {
             shouldStop = true;
+            std::cout << "Worker " << nodeId << " received stop message, sending END message to Manager" << std::endl;
             protocol.send(Constants::END_WORK_MESSAGE);
         }
         else
         {
             json jsonMessage = json::parse(message);
+            std::cout << "Worker " << nodeId << " received message: " << jsonMessage.dump() << std::endl;
             ResultsDTO *results = messageProcessor.processMessage(jsonMessage);
             protocol.send(results->toJson().dump());
             delete results;
