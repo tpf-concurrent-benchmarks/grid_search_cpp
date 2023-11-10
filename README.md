@@ -26,7 +26,7 @@ This is particularly useful when you are local developing and want to build the 
 ## Running all services with Docker
 
 ```bash
-docker compose -f=docker-compose-deploy.yml up
+docker compose -f=docker-compose-deploy-local.yml up
 ```
 
 ## Running only Graphite, Grafana and cAdvisor with Docker

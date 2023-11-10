@@ -4,7 +4,7 @@
 
 Protocol::Protocol(const std::string &host, const std::string &pushPort, const std::string &pullPort)
 {
-    context_ = zmq::context_t(1);
+    context_ = zmq::context_t(2);
     sender_ = zmq::socket_t(context_, ZMQ_PUSH);
     receiver_ = zmq::socket_t(context_, ZMQ_PULL);
     sender_.connect("tcp://" + host + ":" + pushPort);

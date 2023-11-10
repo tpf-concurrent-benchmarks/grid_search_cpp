@@ -12,8 +12,9 @@ COPY ./worker/src /app/worker/src
 RUN cd worker; \
     mkdir -p cmake-build-debug; \
     cd cmake-build-debug; \
-    cmake -DCMAKE_BUILD_TYPE=Release ..; \
-    cmake --build .
+    cmake -DCMAKE_BUILD_TYPE=Release ..
+
+RUN cd worker/cmake-build-debug; cmake --build .
 
 EXPOSE 5557
 EXPOSE 5558

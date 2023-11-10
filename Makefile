@@ -1,5 +1,6 @@
 EXEC_MASTER = master-gs
 EXEC_WORKER = worker-gs
+N_WORKERS = 4
 
 VFLAGS = --leak-check=full --track-origins=yes --show-reachable=yes
 
@@ -15,7 +16,7 @@ build:
 setup: init build
 
 deploy:
-	docker stack deploy -c docker-compose.yml gs_cpp
+	N_WORKERS=${N_WORKERS} docker stack deploy -c docker-compose-deploy.yml gs_cpp
 
 remove:
 	docker stack rm gs_cpp

@@ -13,8 +13,9 @@ COPY ./master/src /app/master/src
 RUN cd master; \
     mkdir -p cmake-build-debug; \
     cd cmake-build-debug; \
-    cmake -DCMAKE_BUILD_TYPE=Release ..; \
-    cmake --build .
+    cmake -DCMAKE_BUILD_TYPE=Release ..
+
+RUN cd master/cmake-build-debug; cmake --build .
 
 EXPOSE 5557
 EXPOSE 5558
