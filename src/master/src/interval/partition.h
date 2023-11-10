@@ -27,7 +27,7 @@ class Partition
 
     int calc_amount_of_missing_partitions(int min_batches, std::vector<int> &partitions_per_interval);
     int calc_partitions_amount(std::vector<int> &partitions_per_interval);
-    int full_calculation_size();
+    long full_calculation_size();
 };
 
 #include "partition.cpp"
