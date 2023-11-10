@@ -36,7 +36,7 @@ build_master_local:
 	cd src/master/cmake-build-debug && cmake --build .
 
 run_master_local:
-	cd src/master/cmake-build-debug && ENV=LOCAL ./${EXEC_MASTER}
+	cd src/master/cmake-build-debug && ENV=LOCAL N_WORKERS=${N_WORKERS} ./${EXEC_MASTER}
 
 full_build_worker_local:
 	cd src/worker/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build .
