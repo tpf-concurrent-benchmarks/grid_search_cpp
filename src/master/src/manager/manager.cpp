@@ -17,6 +17,10 @@ void Manager::run(Partition partition, const std::string &aggregation)
         }
     }
 
+    // TODO: remove this sleep, make a mini handshake (though it should not be needed because that's exactly what zmq
+    // does)
+    sleep(5);
+
     while (partition.available())
     {
         auto partition_data = partition.next();
@@ -24,7 +28,7 @@ void Manager::run(Partition partition, const std::string &aggregation)
         protocol_->send(partition_data, aggregation);
     }
 
-    for (size_t i = 0; i < nWorkers_; i++) // 0 a 1, 1 a 2, 2 a 3, 3 a 4
+    for (size_t i = 0; i < nWorkers_; i++)
     {
         std::cout << "Sending stop message to workers: " << i + 1 << " of " << nWorkers_ << std::endl;
         protocol_->send(Constants::STOP_MESSAGE);
