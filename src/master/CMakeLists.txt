@@ -10,8 +10,8 @@ FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download
 FetchContent_Declare(Statsd URL https://github.com/vthiery/cpp-statsd-client/archive/refs/tags/v2.0.1.tar.gz)
 FetchContent_Declare(cppzmq URL https://github.com/zeromq/cppzmq/archive/refs/tags/v4.10.0.tar.gz)
 
-FetchContent_MakeAvailable(cppzmq)
 FetchContent_MakeAvailable(libzmq)
+FetchContent_MakeAvailable(cppzmq)
 FetchContent_MakeAvailable(json)
 FetchContent_MakeAvailable(Statsd)
 

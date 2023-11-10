@@ -20,7 +20,7 @@ int main()
     chrono::milliseconds start_time_ms =
         chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch());
 
-    json data = getDataFromJson("../resources/data.json");
+    json data = getDataFromJson("../resources/example-max.json");
     std::vector<Interval> intervals = intervalsFromJson(data["data"]);
     const std::string aggregation = data["agg"];
 
