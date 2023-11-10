@@ -82,9 +82,9 @@ void Partition::split(int max_chunk_size)
     current_index = std::vector<int>(n_intervals, 0);
 }
 
-int Partition::full_calculation_size()
+long Partition::full_calculation_size()
 {
-    int result = 1;
+    long result = 1;
     for (int i = 0; i < n_intervals; i++)
     {
         result *= intervals[i].intervalSize();
