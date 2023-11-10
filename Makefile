@@ -16,6 +16,11 @@ build:
 setup: init build
 
 deploy:
+	mkdir -p graphite
+	docker compose -f=docker-compose-deploy-local.yml up
+
+deploy_remote:
+	mkdir -p graphite
 	N_WORKERS=${N_WORKERS} docker stack deploy -c docker-compose-deploy.yml gs_cpp
 
 remove:
@@ -52,10 +57,6 @@ format:
 	clang-format -i src/master/src/**/*.cpp src/master/src/**/*.h src/worker/src/**/*.cpp src/worker/src/**/*.h
 	clang-format -i src/master/src/main.cpp src/worker/src/main.cpp
 	clang-format -i src/shared/*.h
-
-deploy_remote:
-	mkdir -p graphite
-	MY_UID="$(shell id -u)" MY_GID="$(shell id -g)" docker stack deploy -c docker-compose-deploy.yaml gs_cpp
 
 run_graphite: down_graphite
 	docker stack deploy -c docker-compose-graphite.yaml graphite
