@@ -21,7 +21,7 @@ deploy:
 
 deploy_remote:
 	mkdir -p graphite
-	docker stack deploy -c docker-compose-deploy.yml gs_cpp
+	N_WORKERS=${N_WORKERS} docker stack deploy -c docker-compose-deploy.yml gs_cpp
 
 remove:
 	docker stack rm gs_cpp
