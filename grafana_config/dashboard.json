@@ -232,7 +232,7 @@
               "uid": "be454a5d-7e54-49b8-9d69-bf1761845ed7"
             },
             "refId": "A",
-            "target": "groupByNodes(stats.gauges.cadvisor.gs_scala_worker.*.*.memory_usage, 'count')"
+            "target": "groupByNodes(stats.gauges.cadvisor.gs_cpp_worker.*.*.memory_usage, 'count')"
           }
         ],
         "title": "Measured Workers",
@@ -633,7 +633,7 @@
             },
             "refCount": 0,
             "refId": "A",
-            "target": "alias(movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_scala_worker.*.*.memory_usage, 4, 'sum'), 'average'), '1min'), 'mean')",
+            "target": "alias(movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_cpp_worker.*.*.memory_usage, 4, 'sum'), 'average'), '1min'), 'mean')",
             "textEditor": false
           },
           {
@@ -644,7 +644,7 @@
             "hide": false,
             "refCount": 0,
             "refId": "B",
-            "target": "alias(movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_scala_worker.*.*.memory_usage, 4, 'sum'), 'max'), '1min'), 'max')",
+            "target": "alias(movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_cpp_worker.*.*.memory_usage, 4, 'sum'), 'max'), '1min'), 'max')",
             "textEditor": false
           },
           {
@@ -655,7 +655,7 @@
             "hide": false,
             "refCount": 0,
             "refId": "C",
-            "target": "alias(movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_scala_worker.*.*.memory_usage, 4, 'sum'), 'min'), '1min'), 'min')",
+            "target": "alias(movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_cpp_worker.*.*.memory_usage, 4, 'sum'), 'min'), '1min'), 'min')",
             "textEditor": false
           }
         ],
@@ -748,7 +748,7 @@
             },
             "refCount": 0,
             "refId": "A",
-            "target": "alias(aggregate(groupByNode(stats.gauges.cadvisor.gs_scala_worker.1.*.memory_usage, 4, 'sum'), 'average'), 'mean')",
+            "target": "alias(aggregate(groupByNode(stats.gauges.cadvisor.gs_cpp_worker.1.*.memory_usage, 4, 'sum'), 'average'), 'mean')",
             "textEditor": false
           },
           {
@@ -759,7 +759,7 @@
             "hide": false,
             "refCount": 0,
             "refId": "B",
-            "target": "alias(aggregate(groupByNode(stats.gauges.cadvisor.gs_scala_worker.1.*.memory_usage, 4, 'sum'), 'max'), 'max')",
+            "target": "alias(aggregate(groupByNode(stats.gauges.cadvisor.gs_cpp_worker.1.*.memory_usage, 4, 'sum'), 'max'), 'max')",
             "textEditor": false
           },
           {
@@ -770,7 +770,7 @@
             "hide": false,
             "refCount": 0,
             "refId": "C",
-            "target": "alias(aggregate(groupByNode(stats.gauges.cadvisor.gs_scala_worker.1.*.memory_usage, 4, 'sum'), 'min'), 'max')",
+            "target": "alias(aggregate(groupByNode(stats.gauges.cadvisor.gs_cpp_worker.1.*.memory_usage, 4, 'sum'), 'min'), 'max')",
             "textEditor": false
           }
         ],
@@ -881,7 +881,7 @@
             "hide": true,
             "refCount": 0,
             "refId": "A",
-            "target": "movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_scala_worker.*.*.cpu_usage_user, 4, 'sum'), 'avg'), '1min')",
+            "target": "movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_cpp_worker.*.*.cpu_usage_user, 4, 'sum'), 'avg'), '1min')",
             "textEditor": false
           },
           {
@@ -892,7 +892,7 @@
             "hide": true,
             "refCount": 0,
             "refId": "B",
-            "target": "movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_scala_worker.*.*.cpu_usage_total, 4, 'sum'), 'avg'), '1min')",
+            "target": "movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_cpp_worker.*.*.cpu_usage_total, 4, 'sum'), 'avg'), '1min')",
             "textEditor": false
           },
           {
@@ -914,7 +914,7 @@
             "hide": true,
             "refCount": 0,
             "refId": "D",
-            "target": "movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_scala_worker.*.*.cpu_usage_user, 4, 'sum'), 'max'), '1min')",
+            "target": "movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_cpp_worker.*.*.cpu_usage_user, 4, 'sum'), 'max'), '1min')",
             "textEditor": false
           },
           {
@@ -925,7 +925,7 @@
             "hide": true,
             "refCount": 0,
             "refId": "E",
-            "target": "movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_scala_worker.*.*.cpu_usage_total, 4, 'sum'), 'max'), '1min')",
+            "target": "movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_cpp_worker.*.*.cpu_usage_total, 4, 'sum'), 'max'), '1min')",
             "textEditor": false
           },
           {
@@ -947,7 +947,7 @@
             "hide": true,
             "refCount": 0,
             "refId": "G",
-            "target": "movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_scala_worker.*.*.cpu_usage_user, 4, 'sum'), 'min'), '1min')",
+            "target": "movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_cpp_worker.*.*.cpu_usage_user, 4, 'sum'), 'min'), '1min')",
             "textEditor": false
           },
           {
@@ -958,7 +958,7 @@
             "hide": true,
             "refCount": 0,
             "refId": "H",
-            "target": "movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_scala_worker.*.*.cpu_usage_total, 4, 'sum'), 'min'), '1min')",
+            "target": "movingAverage(aggregate(groupByNode(stats.gauges.cadvisor.gs_cpp_worker.*.*.cpu_usage_total, 4, 'sum'), 'min'), '1min')",
             "textEditor": false
           },
           {
