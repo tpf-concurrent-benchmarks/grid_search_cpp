@@ -10,7 +10,6 @@ Params<Size>::Params(std::array<float, Size> &&start, std::array<float, Size> &&
     total_iterations = 1;
     for (int i = 0; i < Size; ++i)
     {
-        std::cout << "cum param: " << floor((end_[i] - start_[i]) / step_[i]) << endl;
         int cum_param = floor((end_[i] - start_[i]) / step_[i]);
         if (cum_param == 0)
         {

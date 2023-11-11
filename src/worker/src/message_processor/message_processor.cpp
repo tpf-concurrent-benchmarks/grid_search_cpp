@@ -4,6 +4,16 @@
 #include "../results_dto/max_results_DTO.h"
 #include "../results_dto/min_results_DTO.h"
 #include <chrono>
+#include <iostream> //for std::fixed
+#include <sstream>
+#include <iomanip>
+
+float strTofloatPrecision(float number, int precision)
+{
+    std::ostringstream stream;
+    stream << std::fixed << std::setprecision(precision) << number;
+    return std::stof(stream.str());
+}
 
 MessageProcessor::MessageProcessor(const std::string &ID) : statsdClient_{getGraphiteHost(), getGraphitePort(), ID} {};
 
@@ -21,7 +31,6 @@ ResultsDTO *MessageProcessor::aggregate(GridSearch<3> &grid_search, std::string 
     }
     else
     {
-        // TODO: implement AVG
         auto *avgResultsDto = new AvgResultsDTO(grid_search.getResult(), grid_search.getTotalInputs());
         return avgResultsDto;
     }
@@ -39,9 +48,9 @@ ResultsDTO *MessageProcessor::processMessage(json message)
     std::array<float, 3> step;
     for (int i = 0; i < 3; i++)
     {
-        start[i] = parameters[i][0];
-        end[i] = parameters[i][1];
-        step[i] = parameters[i][2];
+        start[i] = strTofloatPrecision(message["data"][i][0], 5);
+        end[i] = strTofloatPrecision(message["data"][i][0], 5);
+        step[i] = strTofloatPrecision(message["data"][i][0], 5);
     }
     Params<3> params(std::move(start), std::move(end), std::move(step));
     GridSearch<3> grid_search(std::move(params), aggregation);
