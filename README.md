@@ -83,3 +83,4 @@ once you are in the `cmake-build-debug `directory:
 - [json](https://github.com/nlohmann/json): JSON for Modern C++
 - [libzmq](https://github.com/zeromq/libzmq): ZeroMQ core engine in C++
 - [cppzmq](https://github.com/zeromq/cppzmq): C++ binding for [ZeroMQ](https://zeromq.org/)
+- [cpp-statsd-client](https://github.com/vthiery/cpp-statsd-client): Statsd client implementation for C++
