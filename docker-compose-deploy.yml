@@ -38,6 +38,7 @@ services:
 
   worker:
     image: grid_search_cpp_worker
+    command: bash -c "sleep 10 && cd /app/worker/cmake-build-debug && ./worker-gs"
     tty: true
     stdin_open: true
     depends_on:
@@ -53,6 +54,7 @@ services:
 
   manager:
     image: grid_search_cpp_manager
+    command: bash -c "sleep 10 && cd /app/master/cmake-build-debug && ./master-gs"
     depends_on:
       - graphite
     deploy:
@@ -67,4 +69,4 @@ services:
 
 volumes:
   grafana_config:
-    driver: local
+    external: true
