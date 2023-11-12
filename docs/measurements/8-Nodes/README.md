@@ -9,7 +9,7 @@
 - CPU Usage: 99.9%/Worker (?)
 - Completion Time: 14.5 Minutes
 
-#### [Measurements](https://snapshots.raintank.io/dashboard/snapshot/7l0BQLfcXDkBdA1UtFJmAUgmVZCK1jD4)
+#### [Measurements](https://snapshots.raintank.io/dashboard/snapshot/5t5HFFZYzWN9AICgir5tuRhvqPHPLaJY?orgId=2)
 
 ![throughput](throughput.png)
 ![variation](variation.png)
