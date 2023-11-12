@@ -4,9 +4,9 @@
 #include "../results_dto/max_results_DTO.h"
 #include "../results_dto/min_results_DTO.h"
 #include <chrono>
+#include <iomanip>
 #include <iostream> //for std::fixed
 #include <sstream>
-#include <iomanip>
 
 float strTofloatPrecision(float number, int precision)
 {
@@ -49,8 +49,8 @@ ResultsDTO *MessageProcessor::processMessage(json message)
     for (int i = 0; i < 3; i++)
     {
         start[i] = strTofloatPrecision(message["data"][i][0], 5);
-        end[i] = strTofloatPrecision(message["data"][i][0], 5);
-        step[i] = strTofloatPrecision(message["data"][i][0], 5);
+        end[i] = strTofloatPrecision(message["data"][i][1], 5);
+        step[i] = strTofloatPrecision(message["data"][i][2], 5);
     }
     Params<3> params(std::move(start), std::move(end), std::move(step));
     GridSearch<3> grid_search(std::move(params), aggregation);
