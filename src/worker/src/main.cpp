@@ -14,12 +14,24 @@ int main()
     std::string pushPort = getPushPort();
     std::string pullPort = getPullPort();
     std::string masterHost = getMasterHost();
+    bool synced = false;
 
     Protocol protocol(masterHost, pushPort, pullPort);
     std::string nodeId = getNodeId();
     MessageProcessor messageProcessor(nodeId);
-    std::cout << "Worker " << nodeId << " ready, sending meessage to Manager" << std::endl;
-    protocol.send(Constants::READY_MESSAGE);
+    while (!synced)
+    {
+        std::string initMessage = protocol.receive();
+        if (initMessage == Constants::START_WORK_MESSAGE)
+        {
+            synced = true;
+        }
+        else
+        {
+            std::cout << "Worker " << nodeId << " ready, sending message to Manager" << std::endl;
+            protocol.send(nodeId);
+        }
+    }
 
     bool shouldStop = false;
 

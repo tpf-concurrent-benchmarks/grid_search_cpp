@@ -7,19 +7,25 @@ Manager::Manager(size_t n_workers, Protocol *protocol, MessageProcessor *message
 
 void Manager::run(Partition partition, const std::string &aggregation)
 {
-    while (!allWorkersReady())
+
+    std::set<string> workers;
+
+    while (workers.size() != nWorkers_)
     {
-        std::string message = protocol_->receive();
-        if (message == Constants::READY_MESSAGE)
+        protocol_->send(Constants::READY_MESSAGE);
+        std::string workerId = protocol_->receive();
+        const pair<set<string>::iterator, bool> &inserted = workers.insert(workerId);
+        if (inserted.second)
         {
-            workersReady_++;
-            std::cout << "Worker ready: " << workersReady_ << " of " << nWorkers_ << std::endl;
+            std::cout << "Worker ready: " << workers.size() << " of " << nWorkers_ << std::endl;
         }
     }
 
-    // TODO: remove this sleep, make a mini handshake (though it should not be needed because that's exactly what zmq
-    // does)
-    sleep(5);
+    for (int i = 0; i < nWorkers_; i++)
+    {
+        std::cout << "Signaling workers, starting work: " << i + 1 << " of " << nWorkers_ << std::endl;
+        protocol_->send(Constants::START_WORK_MESSAGE);
+    }
 
     while (partition.available())
     {
@@ -44,17 +50,11 @@ void Manager::run(Partition partition, const std::string &aggregation)
         }
         else
         {
-            std::cout << "Processing message " << message << std::endl;
             messageProcessor_->processMessage(json::parse(message));
         }
     }
 
     messageProcessor_->saveResults();
-}
-
-bool Manager::allWorkersReady()
-{
-    return workersReady_ == nWorkers_;
 }
 
 bool Manager::allWorkersHaveFinished()

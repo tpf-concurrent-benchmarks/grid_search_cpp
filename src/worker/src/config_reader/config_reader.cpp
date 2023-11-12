@@ -1,4 +1,5 @@
 #include "config_reader.h"
+#include <random>
 
 using namespace std;
 
@@ -51,9 +52,28 @@ std::string getMasterHost()
     return host;
 }
 
+std::string generateRandomID(int length)
+{
+    static const char alphanum[] = "0123456789"
+                                   "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                   "abcdefghijklmnopqrstuvwxyz";
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, sizeof(alphanum) - 2);
+
+    std::string result;
+    for (int i = 0; i < length; ++i)
+    {
+        result += alphanum[dis(gen)];
+    }
+
+    return result;
+}
+
 std::string getNodeId()
 {
-    const char *nodeId = "0";
+    basic_string<char> nodeId = generateRandomID(10);
     char *nodeIdFromEnv = getenv("NODE_ID");
     if (nodeIdFromEnv != nullptr)
     {

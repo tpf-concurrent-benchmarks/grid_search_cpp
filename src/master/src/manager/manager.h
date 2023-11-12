@@ -6,6 +6,7 @@
 #include "../protocol/protocol.h"
 #include "nlohmann/json.hpp"
 #include <cstddef>
+#include <set>
 #include <string>
 
 using json = nlohmann::json;
@@ -19,10 +20,8 @@ class Manager
 
   private:
     size_t nWorkers_;
-    size_t workersReady_ = 0;
     Protocol *protocol_;
     MessageProcessor *messageProcessor_;
-    bool allWorkersReady();
     bool allWorkersHaveFinished();
 };
 

@@ -51,7 +51,6 @@ services:
         condition: none
     environment:
       - LOCAL=${LOCAL}
-      - NODE_ID=worker_{{.Task.Slot}}
 
   manager:
     build:
@@ -66,7 +65,6 @@ services:
     stdin_open: true
     environment:
       - LOCAL=${LOCAL}
-      - NODE_ID=manager
       - N_WORKERS=4 # This number should be equal to "replicas" in worker service
 
 volumes:
