@@ -17,7 +17,7 @@ setup: init build
 
 deploy:
 	mkdir -p graphite
-	docker compose -f=docker-compose-deploy-local.yml up
+	N_WORKERS=${N_WORKERS} docker compose -f=docker-compose-deploy-local.yml up
 
 deploy_remote:
 	mkdir -p graphite

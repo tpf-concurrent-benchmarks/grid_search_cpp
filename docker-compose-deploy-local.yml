@@ -46,7 +46,7 @@ services:
       - graphite
       - manager
     deploy:
-      replicas: 4 # This number should be equal to N_WORKERS
+      replicas: ${N_WORKERS}
       restart_policy:
         condition: none
     environment:
@@ -65,7 +65,7 @@ services:
     stdin_open: true
     environment:
       - LOCAL=${LOCAL}
-      - N_WORKERS=4 # This number should be equal to "replicas" in worker service
+      - N_WORKERS=${N_WORKERS}
 
 volumes:
   grafana_config:
