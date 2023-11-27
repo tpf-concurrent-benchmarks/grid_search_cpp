@@ -28,7 +28,7 @@ services:
       - "/dev/disk/:/dev/disk:ro"
 
   grafana:
-    image: grafana/grafana:latest
+    image: efoppiano/grafana:0.1
     ports:
       - "8081:3000"
     volumes:
