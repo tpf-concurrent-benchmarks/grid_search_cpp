@@ -60,7 +60,7 @@ There is a Makefile in the root directory of the project that can be used to bui
 - `make remove`: removes all services (stops the swarm)
 - `make full_build_master_local:`  builds the manager locally (it downloads and builds all dependencies, so it may take a while). Same for `make full_build_worker_local`.
 - `make build_master_local:` builds the manager locally, useful when doing local development and you already run `make full_build_master_local:`. Same for `make build_worker_local`.
-- `make run_master_local:` runs the worker locally. It asumes that the master project has been built. Same for `make run_worker_local`.
+- `make run_master_local:` runs the master locally. It asumes that the master project has been built. Same for `make run_worker_local`.
 
 ## Running the project
 
