@@ -7,6 +7,7 @@ services:
       - "./statsd.config.js:/opt/statsd/config/udp.js:ro"
       - "./statsd.config.js:/opt/statsd/config/tcp.js:ro"
       - "./graphite.carbon.conf:/opt/graphite/conf/carbon.conf:ro"
+      - "./graphite.blacklist.conf:/opt/graphite/conf/blacklist.conf:ro"
       - "./graphite.storage-schemas.conf:/opt/graphite/conf/storage-schemas.conf:ro"
       - "./graphite:/opt/graphite/storage/:rw"
     ports:
@@ -28,6 +29,13 @@ services:
       - "/sys:/sys:ro"
       - "/var/lib/docker/:/var/lib/docker:ro"
       - "/dev/disk/:/dev/disk:ro"
+    deploy:
+      mode: global
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
 
   grafana:
     image: efoppiano/grafana:0.1
