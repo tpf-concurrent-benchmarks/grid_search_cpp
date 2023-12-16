@@ -78,9 +78,6 @@ services:
   worker:
     image: grid_search_cpp_worker
     command: bash -c "sleep 10 && cd /app/worker/cmake-build-debug && ./worker-gs"
-    ports:
-      - "5557:5557"
-      - "5558:5558"
     depends_on:
       - graphite
       - manager
@@ -95,9 +92,6 @@ services:
   manager:
     image: grid_search_cpp_manager
     command: bash -c "sleep 10 && cd /app/master/cmake-build-debug && ./master-gs"
-    ports:
-      - "5557:5557"
-      - "5558:5558"
     depends_on:
       - graphite
     deploy:
