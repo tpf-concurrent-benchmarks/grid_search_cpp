@@ -9,6 +9,8 @@
 // include params
 #include "grid_search/params.h"
 
+#include <iostream>
+
 int main()
 {
     std::string pushPort = getPushPort();
@@ -22,6 +24,7 @@ int main()
     while (!synced)
     {
         std::string initMessage = protocol.receive();
+        std::cout << "Worker " << nodeId << " received message: " << initMessage << std::endl;
         if (initMessage == Constants::START_WORK_MESSAGE)
         {
             synced = true;
