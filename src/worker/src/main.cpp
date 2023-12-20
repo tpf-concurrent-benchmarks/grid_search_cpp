@@ -34,7 +34,6 @@ int main()
             std::cout << "Worker " << nodeId << " ready, sending message to Manager" << std::endl;
             protocol.send(nodeId);
         }
-        std::this_thread::sleep_for(std::chrono::seconds(2));
     }
 
     bool shouldStop = false;
