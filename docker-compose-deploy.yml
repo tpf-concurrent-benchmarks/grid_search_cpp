@@ -77,7 +77,7 @@ services:
 
   worker:
     image: grid_search_cpp_worker
-    command: sh -c "sleep 10 && cd /app/worker/cmake-build-debug && ./worker-gs"
+    command: sh -c "sleep 20 && cd /app/worker/cmake-build-debug && ./worker-gs"
     depends_on:
       - graphite
       - manager
@@ -91,7 +91,7 @@ services:
 
   manager:
     image: grid_search_cpp_manager
-    command: sh -c "sleep 10 && cd /app/master/cmake-build-debug && ./master-gs"
+    command: sh -c "sleep 20 && cd /app/master/cmake-build-debug && ./master-gs"
     depends_on:
       - graphite
     deploy:
