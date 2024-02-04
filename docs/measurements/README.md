@@ -16,6 +16,8 @@ The system was run on the designated server, using the [Griewank function](https
 
 ### Average Summary
 
+#### Server
+
 | Measurement         | 4 Nodes             | 8 Nodes             | 16 Nodes            |
 |---------------------|---------------------|---------------------|---------------------|
 | Worker Throughput   | 2.42 Results/Second | 2.28 Results/Second | 2.26 Results/Second |
