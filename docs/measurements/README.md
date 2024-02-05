@@ -16,7 +16,7 @@ The system was run on the designated server, using the [Griewank function](https
 
 ### Average Summary
 
-#### Server
+#### FaMAF Server
 
 | Measurement         | 4 Nodes             | 8 Nodes             | 16 Nodes            |
 |---------------------|---------------------|---------------------|---------------------|
@@ -26,3 +26,18 @@ The system was run on the designated server, using the [Griewank function](https
 | Memory Usage        | 1.7-9.0 MB/Worker   | 1.6-9.0 MB/Worker   | 1.3-8.6 MB/Worker   |
 | CPU Usage           | 100%/Worker         | 100%/Worker         | 100%/Worker         |
 | Completion Time     | 41.5 Minutes        | 22.0 Minutes        | 11.2 Minutes        |
+
+#### Cloud (GCP)
+
+| Measurement         | 4 Nodes             | 8 Nodes             | 16 Nodes            |
+|---------------------|---------------------|---------------------|---------------------|
+| Worker Throughput   | 1.95 Results/Second | 1.90 Results/Second | 1.92 Results/Second |
+| Combined Throughput | 7.48 Results/Second | 13.2 Results/Second | 26.8 Results/Second |
+| Work-time Variation | 0.432%              | 0.705%              | 3.80%               | 
+| Memory Usage        | 1.29-4.00 MB/Worker | 1.35-2.95 MB/Worker | 1.00-4.50 MB/Worker |
+| Network Usage (Tx)  | 580 B/(s * Worker)  | 550 B/(s * Worker)  | 600 B/(s * Worker)  |
+| Network Usage (Rx)  | 130 B/(s * Worker)  | 130 B/(s * Worker)  | 132 B/(s * Worker)  |
+| CPU Usage           | 100%/Worker         | 100%/Worker         | 100%/Worker         |
+| Completion Time     | 54.0 Minutes        | 26.7 Minutes        | 15.1 Minutes        |
+
+
