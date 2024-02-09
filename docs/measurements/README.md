@@ -33,7 +33,7 @@ The system was run on the designated server, using the [Griewank function](https
 
 | Measurement         | 4 Nodes             | 8 Nodes             | 16 Nodes            |
 |---------------------|---------------------|---------------------|---------------------|
-| Worker Throughput   | 1.95 Results/Second | 1.90 Results/Second | 1.92 Results/Second |
+| Worker Throughput   | 1.87 Results/Second | 1.65 Results/Second | 1.68 Results/Second |
 | Combined Throughput | 7.48 Results/Second | 13.2 Results/Second | 26.8 Results/Second |
 | Work-time Variation | 0.432%              | 0.705%              | 3.80%               | 
 | Memory Usage        | 1.29-4.00 MB/Worker | 1.35-2.95 MB/Worker | 1.00-4.50 MB/Worker |
