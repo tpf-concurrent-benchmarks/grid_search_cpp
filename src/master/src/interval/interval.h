@@ -4,6 +4,8 @@
 #include <array>
 #include <vector>
 
+//This class defines one interval for one parameter of the grid search algorithm
+//The interval is defined by its start point, end point and step, all of them are floats
 class Interval
 {
   public:

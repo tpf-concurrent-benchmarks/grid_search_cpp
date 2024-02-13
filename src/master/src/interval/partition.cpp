@@ -8,18 +8,22 @@ Partition::Partition(std::vector<Interval> &&intervals, size_t n_intervals, int 
     split(max_chunk_size);
 }
 
+//checks if there are more partitions to be generated
 bool Partition::available() const
 {
     return current_partition_ < n_partitions_;
 }
 
+//returns the next partition
 std::vector<Interval> Partition::next()
 {
     std::vector<Interval> _partition;
+    //gets the correct partition based on the current index
     for (int j = 0; j < n_intervals; j++)
     {
         _partition.push_back(splited_intervals[j][current_index[j]]);
     };
+    //increment the current index by 1
     for (int j = 0; j < n_intervals; j++)
     {
         if (current_index[j] + 1 < partitions_per_interval[j])
@@ -36,6 +40,7 @@ std::vector<Interval> Partition::next()
     return _partition;
 }
 
+//returns a vector with the number of splits for each interval
 std::vector<int> Partition::calc_partitions_per_interval(int min_batches)
 {
     std::vector<int> partitions_per_interval(n_intervals, 1);
@@ -62,6 +67,7 @@ int Partition::calc_amount_of_missing_partitions(int min_batches, std::vector<in
     return ceil(((float)min_batches) / ((float)calc_partitions_amount(partitions_per_interval)));
 }
 
+//returns the total number of partitions
 int Partition::calc_partitions_amount(std::vector<int> &partitions_per_interval)
 {
     return std::reduce(partitions_per_interval.begin(), partitions_per_interval.end(), 1, std::multiplies<int>());

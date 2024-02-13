@@ -6,6 +6,9 @@
 #include <string>
 #include <vector>
 
+//This class is responsible for creating a partition plan between all intervals and splitting them
+//This is necessary as we may need to split more than the first interval depending on the number of partitions needed
+//The class then works as an iterator to generate the partitions on the go, wasting less memory
 class Partition
 {
   public:

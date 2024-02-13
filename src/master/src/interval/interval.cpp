@@ -35,6 +35,7 @@ std::vector<Interval> Interval::split(size_t n_partitions)
     return intervals;
 }
 
+//this method is invoked when the number of partitions is a divisor of the size of the interval
 std::vector<Interval> Interval::split_evenly(size_t n_partitions)
 {
     std::vector<Interval> intervals;
@@ -64,6 +65,8 @@ std::array<float, 3> Interval::getInterval()
     return {start_, end_, step_};
 }
 
+//a precision can be set for the float operations, this aids in not having floating point errors
+//that affect the rounding operations when the foating values are whole numbers
 void Interval::setPrecision(size_t precision)
 {
     precision_ = precision;
