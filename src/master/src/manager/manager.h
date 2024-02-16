@@ -11,6 +11,9 @@
 
 using json = nlohmann::json;
 
+//Manager is the main class of the master node, it is responsible for partitioning the dataset
+//and sending the partitions to the workers, as well as receiving the results and saving them
+//it also handles the syncronization of all this tasks.
 class Manager
 {
 
