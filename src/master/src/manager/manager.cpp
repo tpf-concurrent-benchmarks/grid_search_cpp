@@ -10,6 +10,7 @@ void Manager::run(Partition partition, const std::string &aggregation)
 
     std::set<string> workers;
 
+    //Syncronize with workers
     while (workers.size() != nWorkers_)
     {
         protocol_->send(Constants::READY_MESSAGE);
@@ -27,6 +28,7 @@ void Manager::run(Partition partition, const std::string &aggregation)
         protocol_->send(Constants::START_WORK_MESSAGE);
     }
 
+    //Send partitions to workers
     while (partition.available())
     {
         auto partition_data = partition.next();
@@ -34,12 +36,14 @@ void Manager::run(Partition partition, const std::string &aggregation)
         protocol_->send(partition_data, aggregation);
     }
 
+    //Tell workers that there is no more work, they should send their results
     for (size_t i = 0; i < nWorkers_; i++)
     {
         std::cout << "Sending stop message to workers: " << i + 1 << " of " << nWorkers_ << std::endl;
         protocol_->send(Constants::STOP_MESSAGE);
     }
 
+    //Receive results from workers, wait to receive all worker resultss
     while (!allWorkersHaveFinished())
     {
         std::string message = protocol_->receive();

@@ -7,6 +7,7 @@
 
 using json = nlohmann::json;
 
+//This class is intended to abstract the zeroMQ communication between the master and the workers
 class Protocol
 {
   public:
