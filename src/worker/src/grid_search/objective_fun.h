@@ -4,6 +4,7 @@
 #include <array>
 #include <cmath>
 
+//This is the function used to test the grid search algorithm
 float griewankFun(std::array<float, 3> &parameters)
 {
     float a = parameters[0];

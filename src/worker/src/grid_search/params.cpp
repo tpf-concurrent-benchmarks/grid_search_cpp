@@ -8,7 +8,7 @@ Params<Size>::Params(std::array<float, Size> &&start, std::array<float, Size> &&
 {
     current_ = start_;
     total_iterations = 1;
-    for (int i = 0; i < Size; ++i)
+    for (int i = 0; i < Size; ++i) // calculate the total number of iterations needed
     {
         std::cout << "cum param: " << floor((end_[i] - start_[i]) / step_[i]) << endl;
         int cum_param = floor((end_[i] - start_[i]) / step_[i]);
@@ -25,6 +25,8 @@ template <std::size_t Size> std::array<float, Size> &Params<Size>::get_current()
     return current_;
 }
 
+// Move to the next input by adding 1 step to the last element and
+// if it reaches the end, it will reset to the start and add 1 step to the previous element
 template <std::size_t Size> void Params<Size>::next()
 {
     for (int i = Size - 1; i >= 0; --i)

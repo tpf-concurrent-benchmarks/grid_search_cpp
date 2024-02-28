@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+//This is the main class of the grid search algorithm
+//It will iterate over all the possible inputs and accumulate the results
 template <std::size_t Size> class GridSearch
 {
   public:

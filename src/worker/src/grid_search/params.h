@@ -5,6 +5,8 @@
 #include <cstddef>
 #include <string>
 
+//This class stores the parameters of the grid search and
+// dinamically generates the inputs needed for the algorithm
 template <std::size_t Size> class Params
 {
   public:

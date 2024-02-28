@@ -6,6 +6,8 @@
 #include <functional>
 #include <string>
 
+//This class is used to accumulate the results of the grid search
+//It can be adapted to accumulate with either max, min or avg
 template <std::size_t Size> class Accumulator
 {
   public:

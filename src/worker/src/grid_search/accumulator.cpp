@@ -4,6 +4,8 @@
 #include <limits>
 #include <string>
 
+//Set the callback function and the initial value of the accumulator
+//depending on the type of accumulation
 template <std::size_t Size> Accumulator<Size>::Accumulator(std::string accum_type)
 {
     if (accum_type == "MAX")
