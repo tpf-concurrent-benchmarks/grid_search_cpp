@@ -17,10 +17,6 @@ setup: init build
 
 deploy:
 	mkdir -p graphite
-	N_WORKERS=${N_WORKERS} docker compose -f=docker-compose-deploy-local.yml up
-
-deploy_remote:
-	mkdir -p graphite
 	N_WORKERS=${N_WORKERS} docker stack deploy -c docker-compose-deploy.yml gs_cpp
 
 remove:
@@ -28,6 +24,9 @@ remove:
 
 manager_logs:
 	docker service logs -f gs_cpp_manager
+
+worker_logs:
+	docker service logs -f gs_cpp_worker
 
 full_build_master_local:
 	cd src/master/ && mkdir -p cmake-build-debug && cd cmake-build-debug && cmake -DCMAKE_BUILD_TYPE=Release ..  && cmake --build .

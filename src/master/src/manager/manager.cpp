@@ -32,7 +32,7 @@ void Manager::run(Partition partition, const std::string &aggregation)
     while (partition.available())
     {
         auto partition_data = partition.next();
-        std::cout << "Sending partition " << std::endl;
+        //std::cout << "Sending partition " << std::endl;
         protocol_->send(partition_data, aggregation);
     }
 
