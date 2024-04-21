@@ -36,7 +36,7 @@ There is a Makefile in the root directory of the project that can be used to bui
 #### Run
 
 - `make deploy`: deploys the manager and worker services locally, alongside with Graphite, Grafana and cAdvisor.
-- `make remove`: removes all services (stops the swarm)
+- `make remove`: removes all services
 
 #### Logs
 
